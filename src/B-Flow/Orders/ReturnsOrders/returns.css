@@ -1,0 +1,30 @@
+*{
+    font-family: 'Roboto', sans-serif;
+    color: #343a40
+}
+
+.NavBarButtons{
+    display: inline-flex;
+    padding: 3px;
+    margin: 20px auto 0 auto;
+    align-items: center;
+    border: solid grey;
+    background:  gainsboro;
+}
+
+.items{
+    display: inline-flex;
+    margin-right: 15px ;
+}
+
+span {
+    font-size: 18px;
+}
+
+.button1, .button2 {
+    margin-right: 10px;
+}
+
+.dataTable{
+    margin-top: 20px;
+}
