@@ -29,6 +29,14 @@ const getState = ({ getStore, getActions, setStore }) => {
             invoiceService:"",
             invoiceAmount:0,
             
+            //create order
+            name:"",
+            lastname:"",
+            email:"",
+            city:"",
+            state:"",
+            postCode:"",
+
 
             //Settings
             storeName:"",
@@ -63,13 +71,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
     actions: {
 
-      createUser: (history) => {
+      createUserSettings: (history) => {
         const store= getStore();
         const data = {
           name: store.name,
           lastname: store.lastname,
           email: store.email,
           password: store.password,
+          confirmPassword: store.confirmPassword
       //???    id : store.idUsuario
         }
 
@@ -92,6 +101,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             lastname:"",
             email:"",
             password:"",
+            confirmPassword:""
         //????    idUsuario:null
 
           });
@@ -107,7 +117,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           email : store.email,
           password : store.password,
           confirmPassword: store.confirmPassword,
-          currentPassword: store.currentPassword,
          //??? idUsuario: store.idUsuario
       }
       fetch(store.path + "/api/edit_user/" + store.id, {
@@ -137,6 +146,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 
     },
 
+    editBillingDetails: () => {
+        const store= getStore();
+        const data = {
+          cardNumber:store.cardNumber,
+          cvv:store.cvv,
+          month: store.month,
+          year: store.year
+        }
+        fetch(store.path+ "/editBillingDetails",{
+          method : "PUT",
+          body: JSON.stringify(data),
+          headers : {
+            "Content Type": "application/json"
+          }
+        })
+        .then(function(response){
+          if(response.ok)
+          return response.json();
+        })
+        .then(function(data){
+          console.log(data);
+          setStore({
+            cardNumber:null,
+            cvv:null,
+            month: null,
+            year: null,
+          })
+          //history.push("/")
+        })
+    }, 
+
     createBillingDetails: () => {
       const store= getStore();
       const data = {
@@ -165,6 +205,41 @@ const getState = ({ getStore, getActions, setStore }) => {
           year:null
         })
         //history.push("/billingDetails")
+      })
+    },
+
+    createOrder: () => {
+      const store = getStore();
+      const data = {
+             name: store.name,
+            lastname:store.lastname,
+            email:store.email,
+            city:store.city,
+            state: store.state,
+            postCode: store.postCode
+      }
+      fetch(store.path + "/create_order",{
+        method: "POST",
+        body: JSON.stringify(data),
+        headers : {
+          "Content Type": "application/json"
+        }
+      })
+      .then(function(response){
+        if(response.ok)
+        return response.json();
+      })
+      .then(function(data){
+        console.log(data);
+        setStore({
+            name:"",
+            lastname:"",
+            email:"",
+            city:"",
+            state:"",
+            postCode:""
+        })
+        // history.push("/")
       })
     },
 

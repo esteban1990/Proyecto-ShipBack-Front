@@ -3,7 +3,7 @@ import { Context } from "../../store/AppContext.js";
 import { Link } from "react-router-dom";
 
 
-const BillingDetails = () => {
+const BillingDetails = (props) => {
 
     const { store, actions } = useContext(Context);
     return (
@@ -51,7 +51,13 @@ const BillingDetails = () => {
                                 </div>
                                 <div className="row mt-4 justify-content-center">
                                     <div className="col-5">
-                                        <button type="button" class="btn btn-primary">Update</button>
+                                        <button type="button" onClick={e => actions.editBillingDetails(props.history)} class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+
+                                <div className="row mt-4 justify-content-center">
+                                    <div className="col-5">
+                                        <button type="button" onClick={e => actions.createBillingDetails(props.history)} class="btn btn-primary">Add</button>
                                     </div>
                                 </div>
                             </form>

@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, {useContext, useState } from 'react';
+import {Context} from "../../store/appContext";
 import { Form, Button, Col, InputGroup } from 'react-bootstrap'
 import './createOrder.css';
 import NavBar from '../../NavBar/navBar.js';
 
 
+
 const CreateOrder = () => {
 
+    const {store,actions} = useContext(Context);
+      
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event) => {
@@ -85,7 +89,7 @@ const CreateOrder = () => {
             </Form.Control.Feedback>
                 </Form.Group>
             </Form.Row>
-            <Button type="submit">Submit form</Button>
+            <Button type="submit" onClick={e => actions.CreateOrder(props.history)}>Submit form</Button>
         </Form>
         </div>
         </div>

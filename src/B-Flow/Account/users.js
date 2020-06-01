@@ -3,7 +3,7 @@ import { Context } from "../../store/appContext.js";
 import {Link} from "react-router-dom"
 
 
-const Users = () => {
+const Users = (props) => {
 
     const {store, actions} = useContext(Context)
 
@@ -74,12 +74,12 @@ const Users = () => {
 
                                 <div className="row pt-4">
                                     <div className="col-4">
-                                        <button type="button" class="btn btn-primary">+Add User</button>
+                                        <button type="button" onClick={e => actions.createUserSettings(history.props)} class="btn btn-primary">+Add User</button>
                                     </div>
                                 </div>
                                 <div className="row pt-4">
                                     <div className="col-4">
-                                        <button type="button" class="btn btn-primary">UPDATE</button>
+                                        <button type="button" onClick={e => actions.editUser(props.history)} class="btn btn-primary">UPDATE</button>
                                     </div>
                                 </div>
                             </from>

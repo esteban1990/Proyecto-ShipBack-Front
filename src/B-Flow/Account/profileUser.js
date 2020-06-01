@@ -68,12 +68,7 @@ const {store,actions} = useContext(Context);
                                     <input type="password" class="form-control" value={store.confirmPassword} onChange={e => actions.handleChange(e)}></input>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col">
-                                    <label class="form-label">Current Password</label>
-                                    <input type="password" class="form-control" value={store.currentPassword} onChange={e => actions.handleChange(e)}></input>
-                                </div>
-                            </div>
+                    
 
 
                             <div className="row mt-5 justify-content-center">
