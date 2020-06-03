@@ -1,5 +1,5 @@
 import React,{useContext} from "react";
-import {Context} from "../../store/appContext";
+import {Context} from "../../store/AppContext";
 import {Link} from "react-router-dom";
 
 
@@ -16,7 +16,7 @@ const OrderStatus = () => {
                     <div className="card">
 
                         <div className="card-body">
-                        <Link to="/navbar/settings"><a className="nav-link" href="#">General</a>
+                        <Link to="/settings"><a className="nav-link" href="#">General</a>
                         </Link>
                             <br />
                           <Link to="/navbar/settings/profileUser"><a className="nav-link" href="#">My Profile</a>

@@ -15,8 +15,8 @@ const Carriers = () => {
 
                     <div className="card">
                         <div className="card-body">
-                            <a className="nav-link" href="#">General</a>
-
+                        <Link to="/settings"><a className="nav-link" href="#">General</a>
+                        </Link>
                             <br />
                             <Link to="/navbar/settings/profileUser"><a className="nav-link" href="#">My Profile</a>
                             </Link>

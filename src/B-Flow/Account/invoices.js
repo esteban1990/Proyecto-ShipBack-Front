@@ -1,9 +1,13 @@
-import React from "react";
+import React,{useContext} from "react";
 import { Link } from "react-router-dom"
+import { Context } from "../../store/AppContext.js";
 
-const Invoices = () => {
+const Invoices = (props) => {
+
+    const {store, actions} = useContext(Context)
 
     return (
+      <>
         <div className="container mt-5">
             <div className="row">
                 <div className="col-3">
@@ -13,7 +17,7 @@ const Invoices = () => {
                             </div>
 
                         <div className="card-body">
-                            <Link to="/navbar/billingDetails"><a className="nav-link" href="#">Payment Details</a>
+                            <Link to="/billingDetails"><a className="nav-link" href="#">Payment Details</a>
                             </Link>
                             <br />
                             <a className="nav-link" href="#">Invoices</a>
@@ -31,7 +35,7 @@ const Invoices = () => {
                 
                             <div className="row">
           <div className="col">
-            <table class="table table-dark text-center">
+            <table class="table table-white text-center">
               <thead>
                 <tr>
                   <th scope="col"> Invoice ID</th>
@@ -43,41 +47,38 @@ const Invoices = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>Otto</td>
-                  <td>$$</td>
+                {
+
+                  store.invoices.length > 0  &&
+                  store.invoices.map((invoice,i)=>{
+                  return(
+
+                  
+                <tr key={i}>
+                  <th scope="row">{invoice.id}2</th>
+                  <td>{invoice.date}</td>
+                  <td>{invoice.status}</td>
+                  <td>{invoice.service}</td>
+                  <td>{invoice.amount}</td>
 
                 </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>Otto</td>
-                  <td>$$</td>
-
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>Otto</td>
-                  <td>$$</td>
-
-
-                </tr>
+  
+                    )
+                  })
+                  }
               </tbody>
             </table>
           </div>
         </div>
-                        
+              
+           
                         </div>
                     </div>
                 </div>
             </div>
+      
         </div>
+        </>
     )
 }
 

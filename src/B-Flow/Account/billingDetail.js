@@ -2,10 +2,18 @@ import React, { useContext } from 'react';
 import { Context } from "../../store/AppContext.js";
 import { Link } from "react-router-dom";
 
-
+//Context
 const BillingDetails = (props) => {
 
     const { store, actions } = useContext(Context);
+
+   const handleSubmit = (e) => { 
+        e.preventDefault();
+        if(store.cardNumber==="" || store.cvv==="" || store.month==="" || store.year===""){
+            alert("se deben de llenar todos los camps")
+        }
+    }
+
     return (
 
         <div className="container mt-5">
@@ -29,23 +37,23 @@ const BillingDetails = (props) => {
                     <div className="container">
                         <div className="card-footer">
                             <h3>Payment Card</h3>
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <label for="" class="form-label">Card Number</label>
-                                <input type="text" class="form-control" value={store.cardNumber} onChange={e => actions.handleChange(e)}></input>
+                                <input type="text" class="form-control" name="cardNumber"  onChange={e => actions.handleChange(e)}></input>
                                 <div className="row">
                                     <div className="col-4">
                                         <label for="" class="form-label">CVV</label>
-                                        <input type="text" class="form-control" value={store.cvv} onChange={e => actions.handleChange(e)}></input>
+                                        <input type="text" class="form-control" name="cvv" onChange={e => actions.handleChange(e)}></input>
 
                                     </div>
                                     <div className="col-4">
                                         <label for="" class="form-label">Month</label>
-                                        <input type="text" class="form-control" value={store.date} onChange={e => actions.handleChange(e)}></input>
+                                        <input type="text" class="form-control" name="month"  onChange={e => actions.handleChange(e)}></input>
 
                                     </div>
                                     <div className="col-4">
                                         <label for="" class="form-label">Year</label>
-                                        <input type="text" class="form-control" value={store.year} onChange={e => actions.handleChange(e)}></input>
+                                        <input type="text" class="form-control" name="year"  onChange={e => actions.handleChange(e)}></input>
 
                                     </div>
                                 </div>
@@ -72,4 +80,4 @@ const BillingDetails = (props) => {
 
 }
 
-export default BillingDetails
+export default BillingDetails;
