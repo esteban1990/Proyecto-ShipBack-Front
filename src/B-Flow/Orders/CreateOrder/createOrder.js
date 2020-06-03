@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, {useContext, useState } from 'react';
+import { Context } from "../../../store/AppContext.js";
 import { Form, Button, Col, InputGroup } from 'react-bootstrap'
 import './createOrder.css';
 import NavBar from '../../NavBar/navBar.js';
 
 
-const CreateOrder = () => {
 
+const CreateOrder = (props) => {
+
+    const {store,actions} = useContext(Context);
+      
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event) => {
@@ -40,6 +44,7 @@ const CreateOrder = () => {
                         required
                         type="text"
                         placeholder="Last name"
+                       
                         defaultValue="Otto"
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -53,6 +58,7 @@ const CreateOrder = () => {
                         <Form.Control
                             type="text"
                             placeholder="Email"
+                         
                             aria-describedby="inputGroupPrepend"
                             required
                         />
@@ -65,7 +71,7 @@ const CreateOrder = () => {
             <Form.Row>
                 <Form.Group as={Col} md="6" controlId="validationCustom03">
                     <Form.Label>City</Form.Label>
-                    <Form.Control type="text" placeholder="City" required />
+                    <Form.Control type="text"  placeholder="City" required  />
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid city.
             </Form.Control.Feedback>

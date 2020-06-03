@@ -4,6 +4,7 @@ import 'jquery';
 import 'popper.js';
 import 'bootstrap';
 import './App.css';
+import injectContext from "./store/AppContext";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from "./views/home";
 import SignUp from './B-Flow/SignUp/signup.js';
@@ -13,7 +14,12 @@ import Returns from './B-Flow/Orders/ReturnsOrders/returns.js';
 import Exchange from './B-Flow/Orders/ExchangeOrders/exchange.js';
 import CreateOrder from './B-Flow/Orders/CreateOrder/createOrder.js';
 import Settings from './B-Flow/Account/setting.js';
+import OrderStatus from "./B-Flow/Account/orderStatus";
+import ProfileUser from "./B-Flow/Account/profileUser";
+import Users from "./B-Flow/Account/users";
+import Carriers from "./B-Flow/Account/carriers";
 import BillingDetails from './B-Flow/Account/billingDetail.js';
+import Invoices from "./B-Flow/Account/invoices";
 import Support from './B-Flow/Account/support.js';
 import { LogOut } from './B-Flow/Account/logOut.js';
 import Tracking from './B-Flow/Tracking/tracking.js';
@@ -43,7 +49,12 @@ class App extends Component {
             <Route exact path="/exchange" component={Exchange} />
             <Route exact path="/createorder" component={CreateOrder} />
             <Route exact path="/settings" component={Settings} />
+            <Route exact path="/navbar/settings/orderStatus" component={OrderStatus}/>
+            <Route exact path="/navbar/settings/profileUser" component={ProfileUser}/>
+            <Route exact path="/navbar/settings/users" component={Users}/>
+            <Route exact path="/navbar/settings/carriers" component={Carriers}/>
             <Route exact path="/billingdetails" component={BillingDetails} />
+            <Route exact path="/navbar/billingdetails/invoices" component={Invoices}/>
             <Route exact path="/support" component={Support} />
             <Route exact path="/logout" component={LogOut} />
             <Route exact path="/tracking" component={Tracking} />
@@ -60,4 +71,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default injectContext(App);

@@ -1,309 +1,541 @@
 import { METHODS } from "http";
+import { setServers } from "dns";
 
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
+      //todo lo que sea componente form se tiene que validar en el headers del fetch
+      //variables para registrarse, declarandolas en el store
+      path: "http://localhost:3000",
+      name: "",
+      lastname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      currentPassword: "",
+      idUsuario: null,
+      allUsers: {},
 
-            //variables para registrarse, declarandolas en el store
-            path:"http://localhost:3000",
-            name: "",
-            lastname:"",
-            email:"",
-            password:"",
-            confirmPassword:"",
-            currentPassword:"",
-            idUsuario:null,
-            allUsers:{},
-        
-            //Billing Details
-            cardNumber:null,
-            cvv:null,
-            month: null,
-            year: null,
+      //Billing Details
+      cardNumber: null,
+      cvv: null,
+      month: null,
+      year: null,
 
-            //invoices
-            invoices:{},
-            invoice_id:null,
-            invoiceDate: new Date(),
-            invoiceStatus:null,
-            invoiceService:"",
-            invoiceAmount:0,
-            
+      //invoices
+      invoices:{},
+      invoice_id: null,
+      invoiceDate: new Date(),
+      invoiceStatus: null,
+      invoiceService: "",
+      invoiceAmount: 0,
 
-            //Settings
-            storeName:"",
-            contactName:"",
-            companyName:"",
-            contactPhone:0,
-            industry:"",
-            emailContact:"",
-            address:"",
-            city:"",
-
-            // variables del pedido
-            pedidos:[],
-            numeroPedido:null,
-            idPedido:null,
-            descripcionPedido:{},
-
-            //variables del producto
-            productos:{},
-            idProducto:0,
-            nombreProducto:"",
-            descripcionProducto:{}
-
-          
-         
-
-          
+      //create order
+      name: "",
+      lastname: "",
+      email: "",
+      city: "",
+      state: "",
+      postCode: "",
+      id:null,
+      allorders:{},
 
 
+      //Settings
+      storeName: "",
+      contactName: "",
+      companyName: "",
+      contactPhone: 0,
+      industry: "",
+      emailContact: "",
+      address: "",
+      city: "",
+
+      // variables del pedido
+      pedidos: [],
+      numeroPedido: null,
+      idPedido: null,
+      descripcionPedido: {},
+
+      //variables del producto
+      productos: {},
+      idProducto: 0,
+      nombreProducto: "",
+      descripcionProducto: {}
 
     },
 
     actions: {
 
-      createUser: (history) => {
-        const store= getStore();
-        const data = {
+      createUserSettings: (history) => {
+        const store = getStore();
+        setStore({
           name: store.name,
           lastname: store.lastname,
           email: store.email,
           password: store.password,
-      //???    id : store.idUsuario
-        }
+          confirmPassword: store.confirmPassword
+        })
 
-        fetch(store.path + "/api/registrarse",{
+        fetch("reqres.in/api/users", {
           method: "POST",
-          body: JSON.stringify(data),
+          body: JSON.stringify({
+            name: store.name,
+            lastname: store.lastname,
+            email: store.email,
+            password: store.password,
+            confirmPassword: store.confirmPassword
+          }),
           headers: {
+            //form??
             "Content-Type": "application/json"
           }
         })
 
-        .then(function(response){
-          if(response.ok)
-          return response.json();
-        })
-        .then(function(data){
-          console.log(data);
-          setStore({
-            name: "",
-            lastname:"",
-            email:"",
-            password:"",
-        //????    idUsuario:null
-
-          });
-          history.push("/users")
-        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              name: "",
+              lastname: "",
+              email: "",
+              password: "",
+              confirmPassword: ""
+            });
+            history.push("/navbar/settings/users")
+          })
       },
 
-      editUser: () => {
+      editUser: (history) => {
         const store = getStore();
-        const data = {
-          name : store.name,
-          lastname : store.lastname,
-          email : store.email,
-          password : store.password,
+        setStore({
+          name: store.name,
+          lastname: store.lastname,
+          email: store.email,
+          password: store.password,
           confirmPassword: store.confirmPassword,
-          currentPassword: store.currentPassword,
-         //??? idUsuario: store.idUsuario
-      }
-      fetch(store.path + "/api/edit_user/" + store.id, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          "Content Type": "application/json"
-        }
-      })
-      .then(function(response){
-        if(response.ok)
-        return response.json();
-      })
-      .then(function(data){
-        console.log(data);
-        setStore({
-        name:"",
-        lastname:"",
-        password:"",
-        confirmPassword:"",
-        currentPassword:"",
-       //??? idUsuario:null
+
         })
-        getActions().listarUsuarios();
-      //history.push("/users")
-      })
-
-    },
-
-    createBillingDetails: () => {
-      const store= getStore();
-      const data = {
-        cardNumber: store.cardNumber,
-        cvv: store.cvv,
-        month: store.month,
-        year: store.year
-      }
-      fetch(store.path + "/billingDetails",{
-        method: "POST",
-        body: JSON.stringify(data),
-        headers : {
-          "Content Type": "application/json"
-        }
-      })
-      .then(function(response){
-        if(response.ok)
-        return response.json();
-      })
-      .then(function(data){
-        console.log(data);
-        setStore({
-          cardNumber:null,
-          cvv:null,
-          month:null,
-          year:null
-        })
-        //history.push("/billingDetails")
-      })
-    },
-
-
-      createStoreDetails : () => {
-        const store = getStore(); 
-
-      const data = {
-
-            storeName: store.storeName,
-            contactName: store.contactName,
-            companyName:store.companyName,
-            contactPhone:store.contactPhone,
-            industry:store.industry,
-            emailContact:store.emailContact,
-            address:store.address,
-            city:store.city,
-        }
-
-        fetch(store.path + "api/settings",{
-          method: "POST",
-          body: JSON.stringify(data),
-          headers:{
+        fetch("reqres.in/api/users" + store.idUsuario, {
+          method: "PUT",
+          body: JSON.stringify({
+            name: store.name,
+            lastname: store.lastname,
+            email: store.email,
+            password: store.password,
+            confirmPassword: store.confirmPassword
+          }),
+          headers: {
             "Content Type": "application/json"
           }
         })
-        .then(function(response){
-          if(response.ok)
-          return response.json();
-        })
-        .then(function(data){
-          console.log(data);
-          setStore({
-            storeName:"",
-            contactName:"",
-            companyName:"",
-            contactPhone:0,
-            industry:"",
-            emailContact:"",
-            address:"",
-            city:""
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              name: "",
+              lastname: "",
+              password: "",
+              confirmPassword: "",
+              currentPassword: "",
 
-          });
-        //  history.push("/settings")
+            })
+            getActions().listarUsuarios();
+            history.push("/navbar/settings/users")
+          })
+
+      },
+
+      editBillingDetails: (history) => {
+        const store = getStore();
+        setStore({
+          cardNumber: store.cardNumber,
+          cvv: store.cvv,
+          month: store.month,
+          year: store.year
+        })
+        fetch("reqres.in/api/billingdetails", {
+          method: "PUT",
+          body: JSON.stringify({
+            cardNumber: store.cardNumber,
+            cvv: store.cvv,
+            month: store.month,
+            year: store.year
+          }),
+          headers: {
+            "Content Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              cardNumber: null,
+              cvv: null,
+              month: null,
+              year: null,
+            })
+            history.push("/billingdetails")
+          })
+      },
+
+      createBillingDetails: (history) => {
+        const store = getStore();
+        setStore({
+          cardNumber: store.cardNumber,
+          cvv: store.cvv,
+          month: store.month,
+          year: store.year
+        })
+        fetch("reqres.in/api/billingdetails", {
+          method: "POST",
+          body: JSON.stringify({
+            cardNumber: store.cardNumber,
+            cvv: store.cvv,
+            month: store.month,
+            year: store.year
+          }),
+          headers: {
+            "Content Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              cardNumber: null,
+              cvv: null,
+              month: null,
+              year: null
+            })
+            history.push("/billingdetails")
+          })
+      },
+
+
+      createOrder: (history) => {
+        const store = getStore();
+        setStore({
+          name: store.name,
+          lastname: store.lastname,
+          email: store.email,
+          city: store.city,
+          state: store.state,
+          postCode: store.postCode
+        })
+        fetch("reqres.in/api/orders", {
+          method: "POST",
+          body: JSON.stringify({
+            name: store.name,
+            lastname: store.lastname,
+            email: store.email,
+            city: store.city,
+            state: store.state,
+            postCode: store.postCode
+          }),
+          headers: {
+            "Content Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              name: "",
+              lastname: "",
+              email: "",
+              city: "",
+              state: "",
+              postCode: ""
+            })
+            history.push("/createorder")
+          })
+      },
+
+      createInvoice: (history) => {
+        const store = getStore();
+        setStore({
+          invoice_id: store.invoice_id,
+          invoiceDate: store.invoiceDate,
+          invoiceStatus: store.invoiceStatus,
+          invoiceService: store.invoiceService,
+          invoiceAmount: store.invoiceAmount
+
+        })
+        fetch("reqres.in/api/invoices", {
+          method: "POST",
+          body: JSON.stringify({
+            invoice_id: store.invoice_id,
+            invoiceDate: store.invoiceDate,
+            invoiceStatus: store.invoiceStatus,
+            invoiceService: store.invoiceService,
+            invoiceAmount: store.invoiceAmount
+          })
+        })
+      },
+
+
+      seleccionarInvoice: (invoice) => {
+        const store = getStore();
+        console.log(invoice)
+        setStore({
+          invoice_id: invoice.id,
+          invoiceDate: invoice.date,
+          invoiceStatus: invoice.status,
+          invoiceService: invoice.service,
+          invoiceAmount: invoice.amount
         })
 
       },
 
-      
-      handleChange: e => {
-        setStore({
-            [e.target.name]: e.target.value
+      eliminarInvoice: (invoice) => {
+        const store = getStore();
+        fetch("reqres/api/invoices/" + invoice.id, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json"
+          }
         })
-    },
+          .then(function (response) {
+            if (response.ok)
+              return response.json()
+          })
+          .then(function (data) {
+            console.log(data);
+            getActions().listarInvoices();
+          })
+      },
 
-
-
-    listarPedidos: () =>{
-      const store = getStore();
-      fetch(store.path + "/api/data_pedidos",{
-        method : "GET",
-        headers: {
-          "Content Type": "application/json"
-        }
-      })
-      .then(function(response){
-        if(response.ok)
-        return response.json();
-      })
-      .then(function(data){
-        console.log(data)
-        setStore({
-          pedidos : data
+      eliminarProducto: (producto) => {
+        const store = getStore();
+        fetch(store.path + '/api/data_productos/' + producto.id, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
         })
-      })
-    },
+          .then(resp => resp.json())
+          .then(data => {
+            console.log(data)
+            getActions().listarProductos();
+          })
+
+      },
 
 
-
-
-    listarUsuarios: () => {
+      createStoreDetails: (history) => {
         const store = getStore();
 
-        fetch(store.path + "/api/users",{
-          method :"GET",
+        setStore({
+
+          storeName: store.storeName,
+          contactName: store.contactName,
+          companyName: store.companyName,
+          contactPhone: store.contactPhone,
+          industry: store.industry,
+          emailContact: store.emailContact,
+          address: store.address,
+          city: store.city,
+        })
+
+        fetch("reqres.in/api/settings", {
+          method: "POST",
+          body: JSON.stringify({
+            storeName: store.storeName,
+            contactName: store.contactName,
+            companyName: store.companyName,
+            contactPhone: store.contactPhone,
+            industry: store.industry,
+            emailContact: store.emailContact,
+            address: store.address,
+            city: store.city
+          }),
+          headers: {
+            "Content Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              storeName: "",
+              contactName: "",
+              companyName: "",
+              contactPhone: "",
+              industry: "",
+              emailContact: "",
+              address: "",
+              city: ""
+
+            });
+            history.push("/settings")
+          })
+
+      },
+
+
+      handleChange: e => {
+        e.preventDefault()
+        setStore({
+          [e.target.name]: e.target.value
+        })
+      },
+
+
+
+
+      listarPedidos: () => {
+        const store = getStore();
+        fetch(store.path + "/orders", {
+          method: "GET",
+          headers: {
+            "Content Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data)
+            setStore({
+              pedidos: data
+            })
+          })
+      },
+
+      listarInvoices: () => {
+        const store = getStore();
+        fetch("reqres.in/api/invoices", {
+          method: "GET",
+          headers: {
+            "Content Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              invoices: data
+            })
+          })
+      },
+
+
+      listarUsuarios: () => {
+        const store = getStore();
+
+        fetch(store.path + "/api/users", {
+          method: "GET",
+          headers: {
+            "Content Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json()
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              allUsers: data
+            })
+          })
+      },
+
+      listarOrdenes : () => {
+        const store =  getStore();
+        fetch("reqres.in/api/ordenes",{
+          method: "GET",
           headers : {
             "Content Type": "application/json"
           }
         })
         .then(function(response){
           if(response.ok)
-          return response.json()
-        })
-        .then(function(data){
-          console.log(data);
-          setStore({
-            allUsers : data
-          })
-        })
-    },
-
-
-
-
-      listarProductos: () => {
-        const store = getStore();
-        fetch(store.path + "/api/data_productos",{
-          method: "GET",
-          headers: {
-            "Content Type": "application/json"
-          }
-        })
-        .then(function(response){
-          if(response.ok)
           return response.json();
         })
         .then(function(data){
           console.log(data);
           setStore({
-            productos : data
+            allorders : data
           })
         })
 
       },
 
-      
 
-      seleccionarProducto : (producto) => {
+      listarProductos: () => {
+        const store = getStore();
+        fetch(store.path + "/api/data_productos", {
+          method: "GET",
+          headers: {
+            "Content Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              productos: data
+            })
+          })
+
+      },
+
+
+
+      seleccionarProducto: (producto) => {
         console.log(producto);
         setStore({
           id: producto.id,
-          nombreProducto : producto.nombre,
+          nombreProducto: producto.nombre,
           precioProducto: producto.precio,
           descripcionProducto: producto.descripcionProducto
         })
       },
 
 
+      seleccionarOrder : (order,id) => {
 
+        console.log(order)
+        setStore({
+
+          id: order.id,
+          name: order.name,
+          lastname: order.lastname,
+          email: order.email,
+          city: order.city,
+          state: order.state,
+          postCode:order.postCode,
+          
+
+        })
+      },
 
       seleccionarPedido: (pedido) => {
         console.log(pedido)
@@ -318,33 +550,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       editarPedido: (history) => {
         const store = getStore();
-        const data = {
-          numeroPedido : store.numeroPedido,
-          idPedido : store.idPedido,
-          descripcionPedido : store.descripcionPedido
+        setStore({
+          numeroPedido: store.numeroPedido,
+          idPedido: store.idPedido,
+          descripcionPedido: store.descripcionPedido
 
-        }
-        fetch(store.path + "/api/data_productos/" +store.id, {
+        })
+        fetch("reqres.in/api/pedido" + store.idPedido, {
           method: "PUT",
-          body: JSON.stringify(data),
+          body: JSON.stringify({
+            numeroPedido: store.numeroPedido,
+            idPedido: store.idPedido,
+            descripcionPedido: store.descripcionPedido
+          }),
           headers: {
             "Content Type": "application/json"
           }
         })
-        .then(function(response){
-          if(response.ok)
-          return response.json();
-        })
-        .then(function(data){
-          console.log(data);
-          setStore({
-            idPedido:"",
-            numeroPedido:"",
-            descripcionPedido:""
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
           })
-          getActions().listarPedidos();
-          history.push("/pedidos")
-        })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              idPedido: "",
+              numeroPedido: "",
+              descripcionPedido: ""
+            })
+            getActions().listarPedidos();
+            history.push("/pedidos")
+          })
       },
 
     }

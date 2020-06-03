@@ -1,10 +1,21 @@
-import React,{useContext} from "react";
-import {Context} from "../../store/appContext";
+import React,{useContext, useState} from "react";
+import {Context} from "../../store/AppContext";
 import { Link } from "react-router-dom";
 
 const ProfileUser = (props) => {
 
 const {store,actions} = useContext(Context);
+
+
+
+const handleSubmit = (e) =>{
+    e.preventDefault();
+    if(store.email==="" || store.name==="" || store.lastname==="" || store.password===""
+    || store.confirmPassword===""){
+        alert("se deben llenar todos los campos")
+        return
+    }
+}
 
     return (
    
@@ -14,7 +25,7 @@ const {store,actions} = useContext(Context);
                     <h3 className="mb-3">Settings</h3>
                     <div className="card">
                         <div className="card-body">
-                           <Link to="/navbar/settings"><a className="nav-link" href="#">General</a>
+                           <Link to="/settings"><a className="nav-link" href="#">General</a>
                            </Link>
                             <br />
                             <a className="nav-link" href="#">My Profile</a>
@@ -38,43 +49,39 @@ const {store,actions} = useContext(Context);
                         <h4>My Profile</h4>
                         <div className="card mb-5">
                             <div className="card-body">
+                                <form onSubmit={handleSubmit} >
                             <div className="row">
                                 <div className="col">
                                     <label class="form-label">Email</label>
-                                    <input type="text" class="form-control" value={store.email} onChange={e => actions.handleChange(e)}></input>
+                                    <input type="text" class="form-control" name="email"  onChange={actions.handleChange}></input>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
                                     <label class="form-label">First Name</label>
-                                    <input type="text" class="form-control" value={store.name} onChange={e => actions.handleChange(e)}></input>
+                                    <input type="text" class="form-control" name="name"  onChange={actions.handleChange}></input>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
                                     <label class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" value={store.lastname} onChange={e => actions.handleChange(e)}></input>
+                                    <input type="text" class="form-control" name="lastame" onChange={actions.handleChange}></input>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
                                     <label class="form-label">New Password</label>
-                                    <input type="password" class="form-control" value={store.password} onChange={e => actions.handleChange(e)}></input>
+                                    <input type="password" class="form-control" name="password" onChange={actions.handleChange}></input>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
                                     <label class="form-label">Password Confirmation</label>
-                                    <input type="password" class="form-control" value={store.confirmPassword} onChange={e => actions.handleChange(e)}></input>
+                                    <input type="password" class="form-control" name="confirmPassword" onChange={actions.handleChange}></input>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col">
-                                    <label class="form-label">Current Password</label>
-                                    <input type="password" class="form-control" value={store.currentPassword} onChange={e => actions.handleChange(e)}></input>
-                                </div>
-                            </div>
-
+                    
+                            </form>
 
                             <div className="row mt-5 justify-content-center">
                             <div className="col-5">
