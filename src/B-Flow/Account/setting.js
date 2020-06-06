@@ -22,7 +22,7 @@ const Settings = (props) => {
     // }) 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (store.storeName === "" || store.contactName === "" || store.companyName === "" || store.contactPhone === "" &&
+        if (store.storeName === "" || store.contactName === "" || store.companyName === "" || store.contactPhone === "" ||
             store.indsutry === "" || store.emailContact === "" || store.address === "" || store.city === "") {
             alert("Se deben de llenar todos los campos");
 
@@ -180,7 +180,7 @@ const Settings = (props) => {
 
                                     <div className="row justify-content-center">
                                         <div className="col-5">
-                                            <button type="submit" class="btn btn-primary" onClick={actions.createStoreDetails} >+Add Location</button>
+                                            <button type="submit" class="btn btn-primary">+Add Location</button>
                                         </div>
                                     </div>
 

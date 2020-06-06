@@ -7,9 +7,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       //todo lo que sea componente form se tiene que validar en el headers del fetch
       //variables para registrarse, declarandolas en el store
       path: "http://localhost:3000",
-      name: "",
-      lastname: "",
-      email: "",
+      name: "esteban",
+      lastname: "bravo",
+      email: "bravo.esteban@hotmail.com",
       password: "",
       confirmPassword: "",
       currentPassword: "",
@@ -23,7 +23,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       year: null,
 
       //invoices
-      invoices:{},
+      invoices: {},
       invoice_id: null,
       invoiceDate: new Date(),
       invoiceStatus: null,
@@ -31,14 +31,18 @@ const getState = ({ getStore, getActions, setStore }) => {
       invoiceAmount: 0,
 
       //create order
-      name: "",
-      lastname: "",
+      address: "",
+      streetAddress: "",
+      apartament: "",
       email: "",
       city: "",
+      recipent: "",
+      orderNumber: "",
       state: "",
+      phone: "",
       postCode: "",
-      id:null,
-      allorders:{},
+      id: null,
+      allorders: {},
 
 
       //Settings
@@ -87,7 +91,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             confirmPassword: store.confirmPassword
           }),
           headers: {
-            //form??
+          
             "Content-Type": "application/json"
           }
         })
@@ -105,7 +109,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               password: "",
               confirmPassword: ""
             });
-            history.push("/navbar/settings/users")
+            history.push("/login")
           })
       },
 
@@ -147,7 +151,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             })
             getActions().listarUsuarios();
-            history.push("/navbar/settings/users")
+            history.push("/login")
           })
 
       },
@@ -179,12 +183,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (data) {
             console.log(data);
             setStore({
-              cardNumber: null,
-              cvv: null,
+              cardNumber: "",
+              cvv: "",
               month: null,
               year: null,
             })
-            history.push("/billingdetails")
+            history.push("/billingDetails")
           })
       },
 
@@ -220,7 +224,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               month: null,
               year: null
             })
-            history.push("/billingdetails")
+            history.push("/billingDetails")
           })
       },
 
@@ -228,25 +232,34 @@ const getState = ({ getStore, getActions, setStore }) => {
       createOrder: (history) => {
         const store = getStore();
         setStore({
-          name: store.name,
-          lastname: store.lastname,
+          address: store.address,
+          streetAddress: store.streetAddress,
+          apartament: store.apartament,
           email: store.email,
           city: store.city,
+          recipent: store.recipient,
+          orderNumber: store.orderNumber,
           state: store.state,
+          phone: store.phone,
           postCode: store.postCode
+
         })
         fetch("reqres.in/api/orders", {
           method: "POST",
           body: JSON.stringify({
-            name: store.name,
-            lastname: store.lastname,
+            address: store.address,
+            streetAddress: store.streetAddress,
+            apartament: store.apartament,
             email: store.email,
             city: store.city,
+            recipent: store.recipient,
+            orderNumber: store.orderNumber,
             state: store.state,
+            phone: store.phone,
             postCode: store.postCode
           }),
           headers: {
-            "Content Type": "application/json"
+            "Content-Type": "application/json"
           }
         })
           .then(function (response) {
@@ -263,7 +276,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               state: "",
               postCode: ""
             })
-            history.push("/createorder")
+            history.push("/orders")
           })
       },
 
@@ -366,7 +379,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             city: store.city
           }),
           headers: {
-            "Content Type": "application/json"
+            "Content-Type": "application/json"
           }
         })
           .then(function (response) {
@@ -386,6 +399,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               city: ""
 
             });
+            //redirige a la ruta deseada
             history.push("/settings")
           })
 
@@ -464,24 +478,25 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
-      listarOrdenes : () => {
-        const store =  getStore();
-        fetch("reqres.in/api/ordenes",{
+      listarOrdenes: () => {
+        const store = getStore();
+        fetch("reqres.in/api/ordenes", {
           method: "GET",
-          headers : {
-            "Content Type": "application/json"
+          headers: {
+            "Content-Type": "application/json"
           }
         })
-        .then(function(response){
-          if(response.ok)
-          return response.json();
-        })
-        .then(function(data){
-          console.log(data);
-          setStore({
-            allorders : data
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
           })
-        })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              allorders: data
+            })
+          })
+        
 
       },
 
@@ -520,7 +535,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      seleccionarOrder : (order,id) => {
+      seleccionarOrder: (order, id) => {
 
         console.log(order)
         setStore({
@@ -531,8 +546,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           email: order.email,
           city: order.city,
           state: order.state,
-          postCode:order.postCode,
-          
+          postCode: order.postCode,
+
 
         })
       },

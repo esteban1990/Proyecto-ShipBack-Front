@@ -38,7 +38,7 @@ const Invoices = (props) => {
             <table class="table table-white text-center">
               <thead>
                 <tr>
-                  <th scope="col"> Invoice ID</th>
+                  <th scope="col">Invoice ID</th>
                   <th scope="col">Date</th>
                   <th scope="col">Status</th>
                   <th scope="col">Service</th>
@@ -71,7 +71,7 @@ const Invoices = (props) => {
           </div>
         </div>
               
-           
+                
                         </div>
                     </div>
                 </div>

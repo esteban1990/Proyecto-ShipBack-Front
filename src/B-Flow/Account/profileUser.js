@@ -86,6 +86,7 @@ const handleSubmit = (e) =>{
                             <div className="row mt-5 justify-content-center">
                             <div className="col-5">
                                 <button type="submit" class="btn btn-primary" onClick={e => actions.editUser(props.history)}>Update</button>
+                                <button type="submit" class="btn btn-primary" onClick={e => actions.createUserSettings(props.history)}>Update</button>
                             </div>
                             </div>
                             </div>
