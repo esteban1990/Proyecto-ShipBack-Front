@@ -12,7 +12,7 @@ import LogIn from './B-Flow/Login/login.js';
 import Orders from './B-Flow/Orders/AllOrders/orders.js';
 import Returns from './B-Flow/Orders/ReturnsOrders/returns.js';
 import Exchange from './B-Flow/Orders/ExchangeOrders/exchange.js';
-import CreateOrder from './B-Flow/Orders/CreateOrder/createOrder.js';
+import CreateOrderEsteban from "./B-Flow/Orders/CreateOrder/CreateOrderEsteban";
 import Settings from './B-Flow/Account/setting.js';
 import OrderStatus from "./B-Flow/Account/orderStatus";
 import ProfileUser from "./B-Flow/Account/profileUser";
@@ -33,13 +33,19 @@ import Review from './views_client_petition/Review.js';
 import Sent from './views_client_petition/Sent.js';
 
 
+
+
+
+
 class App extends Component {
 
   render() {
 
     return (
         <Router>
+         
           <div className='App'>
+        
             <Route exact path="/" component={Home} />
             <Route exact path="/cambioDevolucion" component={CambioDevolucion} />
             <Route exact path="/signup" component={SignUp} />
@@ -47,7 +53,7 @@ class App extends Component {
             <Route exact path="/orders" component={Orders} />
             <Route exact path="/returns" component={Returns} />
             <Route exact path="/exchange" component={Exchange} />
-            <Route exact path="/createorder" component={CreateOrder} />
+            <Route exact path="/createorder" component={CreateOrderEsteban} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/navbar/settings/orderStatus" component={OrderStatus}/>
             <Route exact path="/navbar/settings/profileUser" component={ProfileUser}/>
@@ -65,7 +71,9 @@ class App extends Component {
             <Route exact path="/petitions_4/" component={Return} />
             <Route exact path="/petitions_5" component={Review} />
             <Route exact path="/petition_sent" component={Sent} />
+        
           </div>
+       
         </Router>
     );
   }
