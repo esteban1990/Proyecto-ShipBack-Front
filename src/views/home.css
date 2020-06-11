@@ -1,0 +1,60 @@
+.nav-link {
+    color: white;
+    text-align: center;
+}
+
+.main-presentation {
+    background-image: url('images/main-title-background.jpg');
+    background-size: cover;
+    height: 350px;
+}
+
+.white-font {
+    color: white;
+}
+
+.black-font {
+    color:black;
+}
+
+.carousel-p-size {
+    font-size: 17px;
+}
+
+#carouselExampleControls {
+    height: 450px;
+}
+
+.carousel-inner {
+    height: 100%;
+}
+
+#about-us-first-slide {
+    background-image: url('images/sell-your-product-online.jpg');
+    height: 100%;
+    background-repeat: no-repeat;
+}
+
+#about-us-second-slide {
+    background-image: url('images/analytics.jpg');
+    height: 100%;
+    background-repeat: no-repeat;
+}
+
+#step-one {
+    background-image: url('images/first-step.jpg');
+    height: 250px;
+    width: 250px;
+}
+
+#step-two {
+    background-image: url('images/second-step.jpg');
+    height: 250px;
+    width: 250px;
+}
+
+#step-three {
+    background-image: url('images/third-step.jpg');
+    height: 250px;
+    width: 250px;
+}

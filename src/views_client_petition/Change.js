@@ -1,45 +1,45 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import './client.css'
 
 
 class Change extends Component {
     render() {
         return (
             <div>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                    <div className="row  col-md-3 offset-sm-1">
-                        <a className="navbar-brand" href="#">
-                            S H I P B A C K
-    </a>
-                    </div>
-                    <div className="row  col-sm-2 offset-sm-5">
-                        <ul className="navbar-nav pl-5">
-                            <li className="nav-item active">
-                                <a className="nav-link offset-sm-5" href="#">
-                                    Account
-            </a>
-                            </li>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="container">
+                        <li>
+                            <div className="row col-md-3 offset-sm-1">
+                                <img className="pb-4" src='./Logo.svg' width='180' />
+                            </div>
+                        </li>
+                        <ul class="nav justify-content-end">
+                            <Link className="navbar-brand" to="/">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Home</a>
+                                </li>
+                            </Link>
                         </ul>
                     </div>
                 </nav>
                 <div class="pt-5"></div>
-                <div class="pt-5"></div>
-                <div class="container-lg mx-auto pr-3 mr-3 mt-3">
-                    <button type="button" class="btn btn-light ml-5">1</button>
+                <div class="container-lg mx-auto float-md-right">
+                    <button type="button" class="btn btn-light ml-5 w-auto">1</button>
                     <span class="badge badge-pill pr-0 pl-0">———————</span>
-                    <button type="button" class="btn btn-light">2</button>
+                    <button type="button" class="btn btn-light w-25 w-auto">2</button>
                     <span class="badge badge-pill pr-0 pl-0">———————</span>
-                    <button type="button" class="btn btn-dark">3</button>
+                    <button type="button" class="btn btn-dark w-25 w-auto">3</button>
                     <span class="badge badge-pill pr-0 pl-0">———————</span>
-                    <button type="button" class="btn btn-light">4</button>
-                    <span class="badge badge-pill pr-0 pl-0">———————</span>
-                    <button type="button" class="btn btn-light">5</button>
+                    <button type="button" class="btn btn-light w-25 w-auto">4</button>
+                    <span class="badge badge-pill pr-0 pl-0 ">———————</span>
+                    <button type="button" class="btn btn-light w-25 w-auto">5</button>
                 </div>
 
                 <form class="container-md">
                     <div class="pb-5"></div>
-                    <legend class="col-form-label font-weight-bold">Cambio de producto</legend>
-                    <legend class="col-form-label">Seleccione los productos por los que desea cambiar su pedido actual. Debe elegir al menos 1.</legend>
+                    <legend id="title" class="col-form-label font-weight-bold">Cambio de producto</legend>
+                    <legend id="instructions" class="col-form-label">Seleccione los productos por los que desea cambiar su pedido actual. Debe elegir al menos 1.</legend>
                     <div class="pb-3"></div>
                     <table class="table pt-3">
                         <tr>
@@ -55,7 +55,7 @@ class Change extends Component {
                     </table>
                     <div class="pb-3"></div>
 
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                    <select class="custom-select mr-sm-2 w-50" id="inlineFormCustomSelect">
                         <option selected>Región</option>
                         <option value="1">Arica y Parinacota.</option>
                         <option value="2">Tarapacá.</option>
@@ -75,23 +75,34 @@ class Change extends Component {
                         <option value="16">Magallanes y la Antártica Chilena.</option>
                     </select>
 
+                    <div class="pb-2"></div>
+
+                    <label id="instructions" for="formGroupExampleInput" class="pt-3">Dirección de despacho</label>
+                    <input type="text" class="form-control w-50" id="formGroupExampleInput" />
+
+                    <label id="instructions" for="formGroupExampleInput" class="pt-3">Ciudad de despacho</label>
+                    <input type="text" class="form-control w-50" id="formGroupExampleInput" />
+
+                    <label id="instructions" for="formGroupExampleInput" class="pt-3">Comuna de despacho</label>
+                    <input type="text" class="form-control w-50" id="formGroupExampleInput" />
+
                     <div class="pb-3"></div>
-
-                    <label for="formGroupExampleInput">Dirección de despacho</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" />
-
-                    <label for="formGroupExampleInput">Ciudad de despacho</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" />
-
-                    <label for="formGroupExampleInput">Comuna de despacho</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" />
-
+                    <a href="https://api.whatsapp.com/send?phone=+56993232898&text=&source=&data=&app_absent=" type="button" class="btn btn-success w-auto"><i class="fa fa-whatsapp"></i> ¡Contáctanos por What's App!</a>
                     <div class="pb-3"></div>
-                    <a href="https://api.whatsapp.com/send?phone=+56993232898&text=&source=&data=&app_absent=" type="button" class="btn btn-success"><i class="fa fa-whatsapp"></i> ¡Contáctanos por What's App!</a>
-                    <div class="pb-3"></div>
-                    <a href="petitions_2" type="button" class="btn btn-secondary mr-1">Anterior</a>
-                    <a href="petitions_5" type="button" class="btn btn-dark">Siguiente</a>
+                    <a href="petitions_2" type="button" class="btn btn-secondary mr-1 w-auto">Anterior</a>
+                    <a href="petitions_5" type="button" class="btn btn-dark w-auto">Siguiente</a>
                 </form>
+                <div className="footer mt-3 w-100">
+                        <div className="py-3 bg-dark">
+                            <div className="container">
+                                <ul class="nav justify-content-end">
+                                    <li class="nav-item mx-auto">
+                                        <p class="white-font text-centered">S H I P B A C K © 2020. Todos los derechos reservados.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
             </div>
         );
     }
