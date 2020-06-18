@@ -1,0 +1,21 @@
+.Support{
+    width: 60%;
+    height: 60%;
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: 300px;
+}
+
+.support-button{
+    width: 200px;
+    margin-left: 35%;
+}
+
+.padding-left{
+    margin-left: 120px;
+}
+
+.attached-file{
+    margin-top: 20px;
+}

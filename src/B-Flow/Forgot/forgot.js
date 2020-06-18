@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import './login.css';
+import './forgot.css';
 import { Button, Form, Label, Input, FormGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { ReactComponent as ReactLogo } from '../../imagenes/Logo.svg';
 import { auth } from "../../FireBase/fireBase.js";
 
-const LogIn = () => {
+const Forgot = () => {
 
   const [user, setUser] = useState(false);
   const [email, setEmail] = useState('');
@@ -52,15 +52,16 @@ const LogIn = () => {
               <Label>Enter your password</Label>
               <Input type='password' onChange={onPasswordChange} id="Password" name='password' placeholder='Password' />
             </div>
+            <div className='p-2'>
+              <Label>Confirm your password</Label>
+              <Input type='password' onChange={onPasswordChange} id="Password" name='password' placeholder='Password' />
+            </div>
           </FormGroup>
-          <Link to="/orders"><Button type='submit' onClick={onLogIn} className='btn-lg btn-dark btn-block'>Log in</Button></Link>
+          <Link to="/orders"><Button type='submit' onClick={onLogIn} className='btn-lg btn-dark btn-block'>Confirm password</Button></Link>
           <div className></div>
         </div>
         <div className='text-center'>
           <div className='p-2'>
-            <a href='/signup'>Sign up</a>
-            <span className='p-2'>|</span>
-            <a href='/forgot-password'>Forgot Password?</a>
           </div>
         </div>
       </Form>
@@ -68,4 +69,4 @@ const LogIn = () => {
   );
 }
 
-export default LogIn;
+export default Forgot;

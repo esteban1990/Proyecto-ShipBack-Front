@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from "./views/home";
 import SignUp from './B-Flow/SignUp/signup.js';
 import LogIn from './B-Flow/Login/login.js';
+import Forgot from './B-Flow/Forgot/forgot.js';
 import Orders from './B-Flow/Orders/AllOrders/orders.js';
 import Returns from './B-Flow/Orders/ReturnsOrders/returns.js';
 import Exchange from './B-Flow/Orders/ExchangeOrders/exchange.js';
@@ -63,6 +64,7 @@ class App extends Component {
             <Route exact path="/navbar/billingdetails/invoices" component={Invoices}/>
             <Route exact path="/support" component={Support} />
             <Route exact path="/logout" component={LogOut} />
+            <Route exact path="/forgot-password" component={Forgot} />
             <Route exact path="/tracking" component={Tracking} />
             <Route exact path="/analytics" component={Analytics} />
             <Route exact path="/petitions_1" component={AskedNumber} />
