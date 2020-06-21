@@ -61,6 +61,8 @@ const LogIn = () => {
             <a href='/signup'>Sign up</a>
             <span className='p-2'>|</span>
             <a href='/forgot-password'>Forgot Password?</a>
+            <span className='p-2'>|</span>
+            <a href='/gmail_login'>Log in with gmail</a>
           </div>
         </div>
       </Form>

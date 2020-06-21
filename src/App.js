@@ -32,9 +32,7 @@ import Change from './views_client_petition/Change.js';
 import Return from './views_client_petition/Return.js';
 import Review from './views_client_petition/Review.js';
 import Sent from './views_client_petition/Sent.js';
-
-
-
+import Gmail_login from './B-Flow/Gmail/gmail.js';
 
 
 
@@ -73,6 +71,7 @@ class App extends Component {
             <Route exact path="/petitions_4/" component={Return} />
             <Route exact path="/petitions_5" component={Review} />
             <Route exact path="/petition_sent" component={Sent} />
+            <Route exact path="/gmail_login" component={Gmail_login} />
         
           </div>
        
