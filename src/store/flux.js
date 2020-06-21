@@ -31,16 +31,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       invoiceAmount: 0,
 
       //create order
-      address: "",
-      streetAddress: "",
-      apartament: "",
-      email: "",
-      city: "",
-      recipent: "",
-      orderNumber: "",
-      state: "",
-      phone: "",
-      postCode: "",
+      Dirección: "",
+      Comuna: "",
+      Ciudad: "",
+      Nombre: "",
+      IdFactura: "",
+      IdDespacho: "",
+      Productos: "",
+      Correo: "",
+      Celular: "",
       id: null,
       allorders: {},
 
@@ -228,6 +227,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
+      // confirmOrder: () => {
+      //     fetch(urlapi + '/', {
+      //       method: 'POST',
+      //       body: JSON.stringify(state)
+      //   }).then(response => response.json()).then(posts => {
+      //       props.history.push('/orders')
+      //   })
+      // },
 
       createOrder: (history) => {
         const store = getStore();

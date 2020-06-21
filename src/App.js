@@ -10,9 +10,7 @@ import Home from "./views/home";
 import SignUp from './B-Flow/SignUp/signup.js';
 import LogIn from './B-Flow/Login/login.js';
 import Orders from './B-Flow/Orders/AllOrders/orders.js';
-import Returns from './B-Flow/Orders/ReturnsOrders/returns.js';
-import Exchange from './B-Flow/Orders/ExchangeOrders/exchange.js';
-import CreateOrderEsteban from "./B-Flow/Orders/CreateOrder/CreateOrderEsteban";
+import CreateOrder from "./B-Flow/Orders/CreateOrder/CreateOrder";
 import Settings from './B-Flow/Account/setting.js';
 import OrderStatus from "./B-Flow/Account/orderStatus";
 import ProfileUser from "./B-Flow/Account/profileUser";
@@ -20,7 +18,6 @@ import Users from "./B-Flow/Account/users";
 import Carriers from "./B-Flow/Account/carriers";
 import BillingDetails from './B-Flow/Account/billingDetail.js';
 import Invoices from "./B-Flow/Account/invoices";
-import Support from './B-Flow/Account/support.js';
 import { LogOut } from './B-Flow/Account/logOut.js';
 import Tracking from './B-Flow/Tracking/tracking.js';
 import Analytics from './B-Flow/Analytics/analytics.js';
@@ -51,9 +48,7 @@ class App extends Component {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={LogIn} />
             <Route exact path="/orders" component={Orders} />
-            <Route exact path="/returns" component={Returns} />
-            <Route exact path="/exchange" component={Exchange} />
-            <Route exact path="/createorder" component={CreateOrderEsteban} />
+            <Route exact path="/createorder" component={CreateOrder} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/navbar/settings/orderStatus" component={OrderStatus}/>
             <Route exact path="/navbar/settings/profileUser" component={ProfileUser}/>
@@ -61,7 +56,6 @@ class App extends Component {
             <Route exact path="/navbar/settings/carriers" component={Carriers}/>
             <Route exact path="/billingdetails" component={BillingDetails} />
             <Route exact path="/navbar/billingdetails/invoices" component={Invoices}/>
-            <Route exact path="/support" component={Support} />
             <Route exact path="/logout" component={LogOut} />
             <Route exact path="/tracking" component={Tracking} />
             <Route exact path="/analytics" component={Analytics} />

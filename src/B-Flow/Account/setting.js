@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Context } from "../../store/AppContext.js";
 import { Link } from "react-router-dom";
+import './account.css';
+import NavBar from '../NavBar/navBar.js';
 
 //CONTEXT Y HOOKS
 
@@ -39,26 +41,29 @@ const Settings = (props) => {
     // }
     return (
         <>
-
+ <div>
+      <NavBar />
             <div className="container mt-5">
                 <div className="row">
                     <div className="col-3">
-                        <h3 className="mb-3">Settings</h3>
+                    <div className="card-header">
+                                <h4 className="title" style={{textAlign:'center'}}>Settings</h4>
+                            </div>
                         <div className="card">
                             <div className="card-body">
-                                <Link to="/settings"><a className="nav-link" href="#">General</a>
+                                <Link to="/settings"><a className="nav-link">General</a>
                                 </Link>
-                                <br />
-                                <Link to="/navbar/settings/profileUser"><a className="nav-link" href="#">My Profile</a>
+                                <hr />
+                                <Link to="/navbar/settings/profileUser"><a className="nav-link">My Profile</a>
                                 </Link>
-                                <br />
-                                <Link to="/navbar/settings/users"><a className="nav-link" href="#">Users</a>
+                                <hr />
+                                <Link to="/navbar/settings/users"><a className="nav-link">Users</a>
                                 </Link>
-                                <br />
-                                <Link to="/navbar/settings/orderStatus"><a className="nav-link" href="#">Notifications</a>
+                                <hr />
+                                <Link to="/navbar/settings/orderStatus"><a className="nav-link">Notifications</a>
                                 </Link>
-                                <br />
-                                <Link to="/navbar/settings/carriers"><a className="nav-link" href="#">Carriers</a>
+                                <hr />
+                                <Link to="/navbar/settings/carriers"><a className="nav-link">Carriers</a>
                                 </Link>
 
                             </div>
@@ -71,9 +76,9 @@ const Settings = (props) => {
                     <div className="col-9">
                         <div className="container">
                             <div className="card-footer">
-
                                 <form onSubmit={handleSubmit}>
-                                    <h3 className="text-center mb-4">Sender Details</h3>
+                                    <h4 className="text-center">Sender Details</h4>
+                                    <hr/>
                                     <div className="row">
                                         <div className="col-3">
                                             <label for=""
@@ -150,10 +155,10 @@ const Settings = (props) => {
                                         </div>
                                     </div>
 
-                                    <div className="row mt-5 ml-3">
-                                        <h3>Pick Up Addresses</h3>
+                                    <div className="mt-5" style={{textAlign:'center'}}>
+                                        <h4>Pick Up Addresses</h4>
                                     </div>
-
+                                    <hr/>
                                     <div className="row">
                                         <div className="col-6">
                                             <div className="form-group">
@@ -191,7 +196,7 @@ const Settings = (props) => {
                     </div>
 
                 </div>
-
+                </div>
             </div>
 
 
