@@ -18,9 +18,9 @@ class DataTable extends Component {
             posts: [],
         };
     }
-
+//https://jsonplaceholder.typicode.com/posts
     componentDidMount() {
-        const url = "https://jsonplaceholder.typicode.com/posts";
+        const url = "http://127.0.0.1:5000/";
         fetch(url, {
             method: 'GET'
         }).then(response => response.json()).then(posts => {

@@ -9,13 +9,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from "./views/home";
 import SignUp from './B-Flow/SignUp/signup.js';
 import LogIn from './B-Flow/Login/login.js';
+import Forgot from './B-Flow/Forgot/forgot.js';
 import Orders from './B-Flow/Orders/AllOrders/orders.js';
 import CreateOrder from "./B-Flow/Orders/CreateOrder/createOrder";
 import Settings from './B-Flow/Account/setting.js';
-import OrderStatus from "./B-Flow/Account/orderStatus";
 import ProfileUser from "./B-Flow/Account/profileUser";
 import Users from "./B-Flow/Account/users";
-import Carriers from "./B-Flow/Account/carriers";
 import BillingDetails from './B-Flow/Account/billingDetail.js';
 import Invoices from "./B-Flow/Account/invoices";
 import { LogOut } from './B-Flow/Account/logOut.js';
@@ -28,9 +27,7 @@ import Change from './views_client_petition/Change.js';
 import Return from './views_client_petition/Return.js';
 import Review from './views_client_petition/Review.js';
 import Sent from './views_client_petition/Sent.js';
-
-
-
+import Gmail_login from './B-Flow/Gmail/gmail.js';
 
 
 
@@ -50,13 +47,12 @@ class App extends Component {
             <Route exact path="/orders" component={Orders} />
             <Route exact path="/createorder" component={CreateOrder} />
             <Route exact path="/settings" component={Settings} />
-            <Route exact path="/navbar/settings/orderStatus" component={OrderStatus}/>
             <Route exact path="/navbar/settings/profileUser" component={ProfileUser}/>
             <Route exact path="/navbar/settings/users" component={Users}/>
-            <Route exact path="/navbar/settings/carriers" component={Carriers}/>
             <Route exact path="/billingdetails" component={BillingDetails} />
             <Route exact path="/navbar/billingdetails/invoices" component={Invoices}/>
             <Route exact path="/logout" component={LogOut} />
+            <Route exact path="/forgot-password" component={Forgot} />
             <Route exact path="/tracking" component={Tracking} />
             <Route exact path="/analytics" component={Analytics} />
             <Route exact path="/petitions_1" component={AskedNumber} />
@@ -65,6 +61,7 @@ class App extends Component {
             <Route exact path="/petitions_4/" component={Return} />
             <Route exact path="/petitions_5" component={Review} />
             <Route exact path="/petition_sent" component={Sent} />
+            <Route exact path="/gmail_login" component={Gmail_login} />
         
           </div>
        
