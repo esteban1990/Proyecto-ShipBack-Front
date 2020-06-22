@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Context } from "../../store/AppContext.js";
 import { Link } from "react-router-dom";
 import './account.css';
@@ -10,6 +10,7 @@ const Settings = (props) => {
 
 
     const { store, actions } = useContext(Context);
+    // createStoreDetails()
    // console.log(store.storeName)
     // const [state, setState] = useState({
 
@@ -22,15 +23,15 @@ const Settings = (props) => {
     //address:"",
     // city:"",
     // }) 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (store.storeName === "" || store.contactName === "" || store.companyName === "" || store.contactPhone === "" ||
-            store.indsutry === "" || store.emailContact === "" || store.address === "" || store.city === "") {
-            alert("Se deben de llenar todos los campos");
+    // const handleSubmit = (e) => {
+    //     // e.preventDefault();
+    //     if (store.storeName === "" || store.contactName === "" || store.companyName === "" || store.contactPhone === "" ||
+    //         store.indsutry === "" || store.emailContact === "" || store.address === "" || store.city === "") {
+    //         alert("Se deben de llenar todos los campos");
 
-        }
-    }
-
+    //     }
+    // }
+   
     // const handleChange = e => {
     //     e.preventDefault();
 
@@ -59,13 +60,6 @@ const Settings = (props) => {
                                 <hr />
                                 <Link to="/navbar/settings/users"><a className="nav-link">Users</a>
                                 </Link>
-                                <hr />
-                                <Link to="/navbar/settings/orderStatus"><a className="nav-link">Notifications</a>
-                                </Link>
-                                <hr />
-                                <Link to="/navbar/settings/carriers"><a className="nav-link">Carriers</a>
-                                </Link>
-
                             </div>
 
 
@@ -76,7 +70,7 @@ const Settings = (props) => {
                     <div className="col-9">
                         <div className="container">
                             <div className="card-footer">
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit=/*{handleSubmit}*/{e=>actions.createStoreDetails(e, props.history)}>
                                     <h4 className="text-center">Sender Details</h4>
                                     <hr/>
                                     <div className="row">
@@ -89,7 +83,7 @@ const Settings = (props) => {
                                             <input type="text"
                                                 class="form-control"
                                                 name="storeName"
-                                                
+                                                value={store.storeName}
                                                 onChange={actions.handleChange} />
                                         </div>
                                         <div className="col-3">
@@ -99,7 +93,7 @@ const Settings = (props) => {
                                         <div className="col-3">
                                             <input type="text"
                                                 name="contactName"
-
+                                                value={store.contactName}
                                                 class="form-control"
                                                 onChange={actions.handleChange}></input>
                                         </div>
@@ -112,9 +106,8 @@ const Settings = (props) => {
                                         <div className="col-3">
                                             <input type="text"
                                                 name="companyName"
-
                                                 class="form-control"
-
+                                                value={store.companyName}
                                                 onChange={actions.handleChange} />
                                         </div>
                                         <div className="col-3">
@@ -123,9 +116,8 @@ const Settings = (props) => {
                                         <div className="col-3">
                                             <input type="text"
                                                 name="contactPhone"
-
                                                 class="form-control"
-
+                                                value={store.contactPhone}
                                                 onChange={actions.handleChange}></input>
                                         </div>
                                     </div>
@@ -137,9 +129,8 @@ const Settings = (props) => {
                                         <div className="col-3">
                                             <input type="text"
                                                 name="industry"
-
                                                 class="form-control"
-
+                                                value={store.industry}
                                                 onChange={actions.handleChange} />
                                         </div>
                                         <div className="col-3">
@@ -148,9 +139,8 @@ const Settings = (props) => {
                                         <div className="col-3">
                                             <input type="text"
                                                 name="emailContact"
-
                                                 class="form-control"
-
+                                                value={store.emailContact}
                                                 onChange={actions.handleChange}></input>
                                         </div>
                                     </div>
@@ -166,7 +156,7 @@ const Settings = (props) => {
                                                 <input type="text"
                                                     name="address"
                                                     class="form-control"
-
+                                                    value={store.address}
                                                     onChange={actions.handleChange}></input>
                                             </div>
                                         </div>
@@ -177,7 +167,7 @@ const Settings = (props) => {
                                                 <input type="text"
                                                     name="city"
                                                     class="form-control"
-
+                                                    value={store.city}
                                                     onChange={actions.handleChange}></input>
                                             </div>
                                         </div>

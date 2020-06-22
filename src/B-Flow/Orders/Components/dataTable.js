@@ -51,7 +51,7 @@ class DataTable extends Component {
                 minWidth: 100
             },
             {
-                Header: 'ID Factura',
+                Header: 'ID Usuario',
                 accessor: 'id',
                 style: {
                     textAlign: 'right'
@@ -62,6 +62,16 @@ class DataTable extends Component {
             },
             {
                 Header: 'ID Despacho',
+                accessor: 'id',
+                style: {
+                    textAlign: 'right'
+                },
+                width: 150,
+                maxWidth: 100,
+                minWidth: 100
+            },
+            {
+                Header: 'ID Factura',
                 accessor: 'title',
                 sortable: false,
                 filterable: false

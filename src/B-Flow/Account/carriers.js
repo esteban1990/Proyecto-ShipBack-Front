@@ -8,6 +8,7 @@ const Carriers = () => {
 
     return (
         <div>
+            
             <NavBar />
             <div className="container mt-5">
                 <div className="row">

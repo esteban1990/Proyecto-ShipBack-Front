@@ -29,9 +29,6 @@ const BillingDetails = (props) => {
                             </div>
                             <div className="card-body billingDetail">
                                 <a className="nav-link">Payment Details</a>
-                                <hr />
-                                <Link to="/navbar/billingDetails/invoices"><a className="nav-link">Invoices</a>
-                                </Link>
                             </div>
                         </div>
                     </div>
