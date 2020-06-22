@@ -48,8 +48,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       storeName: "",
       contactName: "",
       companyName: "",
-      contactPhone: 0,
-      industry: "",
       emailContact: "",
       address: "",
       city: "",
@@ -73,24 +71,26 @@ const getState = ({ getStore, getActions, setStore }) => {
       createUserSettings: (history) => {
         const store = getStore();
         setStore({
-          name: store.name,
-          lastname: store.lastname,
-          email: store.email,
-          password: store.password,
-          confirmPassword: store.confirmPassword
+          Storename: store.Storename,
+          contactName: store.contactName,
+          companyName: store.companyName,
+          emailContact: store.emailContact,
+          address: store.address,
+          city: store.city
         })
 
         fetch("reqres.in/api/users", {
           method: "POST",
           body: JSON.stringify({
-            name: store.name,
-            lastname: store.lastname,
-            email: store.email,
-            password: store.password,
-            confirmPassword: store.confirmPassword
+            Storename: store.Storename,
+            contactName: store.contactName,
+            companyName: store.companyName,
+            emailContact: store.emailContact,
+            address: store.address,
+            city: store.city
           }),
           headers: {
-          
+
             "Content-Type": "application/json"
           }
         })
@@ -102,33 +102,33 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (data) {
             console.log(data);
             setStore({
-              name: "",
-              lastname: "",
-              email: "",
-              password: "",
-              confirmPassword: ""
+              storeName: "",
+              contactName: "",
+              companyName: "",
+              emailContact: "",
+              address: "",
+              city: "",
             });
-            history.push("/login")
           })
       },
 
       editUser: (history) => {
         const store = getStore();
         setStore({
-          name: store.name,
-          lastname: store.lastname,
           email: store.email,
-          password: store.password,
-          confirmPassword: store.confirmPassword,
+          firstName: store.firstName,
+          lastName: store.lastName,
+          newPassword: store.newPassword,
+          confirmPassword: store.confirmPassword
 
         })
         fetch("reqres.in/api/users" + store.idUsuario, {
           method: "PUT",
           body: JSON.stringify({
-            name: store.name,
-            lastname: store.lastname,
             email: store.email,
-            password: store.password,
+            firstName: store.firstName,
+            lastName: store.lastName,
+            newPassword: store.newPassword,
             confirmPassword: store.confirmPassword
           }),
           headers: {
@@ -142,11 +142,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (data) {
             console.log(data);
             setStore({
-              name: "",
-              lastname: "",
-              password: "",
-              confirmPassword: "",
-              currentPassword: "",
+              email: "",
+              firstName: "",
+              lastName: "",
+              newPassword: "",
+              confirmPassword: ""
 
             })
             getActions().listarUsuarios();
@@ -503,7 +503,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               allorders: data
             })
           })
-        
+
 
       },
 

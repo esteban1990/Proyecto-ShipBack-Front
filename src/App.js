@@ -10,7 +10,7 @@ import Home from "./views/home";
 import SignUp from './B-Flow/SignUp/signup.js';
 import LogIn from './B-Flow/Login/login.js';
 import Orders from './B-Flow/Orders/AllOrders/orders.js';
-import CreateOrder from "./B-Flow/Orders/CreateOrder/CreateOrder";
+import CreateOrder from "./B-Flow/Orders/CreateOrder/createOrder";
 import Settings from './B-Flow/Account/setting.js';
 import OrderStatus from "./B-Flow/Account/orderStatus";
 import ProfileUser from "./B-Flow/Account/profileUser";
