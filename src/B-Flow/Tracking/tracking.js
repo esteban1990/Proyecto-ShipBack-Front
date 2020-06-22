@@ -66,13 +66,13 @@ class Tracking extends Component {
                 <table class="table table-striped pt-3">
                     <thead>
                         <tr>
-                            <th scope="col">Número de pedido</th>
-                            <th scope="col">Correo cliente</th>
-                            <th scope="col">Teléfono cliente</th>
-                            <th scope="col">Fecha ingreso</th>
-                            <th scope="col">Tipo transacción</th>
+                            <th scope="col">Fecha de pedido</th>
+                            <th scope="col">ID Usuario</th>
+                            <th scope="col">ID Despacho</th>
+                            <th scope="col">ID Factura</th>
+                            <th scope="col">Productos</th>
                             <th scope="col">Courier</th>
-                            <th scope="col">Estado</th>
+                            <th scope="col">Precio</th>                          
                         </tr>
                     </thead>
                     <tbody>

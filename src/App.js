@@ -13,10 +13,8 @@ import Forgot from './B-Flow/Forgot/forgot.js';
 import Orders from './B-Flow/Orders/AllOrders/orders.js';
 import CreateOrder from "./B-Flow/Orders/CreateOrder/createOrder";
 import Settings from './B-Flow/Account/setting.js';
-import OrderStatus from "./B-Flow/Account/orderStatus";
 import ProfileUser from "./B-Flow/Account/profileUser";
 import Users from "./B-Flow/Account/users";
-import Carriers from "./B-Flow/Account/carriers";
 import BillingDetails from './B-Flow/Account/billingDetail.js';
 import Invoices from "./B-Flow/Account/invoices";
 import { LogOut } from './B-Flow/Account/logOut.js';
@@ -49,10 +47,8 @@ class App extends Component {
             <Route exact path="/orders" component={Orders} />
             <Route exact path="/createorder" component={CreateOrder} />
             <Route exact path="/settings" component={Settings} />
-            <Route exact path="/navbar/settings/orderStatus" component={OrderStatus}/>
             <Route exact path="/navbar/settings/profileUser" component={ProfileUser}/>
             <Route exact path="/navbar/settings/users" component={Users}/>
-            <Route exact path="/navbar/settings/carriers" component={Carriers}/>
             <Route exact path="/billingdetails" component={BillingDetails} />
             <Route exact path="/navbar/billingdetails/invoices" component={Invoices}/>
             <Route exact path="/logout" component={LogOut} />
