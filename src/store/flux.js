@@ -7,9 +7,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       //todo lo que sea componente form se tiene que validar en el headers del fetch
       //variables para registrarse, declarandolas en el store
       path: "http://localhost:3000",
-      name: "esteban",
-      lastname: "bravo",
-      email: "bravo.esteban@hotmail.com",
+      name: "",
+      lastname: "",
+      email: "",
       password: "",
       confirmPassword: "",
       currentPassword: "",
@@ -69,6 +69,145 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
 
     actions: {
+      
+      handleChange: e => {
+        setStore({
+          [e.target.name]: e.target.storename,
+          [e.target.name]: e.target.contactName,
+          [e.target.name]: e.target.companyName,
+          [e.target.name]: e.target.contactPhone,
+          [e.target.name]: e.target.industry,
+          [e.target.name]: e.target.emailContact,
+          [e.target.name]: e.target.address,
+          [e.target.name]: e.target.city,
+        })
+      },
+
+      createStoreDetails: (e, history) => {
+        e.preventDefault();
+        const store = getStore();
+
+        // setStore({
+
+        //   storeName: store.storeName,
+        //   contactName: store.contactName,
+        //   companyName: store.companyName,
+        //   contactPhone: store.contactPhone,
+        //   industry: store.industry,
+        //   emailContact: store.emailContact,
+        //   address: store.address,
+        //   city: store.city,
+        // })
+
+        fetch("http://127.0.0.1:5000/settings", {
+          method: "POST",
+          body: JSON.stringify({
+            storeName: store.storeName,
+            contactName: store.contactName,
+            companyName: store.companyName,
+            contactPhone: store.contactPhone,
+            industry: store.industry,
+            emailContact: store.emailContact,
+            address: store.address,
+            city: store.city
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              storeName: "",
+              contactName: "",
+              companyName: "",
+              contactPhone: "",
+              industry: "",
+              emailContact: "",
+              address: "",
+              city: ""
+
+            });
+            //redirige a la ruta deseada
+            history.push("/settings")
+          })
+
+      },
+
+         //     .then(resp => resp.json())
+      //     .then(data => {
+      //       console.log(data)
+      //       if(data.msg){
+      //         setStore({
+      //           errors: data
+      //         })
+      //       }
+      //       else{
+      //         const aut = {
+      //           storeName: "",
+      //           contactName: "",
+      //           companyName: "",
+      //           contactPhone: "",
+      //           industry: "",
+      //           emailContact: "",
+      //           address: "",
+      //           city: ""
+      //         }
+      //         localStorage.setItem('auth', JSON.stringify(aut))
+      //         setStore({...aut})
+      //         //redirige a la ruta deseada
+      //         history.push("/settings")
+      //       }
+      //     })
+      // },
+
+      editUser: (history) => {
+        const store = getStore();
+        setStore({
+          email: store.email,
+          firstName: store.firstName,
+          lastName: store.lastName,
+          newPassword: store.newPassword,
+          confirmPassword: store.confirmPassword
+
+        })
+        fetch("reqres.in/api/users" + store.idUsuario, {
+          method: "PUT",
+          body: JSON.stringify({
+            email: store.email,
+            firstName: store.firstName,
+            lastName: store.lastName,
+            newPassword: store.newPassword,
+            confirmPassword: store.confirmPassword
+          }),
+          headers: {
+            "Content Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              email: "",
+              firstName: "",
+              lastName: "",
+              newPassword: "",
+              confirmPassword: ""
+
+            })
+            getActions().listarUsuarios();
+            history.push("/login")
+          })
+
+      },
+
 
       createUserSettings: (history) => {
         const store = getStore();
@@ -112,49 +251,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
-      editUser: (history) => {
-        const store = getStore();
-        setStore({
-          name: store.name,
-          lastname: store.lastname,
-          email: store.email,
-          password: store.password,
-          confirmPassword: store.confirmPassword,
-
-        })
-        fetch("reqres.in/api/users" + store.idUsuario, {
-          method: "PUT",
-          body: JSON.stringify({
-            name: store.name,
-            lastname: store.lastname,
-            email: store.email,
-            password: store.password,
-            confirmPassword: store.confirmPassword
-          }),
-          headers: {
-            "Content Type": "application/json"
-          }
-        })
-          .then(function (response) {
-            if (response.ok)
-              return response.json();
-          })
-          .then(function (data) {
-            console.log(data);
-            setStore({
-              name: "",
-              lastname: "",
-              password: "",
-              confirmPassword: "",
-              currentPassword: "",
-
-            })
-            getActions().listarUsuarios();
-            history.push("/login")
-          })
-
-      },
-
+     
       editBillingDetails: (history) => {
         const store = getStore();
         setStore({
@@ -191,6 +288,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
+      
       createBillingDetails: (history) => {
         const store = getStore();
         setStore({
@@ -358,60 +456,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      createStoreDetails: (history) => {
-        const store = getStore();
-
-        setStore({
-
-          storeName: store.storeName,
-          contactName: store.contactName,
-          companyName: store.companyName,
-          contactPhone: store.contactPhone,
-          industry: store.industry,
-          emailContact: store.emailContact,
-          address: store.address,
-          city: store.city,
-        })
-
-        fetch("reqres.in/api/settings", {
-          method: "POST",
-          body: JSON.stringify({
-            storeName: store.storeName,
-            contactName: store.contactName,
-            companyName: store.companyName,
-            contactPhone: store.contactPhone,
-            industry: store.industry,
-            emailContact: store.emailContact,
-            address: store.address,
-            city: store.city
-          }),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-          .then(function (response) {
-            if (response.ok)
-              return response.json();
-          })
-          .then(function (data) {
-            console.log(data);
-            setStore({
-              storeName: "",
-              contactName: "",
-              companyName: "",
-              contactPhone: "",
-              industry: "",
-              emailContact: "",
-              address: "",
-              city: ""
-
-            });
-            //redirige a la ruta deseada
-            history.push("/settings")
-          })
-
-      },
-
+      
 
       handleChange: e => {
         e.preventDefault()

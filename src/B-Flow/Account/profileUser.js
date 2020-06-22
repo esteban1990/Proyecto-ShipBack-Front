@@ -36,12 +36,6 @@ const handleSubmit = (e) =>{
                             <hr />
                           <Link to="/navbar/settings/users"><a className="nav-link">Users</a>
                           </Link>
-                            <hr />
-                            <Link to="/navbar/settings/orderStatus"><a className="nav-link">Notifications</a>
-                            </Link>
-                            <hr/>
-                            <Link to="/navbar/settings/carriers"><a className="nav-link">Carriers</a>
-                            </Link>
                         </div>
 
 
