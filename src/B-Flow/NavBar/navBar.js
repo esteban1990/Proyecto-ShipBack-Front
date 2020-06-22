@@ -62,7 +62,7 @@ class NavBar extends Component {
                                     <Link to="/billingdetails">
                                         <a className="dropdown-item">Billing Details</a>
                                     </Link>
-                                    <Link to="/">
+                                    <Link to="/logout">
                                         <a className="dropdown-item" onClick={onLogOut} >Logout</a>
                                     </Link>
                                 </div>

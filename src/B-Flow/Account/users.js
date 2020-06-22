@@ -53,6 +53,13 @@ const Users = (props) => {
                                 </Link>
                                 <hr />
                                 <a className="nav-link">Users</a>
+                                <hr />
+                                <Link to="/navbar/settings/orderStatus"><a className="nav-link">Notifications</a>
+                                </Link>
+                                <hr />
+                                <Link to="/navbar/settings/carriers"><a className="nav-link">Carriers</a>
+                                </Link>
+
                             </div>
                         </div>
 
@@ -65,12 +72,15 @@ const Users = (props) => {
                                 <from onSubmit={handleSubmit}>
                                     <div className="card-body">
                                         <div className="row mt-2">
-                                            <div className="col-12">
+                                            <div className="col-6">
                                                 <label class="form-label">Email</label>
                                                 <input type="email" class="form-control" name="email" onChange={actions.handleChange}></input>
                                             </div>
 
-                                            
+                                            <div className="col-6">
+                                                <label class="form-label">Movil</label>
+                                                <input type="text" class="form-control" name="phone" onChange={actions.handleChange}></input>
+                                            </div>
                                         </div>
 
                                         <div className="row mt-2">

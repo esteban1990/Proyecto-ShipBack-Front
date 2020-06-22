@@ -21,12 +21,8 @@ const injectContext = PassedComponent => {
 			})
 		);
 
-		useEffect(() => {
-			// state.actions.createStoreDetails();
-			// state.actions.editUser();
-			// state.actions.createUserSettings();
-			// state.actions.editBillingDetails();
-		}, []);
+		// useEffect(() => {
+		// }, []);
 
 		return (
 			<Context.Provider value={state}>
