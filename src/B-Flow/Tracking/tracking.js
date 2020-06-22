@@ -1,31 +1,16 @@
 import React, { Component } from 'react';
+import NavBar from '../NavBar/navBar.js';
 
 class Tracking extends Component {
     render() {
         return (
             <div>
-                  <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                <div className="row  col-md-3 offset-sm-1">
-                    <a className="navbar-brand" href="#">
-                        S H I P B A C K
-                    </a>
-                </div>
-                <div className="row col-sm-2 offset-sm-5">
-                    <ul className="navbar-nav pl-5">
-                        <li className="nav-item active">
-                            <a className="nav-link offset-sm-5" href="#">
-                                Account
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div className="pb-5"></div>
+            <NavBar />
+            <div>
             <div className='tracking container-md mx-auto'>
                 <div className="pb-5"></div>
                 <form className="bg-dark rounded">
                     <legend className="text-white pl-3">Filtros</legend>
-
                     <div class="row mx-auto">
                         <div class="col">
                             <input type="text" class="form-control form-control-sm" placeholder="Número de pedido" />
@@ -73,7 +58,7 @@ class Tracking extends Component {
                             </select>
                         </div>
                     </div>
-                    <div class="row mx-auto pl-3 pb-3">
+                    <div class="col-4 mx-auto pl-3 pb-3">
                         <button type="button" class="btn btn-light">Buscar</button>
                     </div>
                 </form>
@@ -148,8 +133,12 @@ class Tracking extends Component {
                         <li class="page-item"><a class="page-link text-white bg-dark" href="#">Siguiente</a></li>
                     </ul>
                 </nav>
+             
             </div>
             </div>
+      
+            </div>
+
         )
     }
 }

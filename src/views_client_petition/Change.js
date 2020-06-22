@@ -1,8 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Link } from "react-router-dom";
 import './client.css'
 
-const Change = () => {
+const urlapi = process.env.REACT_APP_APIURL || ''
+
+const Change = (props) => {
+    const [state, setState] = useState({
+//        change_product: "",
+        state: "",
+        city: "",
+        address: "",
+        commune: "",
+    }) 
+    const handleChange = e => {
+        e.preventDefault()
+        setState({
+        ...state,
+          [e.target.name]: e.target.value
+        })
+      }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(state)
+         if(
+//            change_product ==="" || 
+            state.state ==="" || state.city ==="" || state.address ==="" || state.commune ===""){
+             alert("Se deben de llenar todos los campos")
+             return;
+         }
+        fetch(urlapi + '/posts', {
+            method: 'POST',
+            body: JSON.stringify(state)
+        }).then(response => response.json()).then(posts => {
+            props.history.push('/petitions_5')
+        })
+    }
     return (
         <div>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -34,7 +66,7 @@ const Change = () => {
                 <button type="button" class="btn btn-light w-25 w-auto">5</button>
             </div>
 
-            <form class="container-md">
+            <form class="container-md" on onSubmit={handleSubmit}>
                 <div class="pb-5"></div>
                 <legend id="title" class="col-form-label font-weight-bold">Cambio de producto</legend>
                 <legend id="instructions" class="col-form-label">Seleccione los productos por los que desea cambiar su pedido actual. Debe elegir al menos 1.</legend>
@@ -49,11 +81,11 @@ const Change = () => {
                     <th scope="row">1</th>
                     <td>Pack x2 Pantalon Buzo de Polar Niño</td>
                     <td>$ 7.990</td>
-                    <td><input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" /></td>
+                    <td><input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" onChange={handleChange}/></td>
                 </table>
                 <div class="pb-3"></div>
 
-                <select class="custom-select mr-sm-2 w-50" id="inlineFormCustomSelect">
+                <select class="custom-select mr-sm-2 w-50" id="inlineFormCustomSelect" name="state" required onChange={handleChange}>
                     <option selected>Región</option>
                     <option value="1">Arica y Parinacota.</option>
                     <option value="2">Tarapacá.</option>
@@ -75,20 +107,20 @@ const Change = () => {
 
                 <div class="pb-2"></div>
 
-                <label id="instructions" for="formGroupExampleInput" class="pt-3">Dirección de despacho</label>
-                <input type="text" class="form-control w-50" id="formGroupExampleInput" />
+                <label id="instructions" for="formGroupExampleInput" class="pt-3" >Dirección de despacho (*)</label>
+                <input type="text" class="form-control w-50" id="formGroupExampleInput" name="address" required onChange={handleChange}></input>
 
-                <label id="instructions" for="formGroupExampleInput" class="pt-3">Ciudad de despacho</label>
-                <input type="text" class="form-control w-50" id="formGroupExampleInput" />
+                <label id="instructions" for="formGroupExampleInput" class="pt-3">Ciudad de despacho (*)</label>
+                <input type="text" class="form-control w-50" id="formGroupExampleInput" name="city" required onChange={handleChange}></input>
 
-                <label id="instructions" for="formGroupExampleInput" class="pt-3">Comuna de despacho</label>
-                <input type="text" class="form-control w-50" id="formGroupExampleInput" />
+                <label id="instructions" for="formGroupExampleInput" class="pt-3">Comuna de despacho (*)</label>
+                <input type="text" class="form-control w-50" id="formGroupExampleInput" name="commune" required onChange={handleChange}></input>
 
                 <div class="pb-3"></div>
                 <a href="https://api.whatsapp.com/send?phone=+56993232898&text=&source=&data=&app_absent=" type="button" class="btn btn-success w-auto"><i class="fa fa-whatsapp"></i> ¡Contáctanos por What's App!</a>
                 <div class="pb-3"></div>
                 <a href="petitions_2" type="button" class="btn btn-secondary mr-1 w-auto">Anterior</a>
-                <a href="petitions_5" type="button" class="btn btn-dark w-auto">Siguiente</a>
+                <button href="petitions_5" type="submit" class="btn btn-dark w-auto">Siguiente</button>
             </form>
             <div className="footer mt-3 w-100">
                     <div className="py-3 bg-dark">

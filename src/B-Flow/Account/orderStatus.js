@@ -1,6 +1,7 @@
 import React,{useContext} from "react";
 import {Context} from "../../store/AppContext";
 import {Link} from "react-router-dom";
+import NavBar from '../NavBar/navBar.js'; 
 
 
 const OrderStatus = () => {
@@ -8,26 +9,30 @@ const OrderStatus = () => {
     const {store, actions} = useContext(Context)
 
     return (
+        <div>
+        <NavBar />
         <div className="container">
             <div className="row mt-5">
                 <div className="col-3">
-                    <h3 className="mb-3">Settings</h3>
+                <div className="card-header">
+                                <h4 className="title" style={{textAlign:'center'}}>Settings</h4>
+                            </div>
 
                     <div className="card">
 
                         <div className="card-body">
-                        <Link to="/settings"><a className="nav-link" href="#">General</a>
+                        <Link to="/settings"><a className="nav-link">General</a>
                         </Link>
-                            <br />
-                          <Link to="/navbar/settings/profileUser"><a className="nav-link" href="#">My Profile</a>
+                            <hr />
+                          <Link to="/navbar/settings/profileUser"><a className="nav-link">My Profile</a>
                           </Link>
-                            <br />
-                         <Link to="/navbar/settings/users"><a className="nav-link" href="#">Users</a>
+                            <hr />
+                         <Link to="/navbar/settings/users"><a className="nav-link">Users</a>
                          </Link>
-                            <br />
-                            <a className="nav-link" href="#">Notifications</a>
-                            <br/>
-                            <Link to="/navbar/settings/carriers"><a className="nav-link" href="#">Carriers</a>
+                            <hr />
+                            <a className="nav-link">Notifications</a>
+                            <hr/>
+                            <Link to="/navbar/settings/carriers"><a className="nav-link">Carriers</a>
                             </Link>
                         </div>
                     </div>
@@ -35,102 +40,106 @@ const OrderStatus = () => {
                 </div>
                 <div className="col-9">
                     <div className="container">
-                        <h3>Notifications</h3>
-                        <div className="side">
+                        <h4>Notifications</h4>
+                        <div className="card mb-5">
+                        <div className="card-body">
                             <form>
-                                <h5 className="mt-3">Progress Update</h5>
-                                <div className="row text-center">
-                                    <p>Shippit automatically sends delivery progress notifications to your recipients. Progress updates can be sent via email and SMS.</p>
+                                <h5>Progress Update</h5>
+                                <hr/>
+                                <div className="row text-center " style={{justifyContent:'center'}}>
+                                    <p className='ml-3'>Shippit automatically sends delivery progress notifications to your recipients. Updates can be sent it.</p>
                                     <div className="col-3">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" onChange={e => actions.handleChange(e)}  value="option1" />
-                                        <label class="form-check-label" for="inlineCheckbox1">ON</label>
-                                    </div>
-                                    </div>
-                                    <div className="col-3">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" onChange={e => actions.handleChange(e)} value="option2" />
-                                        <label class="form-check-label" for="inlineCheckbox2">OFF</label>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox1" onChange={e => actions.handleChange(e)}  value="option1" />
+                                        <label className="form-check-label" for="inlineCheckbox1">ON</label>
                                     </div>
                                     </div>
                                     <div className="col-3">
-                                        <label class="form-label">In Transit</label>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox2" onChange={e => actions.handleChange(e)} value="option2" />
+                                        <label className="form-check-label" for="inlineCheckbox2">OFF</label>
+                                    </div>
+                                    </div>
+                                    <div className="col-3">
+                                        <label className="form-label">In Transit</label>
                                     </div>
                                 </div>
 
-                                <div className="row text-center">
+                                <div className="row text-center" style={{justifyContent:'center'}}>
                                     <div className="col-3">
-                                <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" onChange={e => actions.handleChange(e)} value="option1" />
-                                        <label class="form-check-label" for="inlineCheckbox1">ON</label>
+                                <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox1" onChange={e => actions.handleChange(e)} value="option1" />
+                                        <label className="form-check-label" for="inlineCheckbox1">ON</label>
                                     </div>
                                     </div>
 
                                     <div className="col-3">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" />
-                                        <label class="form-check-label" for="inlineCheckbox2">OFF</label>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" />
+                                        <label className="form-check-label" for="inlineCheckbox2">OFF</label>
                                     </div>
                                     </div>
 
                                     <div className="col-3">
-                                        <label class="form-label">With Driver</label>
+                                        <label className="form-label">With Driver</label>
                                     </div>
                                     
                                 </div>
 
-                                <div className="row text-center">
+                                <div className="row text-center " style={{justifyContent:'center'}}>
                                     <div className="col-3">
-                                <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                                        <label class="form-check-label" for="inlineCheckbox1">ON</label>
+                                <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
+                                        <label className="form-check-label" for="inlineCheckbox1">ON</label>
                                     </div>
                                     </div>
 
                                     <div className="col-3">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" />
-                                        <label class="form-check-label" for="inlineCheckbox2">OFF</label>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" />
+                                        <label className="form-check-label" for="inlineCheckbox2">OFF</label>
                                     </div>
                                     </div>
 
                                     <div className="col-3">
-                                        <label class="form-label">Partial Completed</label>
+                                        <label className="form-label">Partial Completed</label>
                                     </div>
                                     
                                 </div>
 
 
-                                <div className="row text-center">
+                                <div className="row text-center" style={{justifyContent:'center'}}>
                                     <div className="col-3">
-                                <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                                        <label class="form-check-label" for="inlineCheckbox1">ON</label>
+                                <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
+                                        <label className="form-check-label" for="inlineCheckbox1">ON</label>
                                     </div>
                                     </div>
 
                                     <div className="col-3">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" />
-                                        <label class="form-check-label" for="inlineCheckbox2">OFF</label>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" />
+                                        <label className="form-check-label" for="inlineCheckbox2">OFF</label>
                                     </div>
                                     </div>
 
                                     <div className="col-3">
-                                        <label class="form-label">Completed</label>
+                                        <label className="form-label">Completed</label>
                                     </div>
                                     
                                 </div>
 
-                                <div className="row mt-4">
-                                    <div class="col-4">
-                                    <button type="button" class="btn btn-primary">Update</button>
+                                <div className="row mt-4" style={{justifyContent:'center'}}>
+                                    <div className="col-6" >
+                                    <button type="button" className="btn btn-primary">Update</button>
                                 </div>
                                 </div>
 
 
                                
                             </form>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>

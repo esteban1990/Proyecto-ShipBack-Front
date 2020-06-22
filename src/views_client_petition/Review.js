@@ -1,8 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Link } from "react-router-dom";
 import './client.css'
 
-const Review = () => {
+const urlapi = process.env.REACT_APP_APIURL || ''
+
+const Review = (props) => {
+    const [state, setState] = useState({
+        description: "",
+    })
+    const handleChange = e => {
+        e.preventDefault()
+        setState({
+            ...state,
+            [e.target.name]: e.target.value
+        })
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(state)
+       
+        }
+        fetch(urlapi + '/posts', {
+            method: 'POST',
+            body: JSON.stringify(state)
+        }).then(response => response.json()).then(posts => {
+            props.history.push('/petition_sent')
+        })
     return (
         <div>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -35,18 +58,11 @@ const Review = () => {
             </div>
 
 
-            <form class="container-md">
+            <form class="container-md" on onSubmit={handleSubmit}>
                 <div class="pb-5"></div>
                 <legend id="title" class="col-form-label font-weight-bold">Revisión del pedido</legend>
-                <legend id="instructions" class="col-form-label">Revise que los datos se encuentren correctos antes de enviar.</legend>
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <h1 class="display-4">[Estado de la solicitud]</h1>
-                        <p class="lead">[Acá va a ir la solicitud dependiendo de si es devolución o cambio]</p>
-                    </div>
-                </div>
                 <label id="instructions" for="formGroupExampleInput">Ingrese si tiene comentarios que permitan entender por qué está haciendo la devolución o cambio.</label>
-                <input type="text" class="form-control" id="formGroupExampleInput"></input>
+                <input type="text" class="form-control" id="formGroupExampleInput" onChange={handleChange} name="description"></input>
                 <div class="pb-3"></div>
                 <a href="https://api.whatsapp.com/send?phone=+56993232898&text=&source=&data=&app_absent=" type="button" class="btn btn-success w-auto"><i class="fa fa-whatsapp"></i> ¡Contáctanos por What's App!</a>
                 <div class="pb-3"></div>
@@ -66,7 +82,7 @@ const Review = () => {
                 </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary w-auto" data-dismiss="modal">Volver</button>
-                                <a href="petition_sent" button type="button" class="btn btn-dark w-auto text-centered">Enviar</a>
+                                <button href="petition_sent" button type="submit" class="btn btn-dark w-auto text-centered">Enviar</button>
                             </div>
                         </div>
                     </div>

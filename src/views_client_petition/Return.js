@@ -1,8 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {Link} from "react-router-dom";
 import './client.css'
 
-const Return = () => {
+const urlapi = process.env.REACT_APP_APIURL || ''
+
+const Return = (props) => {
+    const [state, setState] = useState({
+                bank: "",
+                account_type: "",
+                account_number: "",
+            }) 
+            const handleChange = e => {
+                e.preventDefault()
+                setState({
+                ...state,
+                  [e.target.name]: e.target.value
+                })
+              }
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                console.log(state)
+                 if(
+                    state.bank ==="" || state.account_type ==="" || state.account_number ===""){
+                     alert("Se deben de llenar todos los campos")
+                     return;
+                 }
+                fetch(urlapi + '/posts', {
+                    method: 'POST',
+                    body: JSON.stringify(state)
+                }).then(response => response.json()).then(posts => {
+                    props.history.push('/petitions_5')
+                })
+            }
     return (
         <div>
              <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -36,13 +65,13 @@ const Return = () => {
 
         
 
-        <form class="container-md">
+        <form class="container-md" on onSubmit={handleSubmit}>
             <div class="pb-3"></div>
             <legend id="title" class="col-form-label font-weight-bold pb-0">Devolución</legend>
             <legend id="instructions" class="col-form-label">Ingrese sus datos de cuenta para efectuar la transacción.</legend>
             <div class="pb-3"></div>
             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect" />Banco
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required onChange={handleChange} name="bank">
                 <option selected>Seleccione Banco</option>
                     <optgroup label="Instituciones bancarias.">
                         <option value="BBVA">BBVA.</option>
@@ -73,7 +102,7 @@ const Return = () => {
 
             <div class="pb-3"></div>
             <label id="instructions" class="mr-sm-2 sr-only" for="inlineFormCustomSelect" />Tipo de cuenta
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required onChange={handleChange} name="account_type">
                 <option selected>Seleccione tipo cuenta </option>
                     <option value="Corriente">Cuenta corriente.</option>
                     <option value="Vista">Cuenta vista.</option>
@@ -82,13 +111,13 @@ const Return = () => {
 
             <div class="pb-3"></div>
             <label for="formGroupExampleInput">Número de cuenta</label>
-            <input type="text" class="form-control" id="formGroupExampleInput"></input>
+            <input type="text" class="form-control" id="formGroupExampleInput" required onChange={handleChange} name="account_number"></input>
 
             <div class="pb-3"></div>
                 <a href="https://api.whatsapp.com/send?phone=+56993232898&text=&source=&data=&app_absent=" type="button" class="btn btn-success w-auto"><i class="fa fa-whatsapp"></i> ¡Contáctanos por What's App!</a>
                 <div class="pb-3"></div>
                 <a href="petitions_2" type="button" class="btn btn-secondary mr-1 w-auto">Anterior</a>
-                <a href="petitions_5" type="button" class="btn btn-dark w-auto">Siguiente</a>
+                <button href="petitions_5" type="submit" class="btn btn-dark w-auto">Siguiente</button>
             </form>
             <div className="footer footer_bottom mt-3 w-100">
                     <div className="py-3 bg-dark">

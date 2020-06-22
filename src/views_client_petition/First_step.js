@@ -1,6 +1,6 @@
 import React, { Component, useState} from 'react';
 import { Link } from "react-router-dom";
-import './client.css'
+import './client.css';
 
 const urlapi = process.env.REACT_APP_APIURL || ''
 
@@ -20,16 +20,15 @@ const AskedNumber = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(state)
-        // if(store.address ==="" || store.streetAdress==="" || store.apartament==="" || store.city==="" || store.postCode===""
-        // || store.recipient==="" || store.email==="" || store.orderNumber==="" || store.phone===""){
-        //     alert("Se deben de llenar todos los campos")
-        //     return;
-        // }
+         if(state.id ==="" || state.email ==="" || state.phone ===""){
+             alert("Se deben de llenar todos los campos")
+             return;
+         }
         fetch(urlapi + '/posts', {
             method: 'POST',
             body: JSON.stringify(state)
         }).then(response => response.json()).then(posts => {
-            props.history.push('/orders')
+            props.history.push('/petitions_2')
         })
     }
     return(
@@ -63,20 +62,20 @@ const AskedNumber = (props) => {
                     <button type="button" class="btn btn-light w-25 w-auto">5</button>
                 </div>
     
-                <form class="needs-validation container-md">
+                <form on onSubmit={handleSubmit} class="needs-validation container-md">
                     <div class="pb-5"></div>
                     <legend id="title" class="col-form-label font-weight-bold pb-0">Iniciando la solicitud</legend>
                     <legend id="instructions" class="col-form-label pt-0">Ingrese los siguientes datos.</legend>
-                    <label id="instructions" for="formGroupExampleInput validationNumberRequest" class="pt-3">¿Cuál es el número de pedido?</label>
-                    <input type="text" class="form-control w-50" id="formGroupExampleInput validationNumberRequest"></input>
-                    <label id="instructions" for="exampleInputEmail1" class="pt-3">Correo electrónico</label>
-                    <input type="email" class="form-control w-50" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
-                    <label id="instructions" for="formGroupExampleInput" class="pt-3">Teléfono</label>
-                    <input type="text" class="form-control w-50" id="formGroupExampleInput"></input>
+                    <label id="instructions" for="formGroupExampleInput validationNumberRequest" class="pt-3">¿Cuál es el número de pedido? (*)</label>
+                    <input type="text" class="form-control w-50" id="formGroupExampleInput validationNumberRequest" required name="id" onChange={handleChange}></input>
+                    <label id="instructions" for="exampleInputEmail1" class="pt-3">Correo electrónico (*)</label>
+                    <input type="email" class="form-control w-50" id="exampleInputEmail1" aria-describedby="emailHelp" required name="email" onChange={handleChange}></input>
+                    <label id="instructions" for="formGroupExampleInput" class="pt-3">Teléfono (*)</label>
+                    <input type="text" class="form-control w-50" id="formGroupExampleInput" name="phone" required onChange={handleChange}></input>
                     <div class="pt-3 pb-3"></div>
                     <a href="https://api.whatsapp.com/send?phone=+56993232898&text=&source=&data=&app_absent=" type="button" class="btn btn-success w-auto"><i class="fa fa-whatsapp"></i> ¡Contáctanos por What's App!</a>
                     <div class="pb-3"></div>
-                    <a href="petitions_2" type="button" class="btn btn-dark button-md-size w-auto">Siguiente</a>
+                    <button href="petitions_2" type="submit" class="btn btn-dark button-md-size w-auto">Siguiente</button>
                 </form>
                 <div className="footer footer_bottom mt-3 w-100">
                             <div className="py-3 bg-dark">

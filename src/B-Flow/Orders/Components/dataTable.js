@@ -18,9 +18,9 @@ class DataTable extends Component {
             posts: [],
         };
     }
-
+//https://jsonplaceholder.typicode.com/posts
     componentDidMount() {
-        const url = "https://jsonplaceholder.typicode.com/posts";
+        const url = "http://127.0.0.1:5000/";
         fetch(url, {
             method: 'GET'
         }).then(response => response.json()).then(posts => {
@@ -41,39 +41,51 @@ class DataTable extends Component {
     render() {
         const columns = [
             {
-                Header: "User ID",
+                Header: "Fecha Pedido",
                 accessor: "userId",
                 style: {
                     textAlign: 'right'
                 },
-                width: 100,
+                width: 150,
                 maxWidth: 100,
                 minWidth: 100
             },
             {
-                Header: 'ID',
+                Header: 'ID Factura',
                 accessor: 'id',
                 style: {
                     textAlign: 'right'
                 },
-                width: 100,
+                width: 150,
                 maxWidth: 100,
                 minWidth: 100
             },
             {
-                Header: 'Title',
+                Header: 'ID Despacho',
                 accessor: 'title',
                 sortable: false,
                 filterable: false
             },
             {
-                Header: 'Content',
+                Header: 'Productos',
                 accessor: 'body',
                 sortable: false,
                 filterable: false,
             },
             {
-                Header: 'Actions1',
+                Header: 'Courier',
+                accessor: 'body',
+                sortable: false,
+                filterable: false,
+            },
+            {
+                Header: 'Precio',
+                accessor: 'body',
+                sortable: false,
+                filterable: false,
+            },
+            {
+                Header: 'Borrar',
                 Cell: props => {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -94,11 +106,11 @@ class DataTable extends Component {
             },
             {
                 // Bug: It doesn´t work the confirm button, later on, I will try to fix it.
-                Header: 'Actions2',
+                Header: 'Confirmar',
                 Cell: props => {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <button style={{ width: '80px', textAlign: 'center', background: '#00a8e8' }}>Confirm</button>
+                            <button /*onClick={actions.confirmOrder()} */ style={{ width: '80px', textAlign: 'center', background: '#00a8e8' }}>Confirm</button>
                         </div>
                     )
                 },

@@ -30,12 +30,6 @@ class NavBar extends Component {
                                     <Link to="/orders">
                                         <a className="dropdown-item">All</a>
                                     </Link>
-                                    <Link to="/returns">
-                                        <a className="dropdown-item">Returns</a>
-                                    </Link>
-                                    <Link to="/exchange">
-                                        <a className="dropdown-item">Exchanges</a>
-                                    </Link>
                                     <Link to="/createorder">
                                         <a className="dropdown-item">Create Order</a>
                                     </Link>
@@ -67,9 +61,6 @@ class NavBar extends Component {
                                     </Link>
                                     <Link to="/billingdetails">
                                         <a className="dropdown-item">Billing Details</a>
-                                    </Link>
-                                    <Link to="/support">
-                                        <a className="dropdown-item">Support</a>
                                     </Link>
                                     <Link to="/logout">
                                         <a className="dropdown-item" onClick={onLogOut} >Logout</a>

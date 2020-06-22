@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import NavBar from '../NavBar/navBar.js';
 
 const options = {
     chart: {
@@ -22,27 +23,11 @@ const graph = () => (
     </div>
 );
 
-class Analytics extends Component {
-    render(
-    ) {
+const Analytics = () => {
         return (
+            <div>
+            <NavBar />
             <div className='analytics container-md mx-auto'>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                    <div className="row  col-md-3 offset-sm-1">
-                        <a className="navbar-brand" href="#">
-                            S H I P B A C K
-                    </a>
-                    </div>
-                    <div className="row col-sm-2 offset-sm-5">
-                        <ul className="navbar-nav pl-5">
-                            <li className="nav-item active">
-                                <a className="nav-link offset-sm-5" href="#">
-                                    Account
-                            </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
                 <div className="pb-5"></div>
                 <div className="pb-5"></div>
                 <div>
@@ -91,8 +76,8 @@ class Analytics extends Component {
                     </div>
                 </div>
             </div>
+            </div>
         )
-    }
-}
+      }
 
 export default Analytics

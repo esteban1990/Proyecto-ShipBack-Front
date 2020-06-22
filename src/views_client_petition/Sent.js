@@ -37,8 +37,17 @@ const Sent = () => {
             <div class="container-md">
                 <div class="pb-5"></div>
                 <legend id="title" class="col-form-label font-weight-bold pt-5">¡Muchas gracias por su pedido!</legend>
-                <legend id="instructions" class="col-form-label">El código de su solicitud es: 123456AB</legend>
-                <legend id="instructions" class="col-form-label">Le enviaremos el código de su solicitud junto con los detalles de su transaccion a usuario@dominio.cl</legend>
+            </div>
+            <div className="footer footer_bottom mt-3 w-100">
+                <div className="py-3 bg-dark">
+                    <div className="container">
+                        <ul class="nav justify-content-end">
+                            <li class="nav-item mx-auto">
+                                <p class="white-font text-centered">S H I P B A C K © 2020. Todos los derechos reservados.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     );

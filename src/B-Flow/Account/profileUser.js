@@ -1,6 +1,7 @@
 import React,{useContext, useState} from "react";
 import {Context} from "../../store/AppContext";
 import { Link } from "react-router-dom";
+import NavBar from '../NavBar/navBar.js'; 
 
 const ProfileUser = (props) => {
 
@@ -18,25 +19,28 @@ const handleSubmit = (e) =>{
 }
 
     return (
-   
+        <div>
+        <NavBar />
         <div className="container">
             <div className="row mt-5">
                 <div className="col-3">
-                    <h3 className="mb-3">Settings</h3>
+                <div className="card-header">
+                                <h4 className="title" style={{textAlign:'center'}}>Settings</h4>
+                            </div>
                     <div className="card">
                         <div className="card-body">
-                           <Link to="/settings"><a className="nav-link" href="#">General</a>
+                           <Link to="/settings"><a className="nav-link">General</a>
                            </Link>
-                            <br />
-                            <a className="nav-link" href="#">My Profile</a>
-                            <br />
-                          <Link to="/navbar/settings/users"><a className="nav-link" href="#">Users</a>
+                            <hr />
+                            <a className="nav-link">My Profile</a>
+                            <hr />
+                          <Link to="/navbar/settings/users"><a className="nav-link">Users</a>
                           </Link>
-                            <br />
-                            <Link to="/navbar/settings/orderStatus"><a className="nav-link" href="#">Notifications</a>
+                            <hr />
+                            <Link to="/navbar/settings/orderStatus"><a className="nav-link">Notifications</a>
                             </Link>
-                            <br/>
-                            <Link to="/navbar/settings/carriers"><a className="nav-link" href="#">Carriers</a>
+                            <hr/>
+                            <Link to="/navbar/settings/carriers"><a className="nav-link">Carriers</a>
                             </Link>
                         </div>
 
@@ -83,14 +87,14 @@ const handleSubmit = (e) =>{
                     
                             </form>
 
-                            <div className="row mt-5 justify-content-center">
+                            <div className="row mt-5">
                             <div className="col-5">
                                 <button type="submit" class="btn btn-primary" onClick={e => actions.editUser(props.history)}>Update</button>
-                                <button type="submit" class="btn btn-primary" onClick={e => actions.createUserSettings(props.history)}>Update</button>
                             </div>
                             </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
