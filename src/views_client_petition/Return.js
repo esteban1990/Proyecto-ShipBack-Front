@@ -25,7 +25,7 @@ const Return = (props) => {
                      alert("Se deben de llenar todos los campos")
                      return;
                  }
-                fetch(urlapi + '/posts', {
+                fetch(urlapi + '/returns', {
                     method: 'POST',
                     body: JSON.stringify(state)
                 }).then(response => response.json()).then(posts => {

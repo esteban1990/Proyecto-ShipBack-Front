@@ -36,7 +36,7 @@ const CreateOrder = (props) => {
         //     return;
         // }
 
-    fetch(urlapi + '/posts', {
+    fetch(urlapi + '/orders', {
         method: 'POST',
         body: JSON.stringify(state)
     }).then(response => response.json()).then(posts => {
