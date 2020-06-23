@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import './account.css';
 import NavBar from '../NavBar/navBar.js';
 
+const urlapi = process.env.REACT_APP_APIURL || ''
+
 //Context
 const BillingDetails = (props) => {
 
@@ -14,6 +16,13 @@ const BillingDetails = (props) => {
         if (store.cardNumber === "" || store.cvv === "" || store.month === "" || store.year === "") {
             alert("se deben de llenar todos los camps")
         }
+
+        fetch(urlapi + '/billingdetails', {
+            method: 'POST',
+            body: JSON.stringify(store)
+        }).then(response => response.json()).then(posts => {
+            props.history.push('/orders')
+        })
     }
 
     return (
@@ -25,7 +34,7 @@ const BillingDetails = (props) => {
                     <div className="col-3">
                         <div className="card">
                             <div className="card-header">
-                                <h4 className="title" style={{textAlign:'center'}}>Billing Details</h4>
+                                <h4 className="title" style={{ textAlign: 'center' }}>Billing Details</h4>
                             </div>
                             <div className="card-body billingDetail">
                                 <a className="nav-link">Payment Details</a>
@@ -39,7 +48,7 @@ const BillingDetails = (props) => {
                         <div className="container">
                             <div className="card-footer">
                                 <h4>Payment Card</h4>
-                                <hr/>
+                                <hr />
                                 <form onSubmit={handleSubmit}>
                                     <label for="" class="form-label">Card Number</label>
                                     <input type="text" class="form-control" name="cardNumber" onChange={e => actions.handleChange(e)}></input>

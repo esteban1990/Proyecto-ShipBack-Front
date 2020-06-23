@@ -5,6 +5,7 @@ import './account.css';
 import NavBar from '../NavBar/navBar.js';
 
 //CONTEXT Y HOOKS
+const urlapi = process.env.REACT_APP_APIURL || ''
 
 const Settings = (props) => {
 
@@ -15,6 +16,13 @@ const Settings = (props) => {
         if (store.storeName === "" || store.contactName === "" || store.companyName === "" || store.contactPhone === "" || store.industry === "" || store.emailContact === "" || store.emailContact === "" || store.address === "" || store.city === "") {
             alert("se deben de llenar todos los camps")
         }
+
+        fetch(urlapi + '/sender-details', {
+            method: 'POST',
+            body: JSON.stringify(store)
+        }).then(response => response.json()).then(posts => {
+            props.history.push('/orders')
+        })
     }
     // createStoreDetails()
     // console.log(store.storeName)
@@ -61,17 +69,9 @@ const Settings = (props) => {
                                     <Link to="/settings"><a className="nav-link">General</a>
                                     </Link>
                                     <hr />
-                                    <Link to="/navbar/settings/profileUser"><a className="nav-link">My Profile</a>
-                                    </Link>
-                                    <hr />
                                     <Link to="/navbar/settings/users"><a className="nav-link">Users</a>
                                     </Link>
                                     <hr />
-                                    <Link to="/navbar/settings/orderStatus"><a className="nav-link">Notifications</a>
-                                    </Link>
-                                    <hr />
-                                    <Link to="/navbar/settings/carriers"><a className="nav-link">Carriers</a>
-                                    </Link>
                                 </div>
 
 
