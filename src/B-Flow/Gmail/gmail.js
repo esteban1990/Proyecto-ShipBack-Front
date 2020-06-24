@@ -14,7 +14,6 @@ export class Gmail_login extends Component {
     console.log(response.profileObj);
   }
 
-
   render() {
     return (
       <div className="body">

@@ -1,33 +1,44 @@
 import React, { useState } from "react";
 import './signup.css';
-import { Link } from "react-router-dom";
 import { ReactComponent as ReactLogo } from '../../imagenes/Logo.svg';
 import { Button, Form, Label, Input, FormGroup } from 'reactstrap';
-import { auth } from "../../FireBase/fireBase.js";
-import './signup.css'
+import './signup.css';
 
+const urlapi = process.env.REACT_APP_APIURL || ''
 
-const SignUp = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [fname, setfname] = useState('');
-  const [lname, setlname] = useState('');
+const SignUp = (props) => {
+  const [state, setState] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    password: "",
+  })
+  const handleChange = e => {
+    e.preventDefault()
+    setState({
+      ...state,
+      [e.target.name]: e.target.value
+    })
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(state)
+    if (state.name === "" || state.lastname === "" || state.email === "" || state.password === "") {
+      alert("Se deben de llenar todos los campos")
+      return;
+    }
+    fetch(urlapi + 'signup', {
+      method: 'POST',
+      body: JSON.stringify(state)
+    }).then(response => response.json()).then(posts => {
+      props.history.push('/login')
+    })
+  }
 
-  const onEmailChange = (event) => setEmail(event.target.value);
-  const onPasswordChange = (event) => setPassword(event.target.value);
-  const onFnameChange = (event) => setfname(event.target.value);
-  const onLnameChange = (event) => setlname(event.target.value);
-
-  const onSignUp = () => {
-    console.log('signup')
-    console.log(email, password, fname, lname)
-  };
-
-  auth.createUserWithEmailAndPassword(email, password).catch(function (error){console.log('error in signup')});
 
   return (
     <div className='body'>
-      <Form className='login-form pt-5'>
+      <Form className='login-form pt-5' onSubmit={handleSubmit}>
         <div className='logo'>
           <ReactLogo />
         </div>
@@ -35,23 +46,23 @@ const SignUp = () => {
           <FormGroup>
             <div className='p-2'>
               <Label>First Name</Label>
-              <Input type='text' onChange={onFnameChange} id="fname" name='fname' placeholder='First Name' />
+              <Input type='text' id="fname" name='name' placeholder='First Name' required onChange={handleChange}/>
             </div>
             <div className='p-2'>
               <Label>Last Name</Label>
-              <Input type='text' onChange={onLnameChange} id="lname" name='lname' placeholder='Last Name' />
+              <Input type='text' id="lname" name='lastname' placeholder='Last Name' required onChange={handleChange}/>
             </div>
             <div className='p-2'>
               <Label>Email</Label>
-              <Input type='email' onChange={onEmailChange} id="email" name='email' placeholder='Email' />
+              <Input type='email' id="email" name='email' placeholder='Email' required onChange={handleChange}/>
             </div>
             <div className='p-2'>
               <Label>Password</Label>
-              <Input type='password' onChange={onPasswordChange} id="Password" name='password' placeholder='Password' />
+              <Input type='password' id="Password" name='password' placeholder='Password' required onChange={handleChange}/>
             </div>
           </FormGroup>
           <div>
-          <Link to="/login"><Button onClick={onSignUp} type='submit' className='btn-lg btn-dark btn-block'>Signup</Button></Link>
+            <Button type='submit' className='btn-lg btn-dark btn-block'>Signup</Button>
           </div>
         </div>
       </Form>
