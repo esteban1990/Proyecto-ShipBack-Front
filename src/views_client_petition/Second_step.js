@@ -22,7 +22,7 @@ const QuestType = (props) => {
             alert("Seleccione si desea cambiar o devolver el producto")
             return;
         }
-        fetch(urlapi + '/posts', {
+        fetch("http://127.0.0.1:5000/" + '/posts', {
             method: 'POST',
             body: JSON.stringify(state)
         }).then(response => response.json()).then(posts => {

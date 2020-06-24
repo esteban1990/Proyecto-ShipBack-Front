@@ -36,7 +36,7 @@ const CreateOrder = (props) => {
         //     return;
         // }
 
-    fetch(urlapi + '/posts', {
+    fetch("127.0.0.1:5000/"+'/posts', {
         method: 'POST',
         body: JSON.stringify(state)
     }).then(response => response.json()).then(posts => {

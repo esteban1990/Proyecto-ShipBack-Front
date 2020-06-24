@@ -166,7 +166,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       editUser: (history) => {
         const store = getStore();
         setStore({
-<<<<<<< HEAD
           Storename: store.Storename,
           contactName: store.contactName,
           companyName: store.companyName,
@@ -174,40 +173,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           address: store.address,
           city: store.city
         })
-=======
-          email: store.email,
-          firstName: store.firstName,
-          lastName: store.lastName,
-          newPassword: store.newPassword,
-          confirmPassword: store.confirmPassword
->>>>>>> 8f32c188766cc03666097051ee7305252a1a221f
 
-        })
         fetch("reqres.in/api/users" + store.idUsuario, {
-          method: "PUT",
-          body: JSON.stringify({
-<<<<<<< HEAD
-            Storename: store.Storename,
-            contactName: store.contactName,
-            companyName: store.companyName,
-            emailContact: store.emailContact,
-            address: store.address,
-            city: store.city
-          }),
-          headers: {
-
-            "Content-Type": "application/json"
-=======
-            email: store.email,
-            firstName: store.firstName,
-            lastName: store.lastName,
-            newPassword: store.newPassword,
-            confirmPassword: store.confirmPassword
-          }),
-          headers: {
-            "Content Type": "application/json"
->>>>>>> 8f32c188766cc03666097051ee7305252a1a221f
-          }
         })
           .then(function (response) {
             if (response.ok)
@@ -216,7 +183,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (data) {
             console.log(data);
             setStore({
-<<<<<<< HEAD
               storeName: "",
               contactName: "",
               companyName: "",
@@ -224,17 +190,6 @@ const getState = ({ getStore, getActions, setStore }) => {
               address: "",
               city: "",
             });
-=======
-              email: "",
-              firstName: "",
-              lastName: "",
-              newPassword: "",
-              confirmPassword: ""
-
-            })
-            getActions().listarUsuarios();
-            history.push("/login")
->>>>>>> 8f32c188766cc03666097051ee7305252a1a221f
           })
 
       },
@@ -244,16 +199,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         setStore({
           email: store.email,
-<<<<<<< HEAD
           firstName: store.firstName,
           lastName: store.lastName,
           newPassword: store.newPassword,
           confirmPassword: store.confirmPassword
 
-=======
-          password: store.password,
-          confirmPassword: store.confirmPassword
->>>>>>> 8f32c188766cc03666097051ee7305252a1a221f
         })
 
         fetch("reqres.in/api/users", {
@@ -278,7 +228,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (data) {
             console.log(data);
             setStore({
-<<<<<<< HEAD
               email: "",
               firstName: "",
               lastName: "",
@@ -287,14 +236,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             })
             getActions().listarUsuarios();
-=======
-              name: "",
-              lastname: "",
-              email: "",
-              password: "",
-              confirmPassword: ""
-            });
->>>>>>> 8f32c188766cc03666097051ee7305252a1a221f
             history.push("/login")
           })
       },
