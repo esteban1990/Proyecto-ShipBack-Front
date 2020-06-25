@@ -1,0 +1,29 @@
+.dateSelector{
+    font-size: 18px;
+}
+
+select {
+    width: 160px;
+    height: 32px;
+    font-size: 18px;
+}
+
+button{
+    width: 120px;
+    height: 32px;
+    font-size: 18px;
+    color: white;
+    border: solid 1px;
+}
+
+.all{
+    background: #454e57;
+}
+
+.delete{
+    background: rgb(248, 79, 79)
+}
+
+.confirm{
+    background-color: #00a8e8;
+}
