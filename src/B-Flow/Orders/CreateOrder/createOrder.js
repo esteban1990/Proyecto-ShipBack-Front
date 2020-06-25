@@ -36,8 +36,12 @@ const CreateOrder = (props) => {
         //     return;
         // }
 
-    fetch(urlapi + '/orders', {
+    fetch(urlapi + 'orders', {
         method: 'POST',
+        headers: {
+            mode:'no-cors',
+            'Access-Control-Allow-Origin': "*"
+        },
         body: JSON.stringify(state)
     }).then(response => response.json()).then(posts => {
         props.history.push('/orders')
