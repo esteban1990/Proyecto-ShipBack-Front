@@ -165,6 +165,20 @@ const getState = ({ getStore, getActions, setStore }) => {
       //     })
       // },
 
+
+      // handleChangeUser: e => {
+      //   setStore({
+      //     [e.target.name]: e.target.storename,
+      //     [e.target.name]: e.target.contactName,
+      //     [e.target.name]: e.target.companyName,
+      //     [e.target.name]: e.target.contactPhone,
+      //     [e.target.name]: e.target.industry,
+      //     [e.target.name]: e.target.emailContact,
+      //     [e.target.name]: e.target.address,
+      //     [e.target.name]: e.target.city,
+      //   })
+      // },
+
       editUser: (history) => {
         const store = getStore();
         setStore({
@@ -175,7 +189,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           confirmPassword: store.confirmPassword
 
         })
-        fetch("reqres.in/api/users" + store.idUsuario, {
+        fetch("http://127.0.0.1:5000/users" + store.idUsuario, {
           method: "PUT",
           body: JSON.stringify({
             email: store.email,
@@ -219,7 +233,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           confirmPassword: store.confirmPassword
         })
 
-        fetch("reqres.in/api/users", {
+        fetch("http://127.0.0.1:5000/users", {
           method: "POST",
           body: JSON.stringify({
             name: store.name,
@@ -260,7 +274,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           month: store.month,
           year: store.year
         })
-        fetch("reqres.in/api/billingdetails", {
+        fetch("http://127.0.0.1:5000/billingdetails", {
           method: "PUT",
           body: JSON.stringify({
             cardNumber: store.cardNumber,
@@ -297,7 +311,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           month: store.month,
           year: store.year
         })
-        fetch("reqres.in/api/billingdetails", {
+        fetch("http://127.0.0.1:5000/billingdetails", {
           method: "POST",
           body: JSON.stringify({
             cardNumber: store.cardNumber,
@@ -349,7 +363,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           postCode: store.postCode
 
         })
-        fetch("reqres.in/api/orders", {
+        fetch("http://127.0.0.1:5000/orders", {
           method: "POST",
           body: JSON.stringify({
             address: store.address,
@@ -395,7 +409,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           invoiceAmount: store.invoiceAmount
 
         })
-        fetch("reqres.in/api/invoices", {
+        fetch("http://127.0.0.1:5000/invoices", {
           method: "POST",
           body: JSON.stringify({
             invoice_id: store.invoice_id,
@@ -490,7 +504,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       listarInvoices: () => {
         const store = getStore();
-        fetch("reqres.in/api/invoices", {
+        fetch("http://127.0.0.1:5000/invoices", {
           method: "GET",
           headers: {
             "Content Type": "application/json"
@@ -532,7 +546,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       listarOrdenes: () => {
         const store = getStore();
-        fetch("reqres.in/api/ordenes", {
+        fetch("http://127.0.0.1:5000/ordenes", {
           method: "GET",
           headers: {
             "Content-Type": "application/json"
@@ -623,7 +637,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           descripcionPedido: store.descripcionPedido
 
         })
-        fetch("reqres.in/api/pedido" + store.idPedido, {
+        fetch("http://127.0.0.1:5000/pedido" + store.idPedido, {
           method: "PUT",
           body: JSON.stringify({
             numeroPedido: store.numeroPedido,

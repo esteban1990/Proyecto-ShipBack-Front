@@ -8,14 +8,14 @@ const CreateOrder = (props) => {
 
     //const { store, actions } = useContext(Context);
     const [state, setState] = useState({
-        address: "",
+        name: "",
         streetAddress: "",
+        commune: "",
         city: "",
-        postCode: "",
-        recipient: "",
+        invoice_id: "",
+        office_id: "",
+        products: "",
         email: "",
-        orderNumber: "",
-        phone: "",
         cellphone: "",
     })
 
@@ -38,10 +38,10 @@ const CreateOrder = (props) => {
 
     fetch(urlapi + 'orders', {
         method: 'POST',
-        headers: {
-            mode:'no-cors',
-            'Access-Control-Allow-Origin': "*"
-        },
+//        headers: {
+//            mode:'no-cors',
+//            'Access-Control-Allow-Origin': "*"
+//        },
         body: JSON.stringify(state)
     }).then(response => response.json()).then(posts => {
         props.history.push('/orders')
@@ -65,7 +65,7 @@ return (
                                         <div className="col-12">
                                             <label for="" class="form-label"><h5>Recoger</h5></label>
                                             <p>Nombre</p>
-                                            <input type="text" required minLength={5} name="address" class="form-control" onChange={handleChange}></input>
+                                            <input type="text" required minLength={5} name="name" class="form-control" onChange={handleChange}></input>
                                         </div>
                                     </div>
 
@@ -78,11 +78,11 @@ return (
                                     <div className="row">
                                         <div className="col-6">
                                             <label for="" class="form-label">Comuna</label>
-                                            <input type="text" required name="city" onChange={handleChange} class="form-control"></input>
+                                            <input type="text" required name="commune" onChange={handleChange} class="form-control"></input>
                                         </div>
                                         <div className="col-6">
                                             <label for="" class="form-label">Ciudad</label>
-                                            <input type="text" required name="postCode" onChange={handleChange} class="form-control"></input>
+                                            <input type="text" required name="city" onChange={handleChange} class="form-control"></input>
                                         </div>
                                     </div>
 
@@ -96,26 +96,26 @@ return (
                                     <div className="row">
                                         <div className="col">
                                             <label for="" class="form-label">ID Factura</label>
-                                            <input type="text" required name="recipient" onChange={handleChange} class="form-control"></input>
+                                            <input type="text" required name="invoice_id" onChange={handleChange} class="form-control"></input>
                                         </div>
                                         <div className="col">
                                             <label for="" class="form-label">ID Despacho</label>
-                                            <input type="email" required name="email" onChange={handleChange} class="form-control"></input>
+                                            <input type="text" required name="office_id" onChange={handleChange} class="form-control"></input>
                                         </div>
                                     </div>
 
                                     <div className="row">
                                         <div className="col">
                                             <label for="" class="form-label">Productos</label>
-                                            <input type="text" required name="orderNumber" class="form-control"></input>
+                                            <input type="text" required name="products" onChange={handleChange} class="form-control"></input>
                                         </div>
                                         <div className="col">
                                             <label for="" class="form-label">Correo</label>
-                                            <input type="text" required name="phone" class="form-control"></input>
+                                            <input type="email" required name="email" onChange={handleChange} class="form-control"></input>
                                         </div>
                                         <div className="col">
                                             <label for="" class="form-label">Celular</label>
-                                            <input type="text" required name="cellphone" class="form-control"></input>
+                                            <input type="text" required name="cellphone" onChange={handleChange} class="form-control"></input>
                                         </div>
                                     </div>
                                     <div className="row justify-content-center pt-4">
