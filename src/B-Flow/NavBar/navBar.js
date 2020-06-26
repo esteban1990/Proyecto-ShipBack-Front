@@ -43,13 +43,6 @@ class NavBar extends Component {
                                 </a>
                             </li>
                         </Link>
-                        <Link to="/analytics">
-                            <li className="nav-item active">
-                                <a className="nav-link">
-                                    Analytics
-                                </a>
-                            </li>
-                        </Link>
                         <Link to="/settings">
                             <li className="nav-item dropdown">
                                 <a className="nav-link active" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,7 +55,7 @@ class NavBar extends Component {
                                     <Link to="/billingdetails">
                                         <a className="dropdown-item">Billing Details</a>
                                     </Link>
-                                    <Link to="/logout">
+                                    <Link to="/">
                                         <a className="dropdown-item" onClick={onLogOut} >Logout</a>
                                     </Link>
                                 </div>

@@ -1,47 +1,37 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../../store/AppContext.js";
-import { Link } from "react-router-dom";
-import './account.css';
+import { Link } from "react-router-dom"
 import NavBar from '../NavBar/navBar.js';
 
-
-const urlapi = process.env.REACT_APP_APIURL || ''
 //CONTEXT y hooks
 const Users = (props) => {
 
     const { store, actions } = useContext(Context)
 
-    // const [state, setState] = useState({
-    //     email:"",
-    //   name:"",
-    // lastname:"",
-    // phone:"",
-    //password:"",
-    //confirmPassword:"",
+    const [state, setState] = useState({
+    email:"",
+    name:"",
+    lastname:"",
+    phone:"",
+    password:"",
+    confirmPassword:"",
 
-    // })
+    })
     const handleSubmit = (e) => {
         e.preventDefault();
         if (store.email === "" || store.name === "" || store.lastname === "" || store.phone === ""
             || store.password === "" || store.confirmPassword === "") {
             alert("Se Deben llenar todos los campos")
         }
-
-        fetch(urlapi + '/users', {
-            method: 'POST',
-            body: JSON.stringify(store)
-        }).then(response => response.json()).then(posts => {
-            props.history.push('/orders')
-        })
     }
 
-    //const handleChange= (e) => {
-    //  e.preventDefault();
-    //setState({
-    //  ...state,
-    //[e.target.name] : e.target.value
-    //})
-    //}
+    const handleChange= (e) => {
+     e.preventDefault();
+    setState({
+     ...state,
+    [e.target.name] : e.target.value
+    })
+    }
 
 
     return (
@@ -60,8 +50,6 @@ const Users = (props) => {
                                 </Link>
                                 <hr />
                                 <a className="nav-link">Users</a>
-                                <hr />
-
                             </div>
                         </div>
 
@@ -71,39 +59,37 @@ const Users = (props) => {
                             <h4>Users</h4>
 
                             <div className="card  mb-5">
-                                <from onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmit}>
                                     <div className="card-body">
                                         <div className="row mt-2">
-                                            <div className="col-6">
+                                            <div className="col-12">
                                                 <label class="form-label">Email</label>
-                                                <input type="email" class="form-control" name="email" onChange={actions.handleChange}></input>
+                                                <input type="email" class="form-control" name="email" value={store.email} onChange={actions.handleChange}></input>
                                             </div>
 
-                                            <div className="col-6">
-                                                <label class="form-label">Movil</label>
-                                                <input type="text" class="form-control" name="phone" onChange={actions.handleChange}></input>
-                                            </div>
+                                            
                                         </div>
 
                                         <div className="row mt-2">
                                             <div className="col-6">
                                                 <label class="form-label">First Name</label>
-                                                <input type="text" class="form-control" name="name" onChange={actions.handleChange}></input>
+                                                <input type="text" class="form-control" name="name" value={store.firstName} onChange={actions.handleChange}></input>
                                             </div>
                                             <div className="col-6">
                                                 <label class="form-label">Last Name</label>
-                                                <input type="text" class="form-control" name="lastname" onChange={actions.handleChange}></input>
+                                                <input type="text" class="form-control" name="lastname" value={store.lastName} onChange={actions.handleChange}></input>
                                             </div>
                                         </div>
 
                                         <div className="row mt-2">
                                             <div className="col-6">
                                                 <label class="form-label">Password</label>
-                                                <input type="password" class="form-control" name="password" onChange={actions.handleChange}></input>
+                                                <input type="password" class="form-control" name="password" value={store.password} onChange={actions.handleChange}></input>
                                             </div>
                                             <div className="col-6">
                                                 <label class="form-label">Confirm Password</label>
-                                                <input type="password" class="form-control" name="confirmPassword" onChange={actions.handleChange}></input>
+                                                <input type="password" class="form-control" name="confirmPassword" value={store.confirmPassword}
+                                                    onChange={actions.handleChange}></input>
                                             </div>
                                         </div>
 
@@ -118,7 +104,7 @@ const Users = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                </from>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -127,6 +113,6 @@ const Users = (props) => {
             </div>
         </div>
     )
-    }
+}
 
 export default Users
