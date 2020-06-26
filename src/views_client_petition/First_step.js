@@ -24,7 +24,7 @@ const AskedNumber = (props) => {
              alert("Se deben de llenar todos los campos")
              return;
          }
-        fetch("http://127.0.0.1:5000/" + '/posts', {
+        fetch(urlapi + 'petitions', {
             method: 'POST',
             body: JSON.stringify(state)
         }).then(response => response.json()).then(posts => {

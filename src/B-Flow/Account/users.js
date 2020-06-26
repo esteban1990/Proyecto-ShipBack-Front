@@ -1,8 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../../store/AppContext.js";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import './account.css';
 import NavBar from '../NavBar/navBar.js';
 
+
+const urlapi = process.env.REACT_APP_APIURL || ''
 //CONTEXT y hooks
 const Users = (props) => {
 
@@ -23,6 +26,13 @@ const Users = (props) => {
             || store.password === "" || store.confirmPassword === "") {
             alert("Se Deben llenar todos los campos")
         }
+
+        fetch(urlapi + '/users', {
+            method: 'POST',
+            body: JSON.stringify(store)
+        }).then(response => response.json()).then(posts => {
+            props.history.push('/orders')
+        })
     }
 
     //const handleChange= (e) => {
@@ -49,16 +59,8 @@ const Users = (props) => {
                                 <Link to="/settings"><a className="nav-link">General</a>
                                 </Link>
                                 <hr />
-                                <Link to="/navbar/settings/profileUser"><a className="nav-link">My Profile</a>
-                                </Link>
-                                <hr />
                                 <a className="nav-link">Users</a>
                                 <hr />
-                                <Link to="/navbar/settings/orderStatus"><a className="nav-link">Notifications</a>
-                                </Link>
-                                <hr />
-                                <Link to="/navbar/settings/carriers"><a className="nav-link">Carriers</a>
-                                </Link>
 
                             </div>
                         </div>
@@ -125,6 +127,6 @@ const Users = (props) => {
             </div>
         </div>
     )
-}
+    }
 
 export default Users

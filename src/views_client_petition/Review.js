@@ -20,7 +20,7 @@ const Review = (props) => {
         console.log(state)
        
         }
-        fetch(urlapi + '/posts', {
+        fetch(urlapi + '/petitions', {
             method: 'POST',
             body: JSON.stringify(state)
         }).then(response => response.json()).then(posts => {
