@@ -24,7 +24,7 @@ const AskedNumber = (props) => {
              alert("Se deben de llenar todos los campos")
              return;
          }
-        fetch(urlapi + 'petitions', {
+        fetch(urlapi + '/petitions', {
             method: 'POST',
             body: JSON.stringify(state)
         }).then(response => response.json()).then(posts => {

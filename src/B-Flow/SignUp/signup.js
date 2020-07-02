@@ -27,7 +27,7 @@ const SignUp = (props) => {
       alert("Se deben de llenar todos los campos")
       return;
     }
-    fetch(urlapi + 'signup', {
+    fetch(urlapi + '/signup', {
       method: 'POST',
       body: JSON.stringify(state)
     }).then(response => response.json()).then(posts => {

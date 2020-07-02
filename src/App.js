@@ -10,8 +10,8 @@ import Home from "./views/home";
 import SignUp from './B-Flow/SignUp/signup.js';
 import LogIn from './B-Flow/Login/login.js';
 import Forgot from './B-Flow/Forgot/forgot.js';
-import Orders from './B-Flow/Orders/AllOrders/orders.js';
-import CreateOrder from "./B-Flow/Orders/CreateOrder/createOrder";
+import allOrders from "./B-Flow/Orders/allOrders.js";
+import CreateOrder from "./B-Flow/Orders/createOrder";
 import Settings from './B-Flow/Account/setting.js';
 import ProfileUser from "./B-Flow/Account/profileUser";
 import Users from "./B-Flow/Account/users";
@@ -44,7 +44,7 @@ class App extends Component {
             <Route exact path="/cambioDevolucion" component={CambioDevolucion} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={LogIn} />
-            <Route exact path="/orders" component={Orders} />
+            <Route exact path="/orders" component={allOrders} />
             <Route exact path="/createorder" component={CreateOrder} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/navbar/settings/profileUser" component={ProfileUser}/>

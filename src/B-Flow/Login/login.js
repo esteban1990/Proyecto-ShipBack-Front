@@ -24,7 +24,7 @@ const handleSubmit = (e) => {
          alert("Se deben de llenar todos los campos")
          return;
      }
-    fetch(urlapi + 'login', {
+    fetch(urlapi + '/login', {
         method: 'POST',
         body: JSON.stringify(state)
     }).then(response => response.json()).then(posts => {

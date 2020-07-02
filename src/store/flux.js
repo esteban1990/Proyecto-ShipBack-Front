@@ -1,5 +1,6 @@
-import { METHODS } from "http";
+import { METHODS, get } from "http";
 import { setServers } from "dns";
+const urlapi = process.env.REACT_APP_APIURL || ''
 
 const getState = ({ getStore, getActions, setStore }) => {
   return {
@@ -24,24 +25,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       //invoices
       invoices: {},
-      invoice_id: null,
       invoiceDate: new Date(),
       invoiceStatus: null,
       invoiceService: "",
       invoiceAmount: 0,
 
       //create order
-      Dirección: "",
-      Comuna: "",
-      Ciudad: "",
-      Nombre: "",
-      IdFactura: "",
-      IdDespacho: "",
-      Productos: "",
-      Correo: "",
-      Celular: "",
-      id: null,
-      allorders: {},
+      client_name: "",
+      streetAddress: "",
+      commune: "",
+      city: "",
+      invoice_id: "",
+      office_id: "",
+      products: "",
+      client_email: "",
+      cellphone: "",
+      courrier:"",
+      price:"",
+
+     allorders: [
+        { id:"",client_name:"",streetAddress:"", commune:"",city:"",
+      invoice_id:"", office_id:"",products:"",price:"",courrier:"",client_email:"",cellphone:""}
+     ],
+      
+
+      //order Results view ORDERS
+    //  orderViewResults: {},
+      //idFactura: 0,
+      //idDespacho: 0,
+      //productos: "",
+  
+
 
 
       //Settings
@@ -50,7 +64,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       companyName: "",
       emailContact: "",
       address: "",
-      city: "",
+
 
       // variables del pedido
       pedidos: [],
@@ -59,7 +73,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       descripcionPedido: {},
 
       //variables del producto
-      productos: {},
+ 
       idProducto: 0,
       nombreProducto: "",
       descripcionProducto: {}
@@ -67,7 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
 
     actions: {
-      
+
       handleChange: e => {
         setStore({
           [e.target.name]: e.target.storename,
@@ -136,7 +150,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       },
 
-         //     .then(resp => resp.json())
+      //     .then(resp => resp.json())
       //     .then(data => {
       //       console.log(data)
       //       if(data.msg){
@@ -163,6 +177,21 @@ const getState = ({ getStore, getActions, setStore }) => {
       //     })
       // },
 
+
+      // handleChangeUser: e => {
+      //   setStore({
+      //     [e.target.name]: e.target.storename,
+      //     [e.target.name]: e.target.contactName,
+      //     [e.target.name]: e.target.companyName,
+      //     [e.target.name]: e.target.contactPhone,
+      //     [e.target.name]: e.target.industry,
+      //     [e.target.name]: e.target.emailContact,
+      //     [e.target.name]: e.target.address,
+      //     [e.target.name]: e.target.city,
+      //   })
+      // },
+
+
       editUser: (history) => {
         const store = getStore();
         setStore({
@@ -173,8 +202,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           address: store.address,
           city: store.city
         })
-
-        fetch("reqres.in/api/users" + store.idUsuario, {
+        fetch("http://127.0.0.1:5000/users" + store.idUsuario, {
+          method: "PUT",
+          body: JSON.stringify({
+            email: store.email,
+            firstName: store.firstName,
+            lastName: store.lastName,
+            newPassword: store.newPassword,
+            confirmPassword: store.confirmPassword
+          }),
+          headers: {
+            "Content Type": "application/json"
+          }
         })
           .then(function (response) {
             if (response.ok)
@@ -206,7 +245,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         })
 
-        fetch("reqres.in/api/users", {
+        fetch("http://127.0.0.1:5000/users", {
           method: "POST",
           body: JSON.stringify({
             email: store.email,
@@ -216,7 +255,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             confirmPassword: store.confirmPassword
           }),
           headers: {
-          
+
             "Content-Type": "application/json"
           }
         })
@@ -240,7 +279,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
-     
+
       editBillingDetails: (history) => {
         const store = getStore();
         setStore({
@@ -249,7 +288,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           month: store.month,
           year: store.year
         })
-        fetch("reqres.in/api/billingdetails", {
+        fetch("http://127.0.0.1:5000/billingdetails", {
           method: "PUT",
           body: JSON.stringify({
             cardNumber: store.cardNumber,
@@ -277,7 +316,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
-      
+
       createBillingDetails: (history) => {
         const store = getStore();
         setStore({
@@ -286,7 +325,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           month: store.month,
           year: store.year
         })
-        fetch("reqres.in/api/billingdetails", {
+        fetch("http://127.0.0.1:5000/billingdetails", {
           method: "POST",
           body: JSON.stringify({
             cardNumber: store.cardNumber,
@@ -322,35 +361,23 @@ const getState = ({ getStore, getActions, setStore }) => {
       //       props.history.push('/orders')
       //   })
       // },
-
-      createOrder: (history) => {
+      
+      createOrder: (e, history) => {
+        e.preventDefault();
         const store = getStore();
-        setStore({
-          address: store.address,
-          streetAddress: store.streetAddress,
-          apartament: store.apartament,
-          email: store.email,
-          city: store.city,
-          recipent: store.recipient,
-          orderNumber: store.orderNumber,
-          state: store.state,
-          phone: store.phone,
-          postCode: store.postCode
-
-        })
-        fetch("reqres.in/api/orders", {
+        fetch(urlapi +"/orders", {
           method: "POST",
           body: JSON.stringify({
-            address: store.address,
+            client_name: store.client_name,
             streetAddress: store.streetAddress,
-            apartament: store.apartament,
-            email: store.email,
+            commune: store.commune,
             city: store.city,
-            recipent: store.recipient,
-            orderNumber: store.orderNumber,
-            state: store.state,
-            phone: store.phone,
-            postCode: store.postCode
+            invoice_id: store.invoice_id,
+            office_id: store.office_id,
+            products: store.products,
+            courrier:store.courrier,
+            client_email: store.client_email,
+            cellphone: store.cellphone
           }),
           headers: {
             "Content-Type": "application/json"
@@ -362,17 +389,53 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then(function (data) {
             console.log(data);
-            setStore({
-              name: "",
-              lastname: "",
-              email: "",
-              city: "",
-              state: "",
-              postCode: ""
-            })
+            getActions().listarOrdenes();
             history.push("/orders")
           })
       },
+    
+
+      listarOrdenes: () => {
+        const store = getStore();
+        fetch(urlapi + '/orders', {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              allorders: data
+            })
+          })
+      },
+
+
+      deleteOrder: (id) => {
+        const store = getStore();
+        fetch(urlapi + "/orders/" + id, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json()
+          })
+          .then(function (data) {
+            console.log(data);
+            getActions().listarOrdenes();
+          })
+      },
+
+
+
 
       createInvoice: (history) => {
         const store = getStore();
@@ -384,7 +447,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           invoiceAmount: store.invoiceAmount
 
         })
-        fetch("reqres.in/api/invoices", {
+        fetch("http://127.0.0.1:5000/invoices", {
           method: "POST",
           body: JSON.stringify({
             invoice_id: store.invoice_id,
@@ -445,7 +508,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      
+
 
       handleChange: e => {
         e.preventDefault()
@@ -479,7 +542,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       listarInvoices: () => {
         const store = getStore();
-        fetch("reqres.in/api/invoices", {
+        fetch("http://127.0.0.1:5000/invoices", {
           method: "GET",
           headers: {
             "Content Type": "application/json"
@@ -519,27 +582,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
-      listarOrdenes: () => {
-        const store = getStore();
-        fetch("reqres.in/api/ordenes", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-          .then(function (response) {
-            if (response.ok)
-              return response.json();
-          })
-          .then(function (data) {
-            console.log(data);
-            setStore({
-              allorders: data
-            })
-          })
 
-
-      },
 
 
       listarProductos: () => {
@@ -612,7 +655,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           descripcionPedido: store.descripcionPedido
 
         })
-        fetch("reqres.in/api/pedido" + store.idPedido, {
+        fetch("http://127.0.0.1:5000/pedido" + store.idPedido, {
           method: "PUT",
           body: JSON.stringify({
             numeroPedido: store.numeroPedido,
@@ -637,9 +680,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             getActions().listarPedidos();
             history.push("/pedidos")
           })
-      },
+      }
 
     }
   }
 }
+
 export default getState;
