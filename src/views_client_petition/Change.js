@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import { Link } from "react-router-dom";
 import './client.css'
 
-const urlapi = process.env.REACT_APP_APIURL || ''
+
 
 const Change = (props) => {
     const [state, setState] = useState({
@@ -28,7 +28,7 @@ const Change = (props) => {
              alert("Se deben de llenar todos los campos")
              return;
          }
-        fetch(urlapi + '/posts', {
+        fetch("http://127.0.0.1:5000/" + '/posts', {
             method: 'POST',
             body: JSON.stringify(state)
         }).then(response => response.json()).then(posts => {
