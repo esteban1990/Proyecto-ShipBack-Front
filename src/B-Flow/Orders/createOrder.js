@@ -88,15 +88,19 @@ return (
                                     <div className="row">
                                         <div className="col">
                                             <label for="" class="form-label">ID Factura</label>
-                                            <input type="text" required name="invoice_id" value={store.invoice_id} onChange={actions.handleChange} class="form-control"></input>
+                                            <input type="number" required name="invoice_id" min="5" value={store.invoice_id} onChange={actions.handleChange} class="form-control"></input>
                                         </div>
                                         <div className="col">
                                             <label for="" class="form-label">ID Despacho</label>
-                                            <input type="text" required name="office_id" value={store.office_id} onChange={actions.handleChange} class="form-control"></input>
+                                            <input type="number" required name="office_id" min="5" value={store.office_id} onChange={actions.handleChange} class="form-control"></input>
                                         </div>
                                         <div className="col">
-                                            <label for="" class="form-label">Courrier</label>
-                                            <input type="text" required name="courrier" value={store.courrier} onChange={actions.handleChange} class="form-control"></input>
+                                        <label for="" class="form-label">Courier</label>
+                                                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required onChange={actions.handleChange} value={store.courrier} name="courrier">
+                                                    <option selected>Seleccione</option>
+                                                    <option value="chilexpress">Chilexpress.</option>
+                                                    <option value="dhl">DHL Express.</option>
+                                                </select> 
                                         </div>
 
                                     </div>
@@ -113,6 +117,7 @@ return (
                                             <label for="" class="form-label">Celular</label>
                                             <input type="text" required name="cellphone" value={store.cellphone} onChange={actions.handleChange} class="form-control"></input>
                                         </div>
+                                    
                                     </div>
                                     <div className="row justify-content-center pt-4">
                                         <div className="col-6">
