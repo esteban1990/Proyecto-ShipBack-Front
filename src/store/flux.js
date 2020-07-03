@@ -45,9 +45,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
      allorders: [
         { id:"",client_name:"",streetAddress:"", commune:"",city:"",
-      invoice_id:"", office_id:"",products:"",price:"",courrier:"",client_email:"",cellphone:""}
-     ],
-      
+      invoice_id:"", office_id:"",products:"",price:"",courrier:"",
+      client_email:"",user_email:"",cellphone:""}
+          
+    ],
+    listarOrdenesConfirmadas:[
+      { id:"",client_name:"",streetAddress:"", commune:"",city:"",
+    invoice_id:"", office_id:"",products:"",price:"",courrier:"",
+    client_email:"",user_email:"",cellphone:""}
+    ],
 
       //order Results view ORDERS
     //  orderViewResults: {},
@@ -149,47 +155,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
 
       },
-
-      //     .then(resp => resp.json())
-      //     .then(data => {
-      //       console.log(data)
-      //       if(data.msg){
-      //         setStore({
-      //           errors: data
-      //         })
-      //       }
-      //       else{
-      //         const aut = {
-      //           storeName: "",
-      //           contactName: "",
-      //           companyName: "",
-      //           contactPhone: "",
-      //           industry: "",
-      //           emailContact: "",
-      //           address: "",
-      //           city: ""
-      //         }
-      //         localStorage.setItem('auth', JSON.stringify(aut))
-      //         setStore({...aut})
-      //         //redirige a la ruta deseada
-      //         history.push("/settings")
-      //       }
-      //     })
-      // },
-
-
-      // handleChangeUser: e => {
-      //   setStore({
-      //     [e.target.name]: e.target.storename,
-      //     [e.target.name]: e.target.contactName,
-      //     [e.target.name]: e.target.companyName,
-      //     [e.target.name]: e.target.contactPhone,
-      //     [e.target.name]: e.target.industry,
-      //     [e.target.name]: e.target.emailContact,
-      //     [e.target.name]: e.target.address,
-      //     [e.target.name]: e.target.city,
-      //   })
-      // },
 
 
       editUser: (history) => {
@@ -361,6 +326,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       //       props.history.push('/orders')
       //   })
       // },
+
+      
+
+     
       
       createOrder: (e, history) => {
         e.preventDefault();
@@ -377,7 +346,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             products: store.products,
             courrier:store.courrier,
             client_email: store.client_email,
-            cellphone: store.cellphone
+            cellphone: store.cellphone,
+            user_email:store.user_email
           }),
           headers: {
             "Content-Type": "application/json"
@@ -393,8 +363,63 @@ const getState = ({ getStore, getActions, setStore }) => {
             history.push("/orders")
           })
       },
-    
 
+
+      confirmOrder: (history) => {
+   
+        const store = getStore();
+        fetch(urlapi +"/tracking", {
+          method: "PUT",
+          body: JSON.stringify({
+            client_name: store.client_name,
+            streetAddress: store.streetAddress,
+            commune: store.commune,
+            city: store.city,
+            invoice_id: store.invoice_id,
+            office_id: store.office_id,
+            products: store.products,
+            courrier:store.courrier,
+            client_email: store.client_email,
+            cellphone: store.cellphone,
+            user_email:store.user_email
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            getActions().allOrdersConfirm();
+            history.push("/tracking")
+          })
+      },
+    
+     allOrdersConfirm: () =>{
+          const store=getStore();
+
+          fetch(urlapi+ "/tracking",{
+            method: "GET",
+            headers: {
+              "Content-Type": "applications/json"
+
+            }
+          })
+          .then(function(response){
+            if(response.ok)
+              return response.json();
+          })
+          .then(function(data){
+            console.log(data);
+            setStore({listarOrdenesConfirmadas: data})
+          })
+      } ,
+      
+
+      
       listarOrdenes: () => {
         const store = getStore();
         fetch(urlapi + '/orders', {
@@ -416,9 +441,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      deleteOrder: (id) => {
+      deleteOrder: (invoice_id) => {
         const store = getStore();
-        fetch(urlapi + "/orders/" + id, {
+        fetch(urlapi + "/orders/" + invoice_id, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json"
@@ -433,8 +458,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             getActions().listarOrdenes();
           })
       },
-
-
 
 
       createInvoice: (history) => {

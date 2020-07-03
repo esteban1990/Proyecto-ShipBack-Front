@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../../store/AppContext.js";
 import NavBar from '../NavBar/navBar.js';
 import { Link } from "react-router-dom";
@@ -8,7 +8,9 @@ import { Link } from "react-router-dom";
 const AllOrders = (props) => {
 
   const { store, actions } = useContext(Context)
-
+  useEffect(() =>{
+    actions.listarOrdenes();
+  },[] )
   return (
 
 
@@ -19,12 +21,12 @@ const AllOrders = (props) => {
         <table class="table">
           <thead>
             <tr>
-
+            
               <th scope="col">ID Factura</th>
+              <th scopre="col">ID Order</th>
               <th scope="col">ID Despacho</th>
               <th scope="col">Prodcutos</th>
               <th scope="col">Courrier</th>
-              <th scope="col">Precio</th>
               <th scope="col">Borrar</th>
               <th scope="col">Confirmar</th>
             </tr>
@@ -37,17 +39,15 @@ const AllOrders = (props) => {
 
                   <tr key={i}>
                     <th scope="row">{order.invoice_id}</th>
+                    <td>{order.id}</td>
                     <td>{order.office_id}</td>
                     <td>{order.products}</td>
                     <td>{order.courrier}</td>
-                    <td>{order.price}</td>
-                    <td><button className="btn btn-danger" onClick={() => actions.deleteOrder(order.id)}>Borrar</button></td>
-                    <td><Link to={"/tracking"}> Confirmar</Link></td>
+                    <td><button className="btn btn-danger" onClick={() => actions.deleteOrder(order.invoice_id)}>Borrar</button></td>
+                    <td><button className="btn btn-primary" onClick={() =>actions.confirmOrder(order.invoice_id,props.history)}><Link to={"/tracking"}> Confirmar</Link></button></td>
                   </tr>
                 )
-
               })
-
             }
           </tbody>
         </table>
