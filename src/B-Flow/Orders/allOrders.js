@@ -22,7 +22,7 @@ const AllOrders = (props) => {
 
               <th scope="col">ID Factura</th>
               <th scope="col">ID Despacho</th>
-              <th scope="col">Prodcutos</th>
+              <th scope="col">Productos</th>
               <th scope="col">Courrier</th>
               <th scope="col">Precio</th>
               <th scope="col">Borrar</th>

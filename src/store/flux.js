@@ -1,10 +1,22 @@
 import { METHODS, get } from "http";
 import { setServers } from "dns";
+import M from 'materialize-css';
+import history from "../views/history";
+import Auth from '../helpers/auth';
+import { useHistory } from "react-router-dom"; 
+
 const urlapi = process.env.REACT_APP_APIURL || ''
 
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
+      user_data: {
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: ""
+      },
+
       //todo lo que sea componente form se tiene que validar en el headers del fetch
       //variables para registrarse, declarandolas en el store
       path: "http://localhost:3000",
@@ -40,21 +52,23 @@ const getState = ({ getStore, getActions, setStore }) => {
       products: "",
       client_email: "",
       cellphone: "",
-      courrier:"",
-      price:"",
+      courrier: "",
+      price: "",
 
-     allorders: [
-        { id:"",client_name:"",streetAddress:"", commune:"",city:"",
-      invoice_id:"", office_id:"",products:"",price:"",courrier:"",client_email:"",cellphone:""}
-     ],
-      
+      allorders: [
+        {
+          id: "", client_name: "", streetAddress: "", commune: "", city: "",
+          invoice_id: "", office_id: "", products: "", price: "", courrier: "", client_email: "", cellphone: ""
+        }
+      ],
+
 
       //order Results view ORDERS
-    //  orderViewResults: {},
+      //  orderViewResults: {},
       //idFactura: 0,
       //idDespacho: 0,
       //productos: "",
-  
+
 
 
 
@@ -73,7 +87,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       descripcionPedido: {},
 
       //variables del producto
- 
+
       idProducto: 0,
       nombreProducto: "",
       descripcionProducto: {}
@@ -81,6 +95,83 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
 
     actions: {
+      registration: (history) => {
+        const store = getStore();
+        fetch(urlapi + "/signup", {
+          method: "POST",
+          body: JSON.stringify(store.user_data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(resp => resp.json())
+          .then(data => { if (data.success) { M.toast({ html: 'User created succesfully' }); history.push("/login") } })
+          .catch(err => console.log(err));
+      },
+      login: (history) => {
+        const store = getStore()
+        fetch(urlapi + "/login", {
+          method: "POST",
+          body: JSON.stringify({
+            email: store.user_data.email,
+            password: store.user_data.password
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(resp => resp.json())
+          .then(data => {
+            if (data.success) {
+              M.toast({ html: "Login succesfully" }); sessionStorage.setItem("token", data.access_token); history.push("/orders");
+            }
+          })
+          .catch(error => console.log(error))
+        if (sessionStorage.getItem("token") !== " ") {
+          Auth.authenticated();
+          history.push("/orders")
+        }
+      },
+      handleChangeRegistration: (evento) => {
+        console.log(evento.target.value);
+        const store = getStore();
+        let { user_data } = store;
+        user_data[evento.target.id] = evento.target.value;
+        setStore({ user_data: user_data });
+      },
+      submitLogin: (e, history) => {
+        e.preventDefault();
+        const store = getStore();
+        let { user_data } = store;
+        let re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+        let reEmail = /\S+@\S+\.\S+/;
+        if (user_data.password === "" || user_data.email === "") {
+          M.toast({ html: 'A form field is currently in blank' })
+        } else if (!re.test(user_data.password)) {
+          M.toast({ html: 'Password must contain at least 6 characters long, one uppercase letter and one number.', displayLength: 6000 })
+        } else if (!reEmail.test(user_data.email)) {
+          M.toast({ html: 'Invalid email input' })
+        } else {
+          getActions().login(history);
+        }
+      },
+      submitRegistration: (e, history) => {
+        e.preventDefault();
+        const store = getStore();
+        let { user_data } = store;
+        let re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+        let reEmail = /\S+@\S+\.\S+/;
+        if (user_data.password === "" || user_data.firstname === "" || user_data.lastname === "" || user_data.email === "") {
+          M.toast({ html: 'A form field is currently in blank' })
+        } else if (!re.test(user_data.password)) {
+          M.toast({ html: 'Password must contain at least 6 characters long, one uppercase letter and one number.', displayLength: 6000 })
+        } else if (!reEmail.test(user_data.email)) {
+          M.toast({ html: 'Invalid email input' })
+        } else {
+          getActions().registration(history);
+        }
+      },
+
+
+      //trabajo previo
 
       handleChange: e => {
         setStore({
@@ -361,11 +452,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       //       props.history.push('/orders')
       //   })
       // },
-      
+
       createOrder: (e, history) => {
         e.preventDefault();
         const store = getStore();
-        fetch(urlapi +"/orders", {
+        fetch(urlapi + "/orders", {
           method: "POST",
           body: JSON.stringify({
             client_name: store.client_name,
@@ -375,7 +466,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             invoice_id: store.invoice_id,
             office_id: store.office_id,
             products: store.products,
-            courrier:store.courrier,
+            courrier: store.courrier,
             client_email: store.client_email,
             cellphone: store.cellphone
           }),
@@ -393,7 +484,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             history.push("/orders")
           })
       },
-    
+
 
       listarOrdenes: () => {
         const store = getStore();
