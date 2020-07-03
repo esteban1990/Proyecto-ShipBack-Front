@@ -1,50 +1,61 @@
-import React, { Component } from 'react';
+import React, { useContext, useEffect } from "react";
+import { Context } from "../../store/AppContext.js";
 import NavBar from '../NavBar/navBar.js';
-import { DateSelector, CourrierSelector, ButtonSelectAll, ButtonDelete, ButtonConfirm } from './Components/buttons.js';
-import DataTable from './Components/dataTable.js';
 
-class Tracking extends Component {
-    render() {
-        return (
-            <div>
+
+
+
+const Tracking = (props) => {
+
+    const { store, actions } = useContext(Context)
+
+    useEffect(() => {
+        actions.allOrdersConfirm();
+    }, [])
+    return (
+
+
+        <div class="pb-5">
             <NavBar />
-            <div>
-            <div className='orders'>
-                <nav className="navbar">
-                <div className='NavBarButtons'>
-                    <a className="navbar-brand items">
-                    <span className='mr-2'>From:</span> <DateSelector />
-                    </a>
-                    <a className="navbar-brand items">
-                    <span className='mr-2'>To:</span>
-                    <DateSelector />
-                    </a>
-                    <a className="navbar-brand items">
-                    <span className='mr-2'>Courrier:</span>
-                    <CourrierSelector />
-                    </a>
-                    <div className='button1'>
-                    <ButtonSelectAll />
-                    </div>
-                    <div className='button2'>
-                    <ButtonDelete />
-                    </div>
-                    <div className='button3'>
-                    <ButtonConfirm />
-                    </div>
-                </div>
-                </nav>
-                <div className='dataTable'>
-                <DataTable />
-                </div>
-            </div>
-            
-      
-            </div>
-            </div>
 
-        )
-    }
+            <div className="container pt-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">ID Factura</th>
+                            <th scope="col">ID Order</th>
+                            <th scope="col">ID Despacho</th>
+                            <th scope="col">Prodcutos</th>
+                            <th scope="col">Courrier</th>
+                            <th scope="col">Borrar</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            store.listarOrdenesConfirmadas.length > 0 &&
+                            store.listarOrdenesConfirmadas.map((order, i) => {
+                                return (
+
+                                    <tr key={i}>
+                                        <th scope="row">{order.invoice_id}</th>
+                                        <td>{order.id}</td>
+                                        <td>{order.office_id}</td>
+                                        <td>{order.products}</td>
+                                        <td>{order.courrier}</td>
+                                        <td><button className="btn btn-danger" onClick={() => actions.deleteOrder(order.invoice_id)}>Borrar</button></td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    )
 }
 
-export default Tracking
+export default Tracking;
+
