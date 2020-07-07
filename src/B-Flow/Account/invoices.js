@@ -5,8 +5,11 @@ import { Context } from "../../store/AppContext.js";
 
 
 const Invoices = (props) => {
-
+  
   const { store, actions } = useContext(Context)
+  //useEffect(() =>{
+    //actions.listarInvoices();
+  //},[] )
 
   return (
     <div>
@@ -52,8 +55,8 @@ const Invoices = (props) => {
                       <tbody>
                         {
 
-                          store.invoices.length > 0 &&
-                          store.invoices.map((invoice, i) => {
+                          store.allInvoices.length > 0 &&
+                          store.allInvoices.map((invoice, i) => {
                             return (
 
 

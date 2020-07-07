@@ -3,7 +3,8 @@ import { setServers } from "dns";
 import M from 'materialize-css';
 import history from "../views/history";
 import Auth from '../helpers/auth';
-import { useHistory } from "react-router-dom"; 
+import { useHistory } from "react-router-dom";
+
 
 const urlapi = process.env.REACT_APP_APIURL || ''
 
@@ -27,7 +28,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       confirmPassword: "",
       currentPassword: "",
       idUsuario: null,
-      allUsers: {},
+
+
+    //  allUsers: [{
+      //  idUser:"", name:"", lastName:"",email:"",
+      //}],
 
       //Billing Details
       cardNumber: null,
@@ -35,12 +40,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       month: null,
       year: null,
 
-      //invoices
-      invoices: {},
-      invoiceDate: new Date(),
-      invoiceStatus: null,
-      invoiceService: "",
-      invoiceAmount: 0,
 
       //create order
       client_name: "",
@@ -62,25 +61,37 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       ],
 
-     allorders: [
-        { id:"",client_name:"",streetAddress:"", commune:"",city:"",
-      invoice_id:"", office_id:"",products:"",price:"",courrier:"",
-      client_email:"",user_email:"",cellphone:""}
-          
-    ],
-    listarOrdenesConfirmadas:[
-      { id:"",client_name:"",streetAddress:"", commune:"",city:"",
-    invoice_id:"", office_id:"",products:"",price:"",courrier:"",
-    client_email:"",user_email:"",cellphone:""}
-    ],
+      listarOrdenesConfirmadas: [
+        {
+          id: "", client_name: "", streetAddress: "", commune: "", city: "",
+          invoice_id: "", office_id: "", products: "", price: "", courrier: "",
+          client_email: "", user_email: "", cellphone: ""
+        }
+      ],
 
-      //order Results view ORDERS
-      //  orderViewResults: {},
-      //idFactura: 0,
-      //idDespacho: 0,
-      //productos: "",
+      allSenderDetails: [
+        {
+          storeName: "",
+          contactName: "",
+          companyName: "",
+          contactPhone: "",
+          industry: "",
+          emailContact: "",
+          address: "",
+          city: ""
+        }
 
+      ],
 
+      allInvoices: [
+        {
+          invoiceID: "",
+          invoiceDate: "",
+          invoiceStatus: false,
+          invoiceService: "",
+          invoiceAmount: ""
+        }
+      ],
 
 
       //Settings
@@ -184,6 +195,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       //trabajo previo
 
+      
+
+
+
+
+
+
+
       handleChange: e => {
         setStore({
           [e.target.name]: e.target.storename,
@@ -201,19 +220,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         e.preventDefault();
         const store = getStore();
 
-        // setStore({
-
-        //   storeName: store.storeName,
-        //   contactName: store.contactName,
-        //   companyName: store.companyName,
-        //   contactPhone: store.contactPhone,
-        //   industry: store.industry,
-        //   emailContact: store.emailContact,
-        //   address: store.address,
-        //   city: store.city,
-        // })
-
-        fetch("http://127.0.0.1:5000/settings", {
+        fetch(urlapi + "/settings ", {
           method: "POST",
           body: JSON.stringify({
             storeName: store.storeName,
@@ -244,25 +251,33 @@ const getState = ({ getStore, getActions, setStore }) => {
               emailContact: "",
               address: "",
               city: ""
-
             });
-            //redirige a la ruta deseada
+            getActions().allSenderDetails();
             history.push("/settings")
           })
 
       },
 
+      listarSenderDetails: () => {
+
+        const store = getStore();
+        fetch(urlapi + "/settings", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            setStore({ allSenderDetails: data })
+          })
+      },
 
       editUser: (history) => {
         const store = getStore();
-        setStore({
-          Storename: store.Storename,
-          contactName: store.contactName,
-          companyName: store.companyName,
-          emailContact: store.emailContact,
-          address: store.address,
-          city: store.city
-        })
         fetch("http://127.0.0.1:5000/users" + store.idUsuario, {
           method: "PUT",
           body: JSON.stringify({
@@ -297,15 +312,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       createUserSettings: (history) => {
         const store = getStore();
-        setStore({
-          email: store.email,
-          firstName: store.firstName,
-          lastName: store.lastName,
-          newPassword: store.newPassword,
-          confirmPassword: store.confirmPassword
-
-        })
-
         fetch("http://127.0.0.1:5000/users", {
           method: "POST",
           body: JSON.stringify({
@@ -343,12 +349,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       editBillingDetails: (history) => {
         const store = getStore();
-        setStore({
-          cardNumber: store.cardNumber,
-          cvv: store.cvv,
-          month: store.month,
-          year: store.year
-        })
         fetch("http://127.0.0.1:5000/billingdetails", {
           method: "PUT",
           body: JSON.stringify({
@@ -380,12 +380,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       createBillingDetails: (history) => {
         const store = getStore();
-        setStore({
-          cardNumber: store.cardNumber,
-          cvv: store.cvv,
-          month: store.month,
-          year: store.year
-        })
         fetch("http://127.0.0.1:5000/billingdetails", {
           method: "POST",
           body: JSON.stringify({
@@ -423,10 +417,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       //   })
       // },
 
-      
 
-     
-      
+
+
+
       createOrder: (e, history) => {
         e.preventDefault();
         const store = getStore();
@@ -443,7 +437,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             courrier: store.courrier,
             client_email: store.client_email,
             cellphone: store.cellphone,
-            user_email:store.user_email
+            user_email: store.user_email
           }),
           headers: {
             "Content-Type": "application/json"
@@ -462,9 +456,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
       confirmOrder: (history) => {
-   
+
         const store = getStore();
-        fetch(urlapi +"/tracking", {
+        fetch(urlapi + "/tracking", {
           method: "PUT",
           body: JSON.stringify({
             client_name: store.client_name,
@@ -474,10 +468,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             invoice_id: store.invoice_id,
             office_id: store.office_id,
             products: store.products,
-            courrier:store.courrier,
+            courrier: store.courrier,
             client_email: store.client_email,
             cellphone: store.cellphone,
-            user_email:store.user_email
+            user_email: store.user_email
           }),
           headers: {
             "Content-Type": "application/json"
@@ -493,29 +487,28 @@ const getState = ({ getStore, getActions, setStore }) => {
             history.push("/tracking")
           })
       },
-    
-     allOrdersConfirm: () =>{
-          const store=getStore();
 
-          fetch(urlapi+ "/tracking",{
-            method: "GET",
-            headers: {
-              "Content-Type": "applications/json"
+      allOrdersConfirm: () => {
+        const store = getStore();
+        fetch(urlapi + "/tracking", {
+          method: "GET",
+          headers: {
+            "Content-Type": "applications/json"
 
-            }
-          })
-          .then(function(response){
-            if(response.ok)
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
               return response.json();
           })
-          .then(function(data){
+          .then(function (data) {
             console.log(data);
-            setStore({listarOrdenesConfirmadas: data})
+            setStore({ listarOrdenesConfirmadas: data })
           })
-      } ,
-      
+      },
 
-      
+
+
       listarOrdenes: () => {
         const store = getStore();
         fetch(urlapi + '/orders', {
@@ -537,6 +530,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
+
       deleteOrder: (invoice_id) => {
         const store = getStore();
         fetch(urlapi + "/orders/" + invoice_id, {
@@ -556,112 +550,36 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      createInvoice: (history) => {
+      createInvoice: (e, history) => {
+        e.preventDefault();
         const store = getStore();
-        setStore({
-          invoice_id: store.invoice_id,
-          invoiceDate: store.invoiceDate,
-          invoiceStatus: store.invoiceStatus,
-          invoiceService: store.invoiceService,
-          invoiceAmount: store.invoiceAmount
-
-        })
-        fetch("http://127.0.0.1:5000/invoices", {
+        fetch(urlapi + "/invoices", {
           method: "POST",
           body: JSON.stringify({
-            invoice_id: store.invoice_id,
+            invoice_id: store.invoice.id,
             invoiceDate: store.invoiceDate,
             invoiceStatus: store.invoiceStatus,
             invoiceService: store.invoiceService,
             invoiceAmount: store.invoiceAmount
-          })
-        })
-      },
-
-
-      seleccionarInvoice: (invoice) => {
-        const store = getStore();
-        console.log(invoice)
-        setStore({
-          invoice_id: invoice.id,
-          invoiceDate: invoice.date,
-          invoiceStatus: invoice.status,
-          invoiceService: invoice.service,
-          invoiceAmount: invoice.amount
-        })
-
-      },
-
-      eliminarInvoice: (invoice) => {
-        const store = getStore();
-        fetch("reqres/api/invoices/" + invoice.id, {
-          method: "DELETE",
+          }),
           headers: {
             "Content-Type": "application/json"
           }
         })
-          .then(function (response) {
-            if (response.ok)
-              return response.json()
-          })
-          .then(function (data) {
-            console.log(data);
-            getActions().listarInvoices();
-          })
-      },
-
-      eliminarProducto: (producto) => {
-        const store = getStore();
-        fetch(store.path + '/api/data_productos/' + producto.id, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          }
+        .then(function(response){
+          if(response.ok)
+          return response.json();
         })
-          .then(resp => resp.json())
-          .then(data => {
-            console.log(data)
-            getActions().listarProductos();
-          })
-
-      },
-
-
-
-
-      handleChange: e => {
-        e.preventDefault()
-        setStore({
-          [e.target.name]: e.target.value
+        .then(function(data){
+          console.log(data)
+          getActions().allInvoices();
+          history.push("/invoices")
         })
-      },
-
-
-
-
-      listarPedidos: () => {
-        const store = getStore();
-        fetch(store.path + "/orders", {
-          method: "GET",
-          headers: {
-            "Content Type": "application/json"
-          }
-        })
-          .then(function (response) {
-            if (response.ok)
-              return response.json();
-          })
-          .then(function (data) {
-            console.log(data)
-            setStore({
-              pedidos: data
-            })
-          })
       },
 
       listarInvoices: () => {
         const store = getStore();
-        fetch("http://127.0.0.1:5000/invoices", {
+        fetch(urlapi + "/invoices", {
           method: "GET",
           headers: {
             "Content Type": "application/json"
@@ -674,135 +592,248 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (data) {
             console.log(data);
             setStore({
-              invoices: data
+              allInvoices: data
             })
           })
       },
 
+          
+       
 
-      listarUsuarios: () => {
-        const store = getStore();
+    seleccionarInvoice: (invoice) => {
+      const store = getStore();
+      console.log(invoice)
+      setStore({
+        invoice_id: invoice.id,
+        invoiceDate: invoice.date,
+        invoiceStatus: invoice.status,
+        invoiceService: invoice.service,
+        invoiceAmount: invoice.amount
+      })
 
-        fetch(store.path + "/api/users", {
-          method: "GET",
-          headers: {
-            "Content Type": "application/json"
-          }
+    },
+
+    eliminarInvoice: (invoice) => {
+      const store = getStore();
+      fetch("reqres/api/invoices/" + invoice.id, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(function (response) {
+          if (response.ok)
+            return response.json()
         })
-          .then(function (response) {
-            if (response.ok)
-              return response.json()
+        .then(function (data) {
+          console.log(data);
+          getActions().allInvoices();
+        })
+    },
+
+    eliminarProducto: (producto) => {
+      const store = getStore();
+      fetch(store.path + '/api/data_productos/' + producto.id, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          console.log(data)
+          getActions().listarProductos();
+        })
+
+    },
+
+
+
+
+    handleChange: e => {
+      e.preventDefault()
+      setStore({
+        [e.target.name]: e.target.value
+      })
+    },
+
+
+
+
+    listarPedidos: () => {
+      const store = getStore();
+      fetch(store.path + "/orders", {
+        method: "GET",
+        headers: {
+          "Content Type": "application/json"
+        }
+      })
+        .then(function (response) {
+          if (response.ok)
+            return response.json();
+        })
+        .then(function (data) {
+          console.log(data)
+          setStore({
+            pedidos: data
           })
-          .then(function (data) {
-            console.log(data);
-            setStore({
-              allUsers: data
-            })
+        })
+    },
+
+  
+
+    listarUsuarios: () => {
+      const store = getStore();
+      fetch(urlapi + "/admi_users", {
+        method: "GET",
+        headers: {
+          "Content Type": "application/json"
+        }
+      })
+        .then(function (response) {
+          if (response.ok)
+            return response.json()
+        })
+        .then(function (data) {
+          console.log(data);
+          setStore({
+            user_data: data
           })
-      },
-
-
-
-
-      listarProductos: () => {
-        const store = getStore();
-        fetch(store.path + "/api/data_productos", {
-          method: "GET",
-          headers: {
-            "Content Type": "application/json"
-          }
         })
-          .then(function (response) {
-            if (response.ok)
-              return response.json();
-          })
-          .then(function (data) {
-            console.log(data);
-            setStore({
-              productos: data
-            })
-          })
+    },
 
-      },
-
-
-
-      seleccionarProducto: (producto) => {
-        console.log(producto);
-        setStore({
-          id: producto.id,
-          nombreProducto: producto.nombre,
-          precioProducto: producto.precio,
-          descripcionProducto: producto.descripcionProducto
-        })
-      },
-
-
-      seleccionarOrder: (order, id) => {
-
-        console.log(order)
-        setStore({
-
-          id: order.id,
-          name: order.name,
-          lastname: order.lastname,
-          email: order.email,
-          city: order.city,
-          state: order.state,
-          postCode: order.postCode,
-
-
-        })
-      },
-
-      seleccionarPedido: (pedido) => {
-        console.log(pedido)
-        setStore({
-          id: pedido.idPedido,
-          numeroPedido: pedido.numeroPedido,
-          descripcionPedido: pedido.descripcionPedido
-        })
-      },
-
-
-
-      editarPedido: (history) => {
-        const store = getStore();
-        setStore({
-          numeroPedido: store.numeroPedido,
-          idPedido: store.idPedido,
-          descripcionPedido: store.descripcionPedido
-
-        })
-        fetch("http://127.0.0.1:5000/pedido" + store.idPedido, {
-          method: "PUT",
-          body: JSON.stringify({
-            numeroPedido: store.numeroPedido,
-            idPedido: store.idPedido,
-            descripcionPedido: store.descripcionPedido
-          }),
-          headers: {
-            "Content Type": "application/json"
-          }
-        })
-          .then(function (response) {
-            if (response.ok)
-              return response.json();
-          })
-          .then(function (data) {
-            console.log(data);
-            setStore({
-              idPedido: "",
-              numeroPedido: "",
-              descripcionPedido: ""
-            })
-            getActions().listarPedidos();
-            history.push("/pedidos")
-          })
+    deleteUser:(user_id) =>{
+      const store = getStore();
+      fetch(urlapi + "/admi_Usuario",{
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
       }
+      })
+      .then(function(response){
+        if(response.ok)
+        return response.json();
+      })
+      .then(function(data){
+        console.log(data)
+        getActions().listarUsuarios();
+      })
+    },
 
-    }
+    deleteOrder: (invoice_id) => {
+      const store = getStore();
+      fetch(urlapi + "/orders/" + invoice_id, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(function (response) {
+          if (response.ok)
+            return response.json()
+        })
+        .then(function (data) {
+          console.log(data);
+          getActions().listarOrdenes();
+        })
+    },
+
+
+    //  editarUsuario: (history) => {
+     //const store = getStore();
+      //fetch("http://127.0.0.1:5000/pedido" + store.idPedido, {
+       // method: "PUT",
+       // body: JSON.stringify({
+                                
+        
+       // }),
+       // headers: {
+         // "Content Type": "application/json"
+       // }
+     // })
+       // .then(function (response) {
+        // if (response.ok)
+           // return response.json();
+       // })
+        //.then(function (data) {
+         // console.log(data);
+          //setStore({
+            //idPedido: "",
+           // numeroPedido: "",
+            //descripcionPedido: ""
+        //  })
+         // getActions().listarPedidos();
+         // history.push("/pedidos")
+       // })
+
+
+    
+
+
+    listarProductos: () => {
+      const store = getStore();
+      fetch(store.path + "/api/data_productos", {
+        method: "GET",
+        headers: {
+          "Content Type": "application/json"
+        }
+      })
+        .then(function (response) {
+          if (response.ok)
+            return response.json();
+        })
+        .then(function (data) {
+          console.log(data);
+          setStore({
+            productos: data
+          })
+        })
+
+    },
+
+
+
+ //   seleccionarProducto: (producto) => {
+   //   console.log(producto);
+     // setStore({
+       // id: producto.id,
+       // nombreProducto: producto.nombre,
+       // precioProducto: producto.precio,
+       // descripcionProducto: producto.descripcionProducto
+     // })
+   // },
+
+
+   // seleccionarOrder: (order, id) => {
+
+   //   console.log(order)
+    //  setStore({
+
+      //  id: order.id,
+       // name: order.name,
+       // lastname: order.lastname,
+       // email: order.email,
+       // city: order.city,
+       // state: order.state,
+        //postCode: order.postCode,
+
+
+      //})
+    //},
+
+    //seleccionarPedido: (pedido) => {
+      //console.log(pedido)
+     // setStore({
+       // id: pedido.idPedido,
+       // numeroPedido: pedido.numeroPedido,
+       // descripcionPedido: pedido.descripcionPedido
+    //  })
+   // }
+
+
+
+
   }
-}
-
+      }
+}  
 export default getState;
