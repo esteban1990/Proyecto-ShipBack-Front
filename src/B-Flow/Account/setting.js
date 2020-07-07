@@ -38,7 +38,7 @@ const Settings = (props) => {
                     <div className="col-9">
                         <div className="container">
                             <div className="card-footer">
-                                <form onSubmit=/*{handleSubmit}*/{e=>actions.createStoreDetails(e, props.history)}>
+                                <form onSubmit={(e) => actions.createStoreDetails(e, props.history)}>
                                     <h4 className="text-center">Sender Details</h4>
                                     <hr/>
                                     <div className="row">
@@ -146,7 +146,6 @@ const Settings = (props) => {
                                             <button type="submit" class="btn btn-primary">+Add Location</button>
                                         </div>
                                     </div>
-
 
                                 </form>
                             </div>

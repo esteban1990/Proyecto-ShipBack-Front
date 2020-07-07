@@ -7,6 +7,7 @@ import './App.css';
 import injectContext from "./store/AppContext";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from "./views/home";
+import CRUD from './B-Flow/CRUD/admi_Usuario';
 import SignUp from './B-Flow/SignUp/signup.js';
 import LogIn from './B-Flow/Login/login.js';
 import Forgot from './B-Flow/Forgot/forgot.js';
@@ -28,6 +29,7 @@ import Return from './views_client_petition/Return.js';
 import Review from './views_client_petition/Review.js';
 import Sent from './views_client_petition/Sent.js';
 import Gmail_login from './B-Flow/Gmail/gmail.js';
+import Admi_Usuario from './B-Flow/CRUD/admi_Usuario';
 
 
 
@@ -42,6 +44,7 @@ class App extends Component {
         
             <Route exact path="/" component={Home} />
             <Route exact path="/cambioDevolucion" component={CambioDevolucion} />
+            <Route exact path= "/admi_Usuario" component={Admi_Usuario}/>
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={LogIn} />
             <Route exact path="/orders" component={allOrders} />
