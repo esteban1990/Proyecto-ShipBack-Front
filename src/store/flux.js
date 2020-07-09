@@ -437,7 +437,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             courrier: store.courrier,
             client_email: store.client_email,
             cellphone: store.cellphone,
-            user_email: store.user_email
+            user_email: store.user_email,
+            confirmed: false
           }),
           headers: {
             "Content-Type": "application/json"
