@@ -7,7 +7,6 @@ import './App.css';
 import injectContext from "./store/AppContext";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from "./views/home";
-import CRUD from './B-Flow/CRUD/admi_Usuario';
 import SignUp from './B-Flow/SignUp/signup.js';
 import LogIn from './B-Flow/Login/login.js';
 import Forgot from './B-Flow/Forgot/forgot.js';
@@ -16,6 +15,8 @@ import CreateOrder from "./B-Flow/Orders/createOrder";
 import Settings from './B-Flow/Account/setting.js';
 import ProfileUser from "./B-Flow/Account/profileUser";
 import Users from "./B-Flow/Account/users";
+import Detalles_Emprendedor from './B-Flow/Account/detalles_Emprendedor.js';
+import Detalle_UsuariosEmprendedor from './B-Flow/Account/detalle_UsuariosEmprendedor.js';
 import BillingDetails from './B-Flow/Account/billingDetail.js';
 import Invoices from "./B-Flow/Account/invoices";
 import { LogOut } from './B-Flow/Account/logOut.js';
@@ -29,7 +30,8 @@ import Return from './views_client_petition/Return.js';
 import Review from './views_client_petition/Review.js';
 import Sent from './views_client_petition/Sent.js';
 import Gmail_login from './B-Flow/Gmail/gmail.js';
-import Admi_Usuario from './B-Flow/CRUD/admi_Usuario';
+import Admi_Usuario from './B-Flow/Crud/admi_Usuario';
+import NewUser from './B-Flow/Crud/newUser.js';
 
 
 
@@ -44,7 +46,8 @@ class App extends Component {
         
             <Route exact path="/" component={Home} />
             <Route exact path="/cambioDevolucion" component={CambioDevolucion} />
-            <Route exact path= "/admi_Usuario" component={Admi_Usuario}/>
+            <Route exact path= "/admi_usuario" component={Admi_Usuario}/>
+            <Route exact path= "/newUser" component={NewUser}/>
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={LogIn} />
             <Route exact path="/orders" component={allOrders} />
@@ -52,6 +55,8 @@ class App extends Component {
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/navbar/settings/profileUser" component={ProfileUser}/>
             <Route exact path="/navbar/settings/users" component={Users}/>
+            <Route exact path= "/navbar/settings/detalles_Emprendedor" component={Detalles_Emprendedor}/>
+            <Route exact path= "/navbar/settings/detalle_UsuariosEmprendedor" component={Detalle_UsuariosEmprendedor}/>
             <Route exact path="/billingdetails" component={BillingDetails} />
             <Route exact path="/navbar/billingdetails/invoices" component={Invoices}/>
             <Route exact path="/logout" component={LogOut} />

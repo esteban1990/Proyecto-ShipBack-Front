@@ -28,6 +28,13 @@ const Settings = (props) => {
                                 <hr />
                                 <Link to="/navbar/settings/users"><a className="nav-link">Users</a>
                                 </Link>
+                                <hr/>
+                                <Link to="/navbar/settings/detalles_Emprendedor"><a className="nav-link">Entrepreneurial details </a>
+                                </Link>
+                                <hr />
+                                <Link to="/navbar/settings/detalle_UsuariosEmprendedor"><a className="nav-link">Entrepreneurial user detail </a>
+                                </Link>
+                                <hr />
                             </div>
 
 
@@ -143,7 +150,7 @@ const Settings = (props) => {
 
                                     <div className="row justify-content-center">
                                         <div className="col-5">
-                                            <button type="submit" class="btn btn-primary">+Add Location</button>
+                                          <Link to="/navbar/settings/detalles_Emprendedor"><button type="submit" class="btn btn-primary">+Add Location</button></Link>
                                         </div>
                                     </div>
 
