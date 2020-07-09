@@ -54,10 +54,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       courrier: "",
       price: "",
 
+
       allorders: [
         {
           id: "", client_name: "", streetAddress: "", commune: "", city: "",
-          invoice_id: "", office_id: "", products: "", price: "", courrier: "", client_email: "", cellphone: ""
+          invoice_id: "", office_id: "", products: "", price: "", courrier: "", client_email: "", cellphone: "",confirmed:null
         }
       ],
 
@@ -92,6 +93,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           invoiceAmount: ""
         }
       ],
+      
+      listAllEmployeds : [
+        {
+          email:"",
+          password:"",
+          confirmPassword:"",
+          firstName:"",
+          lastName:""
+          
+        }
+      ],
+
+      // create Employed
+
+      email:"",
+      password:"",
+      firstName:"",
+      lastName:"",
 
 
       //Settings
@@ -196,7 +215,50 @@ const getState = ({ getStore, getActions, setStore }) => {
       //trabajo previo
 
       
+      createUser_Admin: (e,history) =>{
+        e.preventDefault();
+        const store = getStore();
+        fetch(urlapi + "/newUser",{
+          method: "POST",
+          body: JSON.stringify({
+            firstname:store.firstname,
+            lastname:store.lastname,
+            email:store.email,
+            password:store.password
+          }),
+          headers:{
+            "Content-Type": "application/json"
+          }
+        })
+        .then(function(response){
+          if(response.ok)
+          return response.json()
+        })
+        .then(function(data){
+          console.log(data)
+          getActions().listarUsuarios();
+          history.push("/admi_Usuario")
+        })
+      },
 
+
+      deleteUser_Admin: (id) => {
+        const store = getStore();
+        fetch(urlapi + "/admi_usuario/" + id, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json()
+          })
+          .then(function (data) {
+            console.log(data);
+            getActions().listarUsuarios();
+          })
+      },
 
 
 
@@ -252,8 +314,8 @@ const getState = ({ getStore, getActions, setStore }) => {
               address: "",
               city: ""
             });
-            getActions().allSenderDetails();
-            history.push("/settings")
+            getActions().listarSenderDetails();
+            history.push("/detalles_Emprendedor")
           })
 
       },
@@ -276,16 +338,16 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
-      editUser: (history) => {
+      editUser_Admin: (id) => {
         const store = getStore();
-        fetch("http://127.0.0.1:5000/users" + store.idUsuario, {
+        fetch(urlapi + "/update_user/" + id ,{
           method: "PUT",
           body: JSON.stringify({
             email: store.email,
-            firstName: store.firstName,
-            lastName: store.lastName,
-            newPassword: store.newPassword,
-            confirmPassword: store.confirmPassword
+            firstname: store.firstname,
+            lastname: store.lastname,
+            password: store.password,
+           // confirmPassword: store.confirmPassword
           }),
           headers: {
             "Content Type": "application/json"
@@ -298,53 +360,45 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (data) {
             console.log(data);
             setStore({
-              storeName: "",
-              contactName: "",
-              companyName: "",
-              emailContact: "",
-              address: "",
-              city: "",
+              user_data: data
             });
+            getActions().listarUsuarios()
+           history.push("/admi_usuario")
           })
 
       },
+      
 
 
-      createUserSettings: (history) => {
-        const store = getStore();
-        fetch("http://127.0.0.1:5000/users", {
-          method: "POST",
-          body: JSON.stringify({
-            email: store.email,
-            firstName: store.firstName,
-            lastName: store.lastName,
-            newPassword: store.newPassword,
-            confirmPassword: store.confirmPassword
-          }),
-          headers: {
 
-            "Content-Type": "application/json"
-          }
-        })
 
-          .then(function (response) {
-            if (response.ok)
-              return response.json();
-          })
-          .then(function (data) {
-            console.log(data);
-            setStore({
-              email: "",
-              firstName: "",
-              lastName: "",
-              newPassword: "",
-              confirmPassword: ""
+  //    createUserSettings: (e,history) => {
+    //    const store = getStore();
+      //  fetch(urlapi + "/navbar/settings/users", {
+        //  method: "POST",
+         // body: JSON.stringify({
+           // email: store.email,
+           // firstName: store.firstName,
+           // lastName: store.lastName,
+           // newPassword: store.newPassword,
+           // confirmPassword: store.confirmPassword
+         // }),
+         // headers: {
 
-            })
-            getActions().listarUsuarios();
-            history.push("/login")
-          })
-      },
+           // "Content-Type": "application/json"
+         // }
+       // })
+
+         // .then(function (response) {
+           // if (response.ok)
+             // return response.json();
+        //  })
+          //.then(function (data) {
+           // console.log(data);
+            //getActions().listarUsuarios();
+           // history.push("/login")
+       //   })
+     // },
 
 
       editBillingDetails: (history) => {
@@ -380,7 +434,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       createBillingDetails: (history) => {
         const store = getStore();
-        fetch("http://127.0.0.1:5000/billingdetails", {
+        fetch(urlapi + "/billingdetails", {
           method: "POST",
           body: JSON.stringify({
             cardNumber: store.cardNumber,
@@ -408,18 +462,56 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
-      // confirmOrder: () => {
-      //     fetch(urlapi + '/', {
-      //       method: 'POST',
-      //       body: JSON.stringify(state)
-      //   }).then(response => response.json()).then(posts => {
-      //       props.history.push('/orders')
-      //   })
-      // },
+      createEmployed : (e,history) => {
+        e.preventDefault();
+        const store = getStore();
+        fetch(urlapi + "/navbar/settings/users",{
+          method: "POST",
+          body: JSON.stringify({
+            email: store.email,
+            password:store.password,
+            firstName:store.firstName,
+            lastName:store.lastName
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(function(response){
+          if(response.ok)
+          return response.json();
+        })
+        .then(function(data){
+          console.log(data)
+            setStore({
+            })
+          getActions().allEmployeds()
+          history.push("/navbar/settings/detalle_UsuariosEmprendedor")
+        })
+      },
 
+      allEmployeds: () => {
+        const store = getStore();
+        fetch(urlapi + "/navbar/settings/detalle_UsuariosEmprendedor",{
+          method: "GET",
+          headers : {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(function(response){
+          if(response.ok)
+          return response.json()
+        })
+        .then(function(data){
+          console.log(data);
+          setStore({
+            listAllEmployeds: data
+          })
+        })
 
+      },
 
-
+      
 
       createOrder: (e, history) => {
         e.preventDefault();
@@ -437,7 +529,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             courrier: store.courrier,
             client_email: store.client_email,
             cellphone: store.cellphone,
-            user_email: store.user_email
+            user_email: store.user_email,
+            confirmed: false
           }),
           headers: {
             "Content-Type": "application/json"
@@ -471,7 +564,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             courrier: store.courrier,
             client_email: store.client_email,
             cellphone: store.cellphone,
-            user_email: store.user_email
+            user_email: store.user_email,
+            confirmed:false
           }),
           headers: {
             "Content-Type": "application/json"
@@ -509,6 +603,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 
+      
       listarOrdenes: () => {
         const store = getStore();
         fetch(urlapi + '/orders', {
@@ -684,10 +779,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
     listarUsuarios: () => {
       const store = getStore();
-      fetch(urlapi + "/admi_users", {
+      fetch(urlapi + "/admi_usuario", {
         method: "GET",
         headers: {
-          "Content Type": "application/json"
+          "Content-Type": "application/json"
         }
       })
         .then(function (response) {
@@ -702,7 +797,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
     },
 
-    deleteUser:(user_id) =>{
+    deleteEmployedUser:() =>{
       const store = getStore();
       fetch(urlapi + "/admi_Usuario",{
       method: "DELETE",
@@ -716,7 +811,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       })
       .then(function(data){
         console.log(data)
-        getActions().listarUsuarios();
+        getActions().listAllEmployeds();
       })
     },
 
@@ -739,36 +834,34 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
 
 
-    //  editarUsuario: (history) => {
-     //const store = getStore();
-      //fetch("http://127.0.0.1:5000/pedido" + store.idPedido, {
-       // method: "PUT",
-       // body: JSON.stringify({
-                                
+      editSenderDetails: (history) => {
+     const store = getStore();
+      fetch(urlapi + "/detalles_Emprendedor", {
+        method: "PUT",
+        body: JSON.stringify({
+          storeName: store.storeName,
+          contactName: store.contactName,
+          companyName: store.companyName,
+          contactPhone: store.contactPhone,
+          industry: store.industry,
+          emailContact:store.emailContact,
+          address: store.address,
+          city: store.city
+        }),
+       headers: {
+          "Content Type": "application/json"
+        }
+      })
+       .then(function (response) {
+         if (response.ok)
+           return response.json();
+        })
+        .then(function (data) {
+          console.log(data)
+            getActions().listarSenderDetails();
+        })
+      },
         
-       // }),
-       // headers: {
-         // "Content Type": "application/json"
-       // }
-     // })
-       // .then(function (response) {
-        // if (response.ok)
-           // return response.json();
-       // })
-        //.then(function (data) {
-         // console.log(data);
-          //setStore({
-            //idPedido: "",
-           // numeroPedido: "",
-            //descripcionPedido: ""
-        //  })
-         // getActions().listarPedidos();
-         // history.push("/pedidos")
-       // })
-
-
-    
-
 
     listarProductos: () => {
       const store = getStore();

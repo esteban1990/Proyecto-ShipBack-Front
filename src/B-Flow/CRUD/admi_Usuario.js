@@ -1,5 +1,6 @@
 import React, {useContext, useEffect} from "react"
 import { Context } from "../../store/AppContext.js";
+import {Link} from "react-router-dom";
 import NavBar from '../NavBar/navBar.js';
 
 const Admi_Usuario = (props) => {
@@ -19,6 +20,12 @@ useEffect(() =>{
           <NavBar />
     
           <div className="container pt-5">
+            <div className="row d-flex justify-content-center pb-5">
+              <div className="col-4">
+              <button className="btn btn-primary"> <Link to={"/newUser"}>Agregar Usuario</Link></button>
+           
+              </div>
+            </div>
             <table class="table">
               <thead>
                 <tr>
@@ -29,7 +36,9 @@ useEffect(() =>{
                   <th scope="col">Email</th>
                   <th scope="col">Borrar</th>
                   <th scope="col">Editar</th>
-                  <th scope="col">Agregar</th>
+
+
+         
 
                 </tr>
               </thead>
@@ -44,8 +53,10 @@ useEffect(() =>{
                         <td>{user.firstname}</td>
                         <td>{user.lastname}</td>
                         <td>{user.email}</td>
-                     <td><button className="btn btn-danger">Borrar</button></td>
-                     <td><button className="btn btn-primary"></button></td>
+                        <td><button className="btn btn-danger" onClick={() => actions.deleteUser_Admin(user.id)}>Borrar</button></td>
+                        <td><button className="btn btn-primary" onClick={() => actions.editUser_Admin(props.history)}>Editar Usuario</button></td>
+                     
+      
                       </tr>
                     )
                   })

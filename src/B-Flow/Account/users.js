@@ -8,30 +8,31 @@ const Users = (props) => {
 
     const { store, actions } = useContext(Context)
 
-    const [state, setState] = useState({
-    email:"",
-    name:"",
-    lastname:"",
-    phone:"",
-    password:"",
-    confirmPassword:"",
 
-    })
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (store.email === "" || store.name === "" || store.lastname === "" || store.phone === ""
-            || store.password === "" || store.confirmPassword === "") {
-            alert("Se Deben llenar todos los campos")
-        }
-    }
+   // const [state, setState] = useState({
+    //email:"",
+    //name:"",
+    //lastname:"",
+    //phone:"",
+   // password:"",
+    //confirmPassword:"",
 
-    const handleChange= (e) => {
-     e.preventDefault();
-    setState({
-     ...state,
-    [e.target.name] : e.target.value
-    })
-    }
+   // })
+   // const handleSubmit = (e) => {
+     //   e.preventDefault();
+       // if (store.email === "" || store.name === "" || store.lastname === "" || store.phone === ""
+         //   || store.password === "" || store.confirmPassword === "") {
+           // alert("Se Deben llenar todos los campos")
+       // }
+   //}
+
+    //const handleChange= (e) => {
+    // e.preventDefault();
+    //setState({
+     //...state,
+   // [e.target.name] : e.target.value
+    //})
+    //}
 
 
     return (
@@ -50,6 +51,13 @@ const Users = (props) => {
                                 </Link>
                                 <hr />
                                 <a className="nav-link">Users</a>
+                                <hr/>
+                                <Link to="/navbar/settings/detalles_Emprendedor"><a className="nav-link">Entrepreneurial details</a>
+                                </Link>
+                                <hr />
+                                <Link to="/navbar/settings/detalle_UsuariosEmprendedor"><a className="nav-link">Entrepreneurial Users detail </a>
+                                </Link>
+                                <hr />
                             </div>
                         </div>
 
@@ -59,7 +67,7 @@ const Users = (props) => {
                             <h4>Users</h4>
 
                             <div className="card  mb-5">
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={(e) => actions.createEmployed(e,props.history)}>
                                     <div className="card-body">
                                         <div className="row mt-2">
                                             <div className="col-12">
@@ -69,6 +77,7 @@ const Users = (props) => {
 
                                             
                                         </div>
+                                        
 
                                         <div className="row mt-2">
                                             <div className="col-6">
@@ -95,14 +104,12 @@ const Users = (props) => {
 
                                         <div className="row pt-4" style={{justifyContent:'center'}}>
                                             <div className="col-6">
-                                                <button type="button" onClick={e => actions.createUserSettings(props.history)} class="btn btn-primary">+Add User</button>
+                                         <Link to="/navbar/settings/detalle_UsuariosEmprendedor"><button type="submit" class="btn btn-primary">+Add User
+                                         </button>
+                                         </Link>
                                             </div>
                                         </div>
-                                        <div className="row pt-4" style={{justifyContent:'center'}}>
-                                            <div className="col-6">
-                                                <button type="submit" onClick={e => actions.editUser(props.history)} class="btn btn-primary">UPDATE</button>
-                                            </div>
-                                        </div>
+                                       
                                     </div>
                                 </form>
                             </div>

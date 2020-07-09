@@ -45,10 +45,12 @@ const Invoices = (props) => {
                         <tr>
 
                           <th scope="col">Invoice ID</th>
+                          <th scope="col">Office_ID</th>
                           <th scope="col">Date</th>
                           <th scope="col">Status</th>
                           <th scope="col">Service</th>
                           <th scope="col">Amount</th>
+                          <th scope="col">Delete Invoice</th>
 
                         </tr>
                       </thead>
