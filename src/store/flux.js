@@ -29,7 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       currentPassword: "",
       idUsuario: null,
 
-
+      
     //  allUsers: [{
       //  idUser:"", name:"", lastName:"",email:"",
       //}],
@@ -214,32 +214,56 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       //trabajo previo
 
-      
-      createUser_Admin: (e,history) =>{
+
+      Admin: (e, history) => {
         e.preventDefault();
         const store = getStore();
-        fetch(urlapi + "/newUser",{
+        fetch(urlapi + "/admin",{
           method: "POST",
           body: JSON.stringify({
-            firstname:store.firstname,
-            lastname:store.lastname,
-            email:store.email,
-            password:store.password
+            email: store.email,
+            password: store.password
           }),
-          headers:{
+          headers: {
             "Content-Type": "application/json"
           }
         })
         .then(function(response){
-          if(response.ok)
-          return response.json()
+          if (response.ok)
+          return response.json();
         })
         .then(function(data){
           console.log(data)
-          getActions().listarUsuarios();
-          history.push("/admi_Usuario")
+          history.push("/admi_usuario")
         })
       },
+
+     
+     // createUser_Admin: (e,history) =>{
+       // e.preventDefault();
+       // const store = getStore();
+       // fetch(urlapi + "/newUser",{
+         // method: "POST",
+        //  body: JSON.stringify({
+          //  firstname:store.firstname,
+         //   lastname:store.lastname,
+           // email:store.email,
+           // password:store.password
+         // }),
+         // headers:{
+           // "Content-Type": "application/json"
+         // }
+       // })
+        //.then(function(response){
+      //   if(response.ok)
+          //return response.json()
+       // })
+       // .then(function(data){
+         // console.log(data)
+         // getActions().listarUsuarios();
+         // history.push("/admi_Usuario")
+        //})
+      //},
 
 
       deleteUser_Admin: (id) => {
