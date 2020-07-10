@@ -32,6 +32,7 @@ import Sent from './views_client_petition/Sent.js';
 import Gmail_login from './B-Flow/Gmail/gmail.js';
 import Admi_Usuario from './B-Flow/Crud/admi_Usuario';
 import NewUser from './B-Flow/Crud/newUser.js';
+import Admin from './B-Flow/Crud/admin.js'; 
 
 
 
@@ -45,6 +46,7 @@ class App extends Component {
           <div className='App'>
         
             <Route exact path="/" component={Home} />
+            <Route exact path="/admin" component={Admin} />
             <Route exact path="/cambioDevolucion" component={CambioDevolucion} />
             <Route exact path= "/admi_usuario" component={Admi_Usuario}/>
             <Route exact path= "/newUser" component={NewUser}/>
