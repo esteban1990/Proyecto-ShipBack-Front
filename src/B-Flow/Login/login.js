@@ -20,7 +20,7 @@ export default class LoginScreen extends React.Component {
                   ({ store, actions }) => {
                     return (
                       <div className='body'>
-                        <Form onSubmit={(e) => actions.submitLogin(e, this.props.history)} className='login-form pt-5'>
+                        <Form onSubmit={(e) => actions.login(e, this.props.history)} className='login-form pt-5'> //revisar create order
                           <div className='logo'>
                             <ReactLogo />
                           </div>

@@ -9,44 +9,6 @@ const CreateOrder = (props) => {
     
     const { store, actions } = useContext(Context);
 
-
-   // const [state, setState] = useState({
-     //   name: "",
-       // streetAddress: "",
-        //commune: "",
-        //city: "",
-        //invoice_id: "",
-        //office_id: "",
-        //products: "",
-        //email: "",
-        //cellphone: "",
-   // })
-    //const handleChange = e => {
-      //  e.preventDefault()
-        //setState({
-          //  ...state,
-            //[e.target.name]: e.target.value
-       // })
-   // }
-    //const handleSubmit = (e) => {
-      //  e.preventDefault();
-        //console.log(state)
-        // if(store.address ==="" || store.streetAdress==="" || store.city==="" || store.postCode===""
-        // || store.recipient==="" || store.email==="" || store.orderNumber==="" || store.phone==="" || store.cellphone===""){
-        //     alert("Se deben de llenar todos los campos")
-        //     return;
-        // }
-    //fetch(urlapi + '/orders', {
-      //  method: 'POST',
-//        headers: {
-//            mode:'no-cors',
-//            'Access-Control-Allow-Origin': "*"
-//        },
-        //body: JSON.stringify(state)
-   // }).then(response => response.json()).then(posts => {
-     //   props.history.push('/orders')
-    //})
-//}
 return (
     <div>
         <NavBar />
@@ -86,14 +48,6 @@ return (
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <div className="col">
-                                            <label for="" class="form-label">ID Factura</label>
-                                            <input type="number" required name="invoice_id" min="5" value={store.invoice_id} onChange={actions.handleChange} class="form-control"></input>
-                                        </div>
-                                        <div className="col">
-                                            <label for="" class="form-label">ID Despacho</label>
-                                            <input type="number" required name="office_id" min="5" value={store.office_id} onChange={actions.handleChange} class="form-control"></input>
-                                        </div>
                                         <div className="col">
                                         <label for="" class="form-label">Courier</label>
                                                 <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required onChange={actions.handleChange} value={store.courrier} name="courrier">
