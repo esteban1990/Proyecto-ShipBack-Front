@@ -58,15 +58,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       allorders: [
         {
           id: "", client_name: "", streetAddress: "", commune: "", city: "",
-          invoice_id: "", office_id: "", products: "", price: "", courrier: "", client_email: "", cellphone: "",confirmed:null
+          invoice_id: "", office_id: "", products: "", price: "", courrier: "", client_email: "", cellphone: "", confirmed: null
         }
       ],
 
-      listarOrdenesConfirmadas: [
+      confirmedorders: [
         {
           id: "", client_name: "", streetAddress: "", commune: "", city: "",
-          invoice_id: "", office_id: "", products: "", price: "", courrier: "",
-          client_email: "", user_email: "", cellphone: ""
+          invoice_id: "", office_id: "", products: "", price: "", courrier: "", client_email: "", cellphone: "", confirmed: null
         }
       ],
 
@@ -160,13 +159,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         }).then(resp => resp.json())
           .then(data => {
             if (data.success) {
-              M.toast({ html: "Login succesfully" }); sessionStorage.setItem("token", data.access_token); history.push("/orders");
+              M.toast({ html: "Login succesfully" }); sessionStorage.setItem("token", data.access_token); history.push("/orders"); //la condición del history es la que habría que revisar
             }
           })
           .catch(error => console.log(error))
         if (sessionStorage.getItem("token") !== " ") {
           Auth.authenticated();
-          history.push("/orders")
+          //history.push("/orders") //mandarle un error que se ponga en el formulario
         }
       },
       handleChangeRegistration: (evento) => {
@@ -176,7 +175,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         user_data[evento.target.id] = evento.target.value;
         setStore({ user_data: user_data });
       },
-      submitLogin: (e, history) => {
+      submitLogin: (e, history) => { //no hay un condicionante que te diga que si la contraseña es mala.
         e.preventDefault();
         const store = getStore();
         let { user_data } = store;
@@ -187,8 +186,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         } else if (!re.test(user_data.password)) {
           M.toast({ html: 'Password must contain at least 6 characters long, one uppercase letter and one number.', displayLength: 6000 })
         } else if (!reEmail.test(user_data.email)) {
-          M.toast({ html: 'Invalid email input' })
-        } else {
+          M.toast({ html: 'Invalid email input' })}
+        // else if (user_data.password !== ) {M.toast({html: 'Wrong password'})} 
+        else {
           getActions().login(history);
         }
       },
@@ -507,8 +507,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             streetAddress: store.streetAddress,
             commune: store.commune,
             city: store.city,
-            invoice_id: store.invoice_id,
-            office_id: store.office_id,
+            invoice_id: Math.round((Math.random() * 1000000)),
+            office_id: Math.round((Math.random() * 1000000)),
             products: store.products,
             courrier: store.courrier,
             client_email: store.client_email,
@@ -531,26 +531,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
-
-      confirmOrder: (history) => {
-
+      listarOrdenesConfirmadas: () => {
         const store = getStore();
-        fetch(urlapi + "/tracking", {
-          method: "PUT",
-          body: JSON.stringify({
-            client_name: store.client_name,
-            streetAddress: store.streetAddress,
-            commune: store.commune,
-            city: store.city,
-            invoice_id: store.invoice_id,
-            office_id: store.office_id,
-            products: store.products,
-            courrier: store.courrier,
-            client_email: store.client_email,
-            cellphone: store.cellphone,
-            user_email: store.user_email,
-            confirmed:false
-          }),
+        fetch(urlapi + '/tracking', {
+          method: "GET",
           headers: {
             "Content-Type": "application/json"
           }
@@ -561,32 +545,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then(function (data) {
             console.log(data);
-            getActions().allOrdersConfirm();
-            history.push("/tracking")
+            setStore({
+              confirmedorders: data
+            })
           })
       },
-
-      allOrdersConfirm: () => {
-        const store = getStore();
-        fetch(urlapi + "/tracking", {
-          method: "GET",
-          headers: {
-            "Content-Type": "applications/json"
-
-          }
-        })
-          .then(function (response) {
-            if (response.ok)
-              return response.json();
-          })
-          .then(function (data) {
-            console.log(data);
-            setStore({ listarOrdenesConfirmadas: data })
-          })
-      },
-
-
-
       
       listarOrdenes: () => {
         const store = getStore();
@@ -628,6 +591,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
+
+      confirmOrder: (invoice_id) => {
+        const store = getStore();
+        fetch(urlapi + "/orders/" + invoice_id, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          }
+          })
+          .then(function (response) {
+            if (response.ok)
+              return response.json()
+          })
+          .then(function (data) {
+            console.log(data);
+            getActions().listarOrdenes();
+          })
+      },
 
       createInvoice: (e, history) => {
         e.preventDefault();
