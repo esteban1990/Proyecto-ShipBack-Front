@@ -30,8 +30,8 @@ import Return from './views_client_petition/Return.js';
 import Review from './views_client_petition/Review.js';
 import Sent from './views_client_petition/Sent.js';
 import Gmail_login from './B-Flow/Gmail/gmail.js';
-import Admi_Usuario from './B-Flow/Crud/admi_Usuario';
-import NewUser from './B-Flow/Crud/newUser.js';
+import Admi_Usuario from './B-Flow/CRUD/admi_Usuario.js';
+import NewUser from './B-Flow/CRUD/newUser.js';
 
 
 
