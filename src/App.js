@@ -12,7 +12,7 @@ import LogIn from './B-Flow/Login/login.js';
 import Forgot from './B-Flow/Forgot/forgot.js';
 import allOrders from "./B-Flow/Orders/allOrders.js";
 import CreateOrder from "./B-Flow/Orders/createOrder";
-import Settings from './B-Flow/Account/setting.js';
+import Settings from './B-Flow/Account/settings.js';
 import ProfileUser from "./B-Flow/Account/profileUser";
 import Users from "./B-Flow/Account/users";
 import Detalles_Emprendedor from './B-Flow/Account/detalles_Emprendedor.js';

@@ -75,11 +75,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           storeName: "",
           contactName: "",
           companyName: "",
-          contactPhone: "",
-          industry: "",
           emailContact: "",
-          address: "",
-          city: ""
+          user_email:""
+       
         }
 
       ],
@@ -238,34 +236,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
       },
 
-     
-     // createUser_Admin: (e,history) =>{
-       // e.preventDefault();
-       // const store = getStore();
-       // fetch(urlapi + "/newUser",{
-         // method: "POST",
-        //  body: JSON.stringify({
-          //  firstname:store.firstname,
-         //   lastname:store.lastname,
-           // email:store.email,
-           // password:store.password
-         // }),
-         // headers:{
-           // "Content-Type": "application/json"
-         // }
-       // })
-        //.then(function(response){
-      //   if(response.ok)
-          //return response.json()
-       // })
-       // .then(function(data){
-         // console.log(data)
-         // getActions().listarUsuarios();
-         // history.push("/admi_Usuario")
-        //})
-      //},
-
-
       deleteUser_Admin: (id) => {
         const store = getStore();
         fetch(urlapi + "/admi_usuario/" + id, {
@@ -284,83 +254,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
       },
 
-
-
-
-
-
-      handleChange: e => {
-        setStore({
-          [e.target.name]: e.target.storename,
-          [e.target.name]: e.target.contactName,
-          [e.target.name]: e.target.companyName,
-          [e.target.name]: e.target.contactPhone,
-          [e.target.name]: e.target.industry,
-          [e.target.name]: e.target.emailContact,
-          [e.target.name]: e.target.address,
-          [e.target.name]: e.target.city,
-        })
-      },
-
-      createStoreDetails: (e, history) => {
-        e.preventDefault();
-        const store = getStore();
-
-        fetch(urlapi + "/settings ", {
-          method: "POST",
-          body: JSON.stringify({
-            storeName: store.storeName,
-            contactName: store.contactName,
-            companyName: store.companyName,
-            contactPhone: store.contactPhone,
-            industry: store.industry,
-            emailContact: store.emailContact,
-            address: store.address,
-            city: store.city
-          }),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-          .then(function (response) {
-            if (response.ok)
-              return response.json();
-          })
-          .then(function (data) {
-            console.log(data);
-            setStore({
-              storeName: "",
-              contactName: "",
-              companyName: "",
-              contactPhone: "",
-              industry: "",
-              emailContact: "",
-              address: "",
-              city: ""
-            });
-            getActions().listarSenderDetails();
-            history.push("/detalles_Emprendedor")
-          })
-
-      },
-
-      listarSenderDetails: () => {
-
-        const store = getStore();
-        fetch(urlapi + "/settings", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-          .then(function (response) {
-            if (response.ok)
-              return response.json();
-          })
-          .then(function (data) {
-            setStore({ allSenderDetails: data })
-          })
-      },
 
       editUser_Admin: (id) => {
         const store = getStore();
@@ -393,6 +286,73 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       
 
+
+
+
+
+
+      handleChange: e => {
+        setStore({
+          [e.target.name]: e.target.storename,
+          [e.target.name]: e.target.contactName,
+          [e.target.name]: e.target.companyName,
+          [e.target.name]: e.target.contactPhone,
+          [e.target.name]: e.target.industry,
+          [e.target.name]: e.target.emailContact,
+          [e.target.name]: e.target.address,
+          [e.target.name]: e.target.city,
+        })
+      },
+
+      createStoreDetails: (e, history) => {
+        e.preventDefault();
+        const store = getStore();
+
+        fetch(urlapi + "/settings ", {
+          method: "POST",
+          body: JSON.stringify({
+            storeName: store.storeName,
+            contactName: store.contactName,
+            companyName: store.companyName,
+            emailContact: store.emailContact,
+            user_email: store.user_email,
+
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            getActions().listarSenderDetails();
+            history.push("/detalles_Emprendedor")
+          })
+
+      },
+
+      listarSenderDetails: () => {
+
+        const store = getStore();
+        fetch(urlapi + "/settings", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json();
+          })
+          .then(function (data) {
+            setStore({ allSenderDetails: data })
+          })
+      },
+
+    
 
 
 
