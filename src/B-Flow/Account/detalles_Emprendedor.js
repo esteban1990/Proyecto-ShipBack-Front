@@ -8,9 +8,9 @@ const Detalles_Emprendedor = (props) => {
   
   const { store, actions } = useContext(Context)
 
-    useEffect(() =>{
-    actions.listarSenderDetails();
-     },[] )
+  useEffect(() =>{
+  actions.listarSenderDetails();
+  },[] )
 
 
   return (

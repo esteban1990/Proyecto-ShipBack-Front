@@ -35,11 +35,12 @@ const getState = ({ getStore, getActions, setStore }) => {
       //}],
 
       //Billing Details
-      cardNumber: null,
-      cvv: null,
-      month: null,
-      year: null,
-
+      allList_BillingDetails:[{
+      cardNumber:"",
+      cvv: "",
+      month: "",
+      year: ""
+      }],
 
       //create order
       client_name: "",
@@ -74,8 +75,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           storeName: "",
           contactName: "",
           companyName: "",
+          contactPhone:"",
+          industry:"",
           emailContact: "",
-          user_email:""
+          address:"",
+          city:""
        
         }
 
@@ -95,7 +99,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         {
           email:"",
           password:"",
-          confirmPassword:"",
           firstName:"",
           lastName:""
           
@@ -227,14 +230,25 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         })
         .then(function(response){
-          if (response.ok)
-          return response.json();
-        })
-        .then(function(data){
-          console.log(data)
-          history.push("/admi_usuario")
+          if (response.status>=500){
+            history.push("/admin")
+            alert("Errror en el servidor")
+          }
+          else if(response.status>=400 && response.status<500){
+            history.push("/admin")
+            alert("No esta ingresando con datos de Administrador")
+          }
+          else if(response.status>=200 && response.status<300){
+            history.push("/admi_usuario");
+            return response.json();
+          }
+          
         })
       },
+
+
+
+
 
       deleteUser_Admin: (id) => {
         const store = getStore();
@@ -267,7 +281,7 @@ const getState = ({ getStore, getActions, setStore }) => {
            // confirmPassword: store.confirmPassword
           }),
           headers: {
-            "Content Type": "application/json"
+            "Content-Type": "application/json"
           }
         })
           .then(function (response) {
@@ -308,14 +322,17 @@ const getState = ({ getStore, getActions, setStore }) => {
         e.preventDefault();
         const store = getStore();
 
-        fetch(urlapi + "/settings ", {
+        fetch(urlapi + "/settings", {
           method: "POST",
           body: JSON.stringify({
             storeName: store.storeName,
             contactName: store.contactName,
             companyName: store.companyName,
+            contactPhone:store.contactPhone,
+            industry:store.industry,
             emailContact: store.emailContact,
-            user_email: store.user_email,
+            address:store.address,
+            city:store.city
 
           }),
           headers: {
@@ -329,13 +346,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (data) {
             console.log(data);
             getActions().listarSenderDetails();
-            history.push("/detalles_Emprendedor")
+            history.push("/navbar/settings/detalles_Emprendedor")
           })
 
       },
 
       listarSenderDetails: () => {
-
         const store = getStore();
         fetch(urlapi + "/settings", {
           method: "GET",
@@ -348,11 +364,10 @@ const getState = ({ getStore, getActions, setStore }) => {
               return response.json();
           })
           .then(function (data) {
+            console.log(data);
             setStore({ allSenderDetails: data })
           })
       },
-
-    
 
 
 
@@ -416,7 +431,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      createBillingDetails: (history) => {
+      createBillingDetails: (e,history) => {
+        e.preventDefault();
         const store = getStore();
         fetch(urlapi + "/billingdetails", {
           method: "POST",
@@ -427,7 +443,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             year: store.year
           }),
           headers: {
-            "Content Type": "application/json"
+            "Content-Type": "application/json"
           }
         })
           .then(function (response) {
@@ -436,27 +452,17 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then(function (data) {
             console.log(data);
-            setStore({
-              cardNumber: null,
-              cvv: null,
-              month: null,
-              year: null
-            })
+   
+            getActions().listar_BillingDetails();
             history.push("/billingDetails")
           })
       },
 
-      createEmployed : (e,history) => {
-        e.preventDefault();
+
+      listar_BillingDetails: () => {
         const store = getStore();
-        fetch(urlapi + "/navbar/settings/users",{
-          method: "POST",
-          body: JSON.stringify({
-            email: store.email,
-            password:store.password,
-            firstName:store.firstName,
-            lastName:store.lastName
-          }),
+        fetch(urlapi + "/billingdetails/detailCards",{
+          method:"GET",
           headers: {
             "Content-Type": "application/json"
           }
@@ -467,12 +473,42 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
         .then(function(data){
           console.log(data)
-            setStore({
-            })
-          getActions().allEmployeds()
+          setStore({
+            allList_BillingDetails: data
+          })
+        })
+      },
+
+
+
+      createEmployed : (e,history) => {
+        e.preventDefault();
+        const store = getStore();
+        fetch(urlapi + "/navbar/settings/users",{
+          method: "POST",
+          body: JSON.stringify({
+            email: store.email,
+            firstName:store.firstName,
+            lastName:store.lastName,
+            password:store.password,
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(function(response){
+          if(response.ok)
+          return response.json();
+        })
+        .then(function(data){
+          console.log(data);
+          getActions().allEmployeds();
           history.push("/navbar/settings/detalle_UsuariosEmprendedor")
         })
       },
+
+    
+  
 
       allEmployeds: () => {
         const store = getStore();
