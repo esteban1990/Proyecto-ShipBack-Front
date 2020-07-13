@@ -28,6 +28,9 @@ const Invoices = (props) => {
                 </Link>
                 <hr />
                 <a className="nav-link">Invoices</a>
+                <hr/>
+                <Link to="/billingdetails/detailCards"><a className="nav-link"> Details Cards</a>
+                </Link>
               </div>
             </div>
 

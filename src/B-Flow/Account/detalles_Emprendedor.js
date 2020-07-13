@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import NavBar from '../NavBar/navBar.js'; 
 import { Link } from "react-router-dom"
 import { Context } from "../../store/AppContext.js";
@@ -8,9 +8,9 @@ const Detalles_Emprendedor = (props) => {
   
   const { store, actions } = useContext(Context)
 
-  //  useEffect(() =>{
-    //  actions.listarSenderDetails();
-   // },[] )
+  useEffect(() =>{
+  actions.listarSenderDetails();
+  },[] )
 
 
   return (

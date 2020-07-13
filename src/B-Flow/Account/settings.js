@@ -68,8 +68,8 @@ const Settings = (props) => {
                                         <div className="col-3">
                                             <input type="text"
                                                 name="contactName"
-                                                value={store.contactName}
                                                 class="form-control"
+                                                value={store.contactName}
                                                 onChange={actions.handleChange}></input>
                                         </div>
                                     </div>
@@ -118,6 +118,7 @@ const Settings = (props) => {
                                                 value={store.emailContact}
                                                 onChange={actions.handleChange}></input>
                                         </div>
+                                     
                                     </div>
 
                                     <div className="mt-5" style={{textAlign:'center'}}>
@@ -150,7 +151,7 @@ const Settings = (props) => {
 
                                     <div className="row justify-content-center">
                                         <div className="col-5">
-                                          <Link to="/navbar/settings/detalles_Emprendedor"><button type="submit" class="btn btn-primary">+Add Location</button></Link>
+                                         <button type="submit" class="btn btn-primary">+Add Location</button>
                                         </div>
                                     </div>
 
