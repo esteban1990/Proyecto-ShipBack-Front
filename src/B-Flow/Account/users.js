@@ -82,11 +82,11 @@ const Users = (props) => {
                                         <div className="row mt-2">
                                             <div className="col-6">
                                                 <label class="form-label">First Name</label>
-                                                <input type="text" class="form-control" name="name" value={store.firstName} onChange={actions.handleChange}></input>
+                                                <input type="text" class="form-control" name="firstName" value={store.firstName} onChange={actions.handleChange}></input>
                                             </div>
                                             <div className="col-6">
                                                 <label class="form-label">Last Name</label>
-                                                <input type="text" class="form-control" name="lastname" value={store.lastName} onChange={actions.handleChange}></input>
+                                                <input type="text" class="form-control" name="lastName" value={store.lastName} onChange={actions.handleChange}></input>
                                             </div>
                                         </div>
 
@@ -95,11 +95,7 @@ const Users = (props) => {
                                                 <label class="form-label">Password</label>
                                                 <input type="password" class="form-control" name="password" value={store.password} onChange={actions.handleChange}></input>
                                             </div>
-                                            <div className="col-6">
-                                                <label class="form-label">Confirm Password</label>
-                                                <input type="password" class="form-control" name="confirmPassword" value={store.confirmPassword}
-                                                    onChange={actions.handleChange}></input>
-                                            </div>
+                                         
                                         </div>
 
                                         <div className="row pt-4" style={{justifyContent:'center'}}>

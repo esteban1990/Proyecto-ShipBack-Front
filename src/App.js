@@ -12,12 +12,13 @@ import LogIn from './B-Flow/Login/login.js';
 import Forgot from './B-Flow/Forgot/forgot.js';
 import allOrders from "./B-Flow/Orders/allOrders.js";
 import CreateOrder from "./B-Flow/Orders/createOrder";
-import Settings from './B-Flow/Account/setting.js';
+import Settings from './B-Flow/Account/settings.js';
 import ProfileUser from "./B-Flow/Account/profileUser";
 import Users from "./B-Flow/Account/users";
 import Detalles_Emprendedor from './B-Flow/Account/detalles_Emprendedor.js';
 import Detalle_UsuariosEmprendedor from './B-Flow/Account/detalle_UsuariosEmprendedor.js';
 import BillingDetails from './B-Flow/Account/billingDetail.js';
+import DetailCards from "./B-Flow/Account/detailCards.js";
 import Invoices from "./B-Flow/Account/invoices";
 import { LogOut } from './B-Flow/Account/logOut.js';
 import Tracking from './B-Flow/Tracking/tracking.js';
@@ -30,9 +31,10 @@ import Return from './views_client_petition/Return.js';
 import Review from './views_client_petition/Review.js';
 import Sent from './views_client_petition/Sent.js';
 import Gmail_login from './B-Flow/Gmail/gmail.js';
-import Admi_Usuario from './B-Flow/CRUD/admi_Usuario.js';
-import NewUser from './B-Flow/CRUD/newUser.js';
-import Admin from './B-Flow/CRUD/admin.js'; 
+import Admi_Usuario from './B-Flow/Crud/admi_Usuario.js';
+import NewUser from './B-Flow/Crud/newUser.js';
+import Admin from './B-Flow/Crud/admin.js'; 
+
 
 
 
@@ -60,6 +62,7 @@ class App extends Component {
             <Route exact path= "/navbar/settings/detalles_Emprendedor" component={Detalles_Emprendedor}/>
             <Route exact path= "/navbar/settings/detalle_UsuariosEmprendedor" component={Detalle_UsuariosEmprendedor}/>
             <Route exact path="/billingdetails" component={BillingDetails} />
+            <Route exact path="/billingdetails/detailCards" component={DetailCards}/>
             <Route exact path="/navbar/billingdetails/invoices" component={Invoices}/>
             <Route exact path="/logout" component={LogOut} />
             <Route exact path="/forgot-password" component={Forgot} />

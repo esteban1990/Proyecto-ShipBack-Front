@@ -1,5 +1,4 @@
-import React from "react"
-import { useContext } from "react";
+import React,{ useContext,useEffect }  from "react";
 import {Link} from "react-router-dom";
 import NavBar from '../NavBar/navBar.js'; 
 import { Context } from "../../store/AppContext.js";
@@ -9,9 +8,9 @@ import { Context } from "../../store/AppContext.js";
 const Detalle_UsuariosEmprendedor = (props) => {
 
     const {store,actions} = useContext(Context)
-  //  useEffect(() =>{
-    //  actions.allEmployeds();
-   // },[] )
+   useEffect(() =>{
+     actions.allEmployeds();
+   },[] )
 
 
     return (
@@ -27,7 +26,6 @@ const Detalle_UsuariosEmprendedor = (props) => {
                 <th scopre="col">First Name</th>
                 <th scope="col">Lastname</th>
                 <th scope="col">Password</th>
-                <th scope="col">Confirm Password</th>
                 <th scope="col">Edit Your User Details</th>
     
               </tr>
@@ -44,7 +42,6 @@ const Detalle_UsuariosEmprendedor = (props) => {
                       <td>{employed.firstName}</td>
                       <td>{employed.lastName}</td>
                       <td>{employed.password}</td>
-                      <td>{employed.confirmPassword}</td>
                       <td><button className="btn btn-primary" onClick={() =>actions.editSenderDetails()}><Link to={"/settings"}>Edit your Details</Link></button></td>
                     </tr>
                   )
