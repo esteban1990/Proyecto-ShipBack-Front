@@ -8,6 +8,7 @@ import { Context } from "../../store/AppContext.js";
 const Detalle_UsuariosEmprendedor = (props) => {
 
     const {store,actions} = useContext(Context)
+
    useEffect(() =>{
      actions.allEmployeds();
    },[] )
@@ -25,7 +26,6 @@ const Detalle_UsuariosEmprendedor = (props) => {
                 <th scope="col">Email</th>
                 <th scopre="col">First Name</th>
                 <th scope="col">Lastname</th>
-                <th scope="col">Password</th>
                 <th scope="col">Edit Your User Details</th>
     
               </tr>
@@ -41,8 +41,7 @@ const Detalle_UsuariosEmprendedor = (props) => {
                       <td>{employed.email}</td>
                       <td>{employed.firstName}</td>
                       <td>{employed.lastName}</td>
-                      <td>{employed.password}</td>
-                      <td><button className="btn btn-primary" onClick={() =>actions.editSenderDetails()}><Link to={"/settings"}>Edit your Details</Link></button></td>
+                    
                     </tr>
                   )
           

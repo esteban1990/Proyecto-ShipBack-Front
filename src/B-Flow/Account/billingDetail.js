@@ -54,28 +54,28 @@ const BillingDetails = (props) => {
                                 <hr />
                                 <form onSubmit={(e) => actions.createBillingDetails(e, props.history)}>
                                     <label for="" class="form-label">Card Number</label>
-                                    <input type="text" class="form-control" name="cardNumber" onChange={actions.handleChange}></input>
+                                    <input type="text" class="form-control" name="cardNumber" value={store.cardNumber} onChange={actions.handleChange}></input>
                                     <div className="row">
                                         <div className="col-4">
                                             <label for="" class="form-label">CVV</label>
-                                            <input type="text" class="form-control" name="cvv" onChange={actions.handleChange}></input>
+                                            <input type="text" class="form-control" name="cvv" value={store.cvv} onChange={actions.handleChange}></input>
 
                                         </div>
                                         <div className="col-4">
                                             <label for="" class="form-label">Month</label>
-                                            <input type="text" class="form-control" name="month" onChange={actions.handleChange}></input>
+                                            <input type="text" class="form-control" name="month" value={store.month} onChange={actions.handleChange}></input>
 
                                         </div>
                                         <div className="col-4">
                                             <label for="" class="form-label">Year</label>
-                                            <input type="text" class="form-control" name="year" onChange={actions.handleChange}></input>
+                                            <input type="text" class="form-control" name="year" value={store.year} onChange={actions.handleChange}></input>
 
                                         </div>
                                     </div>
     
                                     <div className="row mt-4 justify-content-center">
                                         <div className="col-5">
-                                         <Link to="/billingdetails/detailCards"><button type="submit"  class="btn btn-primary">Add Credit Card</button></Link>
+                                        <button type="submit"  class="btn btn-primary">Add Credit Card</button>
                                         </div>
                                     </div>
                                 </form>

@@ -5,7 +5,7 @@ import 'popper.js';
 import 'bootstrap';
 import './App.css';
 import injectContext from "./store/AppContext";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, } from 'react-router-dom';
 import Home from "./views/home";
 import SignUp from './B-Flow/SignUp/signup.js';
 import LogIn from './B-Flow/Login/login.js';
@@ -34,6 +34,7 @@ import Gmail_login from './B-Flow/Gmail/gmail.js';
 import Admi_Usuario from './B-Flow/Crud/admi_Usuario.js';
 import NewUser from './B-Flow/Crud/newUser.js';
 import Admin from './B-Flow/Crud/admin.js'; 
+import Update_User from './B-Flow/Crud/update_User';
 
 
 
@@ -52,6 +53,7 @@ class App extends Component {
             <Route exact path="/cambioDevolucion" component={CambioDevolucion} />
             <Route exact path= "/admi_usuario" component={Admi_Usuario}/>
             <Route exact path= "/newUser" component={NewUser}/>
+            <Route exact path= "/update_User/:id" component={Update_User}/>
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={LogIn} />
             <Route exact path="/orders" component={allOrders} />
