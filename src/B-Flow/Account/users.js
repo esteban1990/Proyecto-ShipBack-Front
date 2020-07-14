@@ -100,9 +100,9 @@ const Users = (props) => {
 
                                         <div className="row pt-4" style={{justifyContent:'center'}}>
                                             <div className="col-6">
-                                         <Link to="/navbar/settings/detalle_UsuariosEmprendedor"><button type="submit" class="btn btn-primary">+Add User
+                                        <button type="submit" class="btn btn-primary">+Add User
                                          </button>
-                                         </Link>
+    
                                             </div>
                                         </div>
                                        

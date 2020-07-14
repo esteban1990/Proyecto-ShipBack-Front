@@ -50,7 +50,7 @@ const Detalles_Emprendedor = (props) => {
                   <td>{detail.emailContact}</td>
                   <td>{detail.address}</td>
                   <td>{detail.city}</td>
-                  <td><button className="btn btn-primary" onClick={() =>actions.editSenderDetails()}><Link to={"/settings"}>Edit your Details</Link></button></td>
+                  <td><button className="btn btn-primary" onClick={() =>actions.editSenderDetails()}><Link to={"/settings"}>Edit</Link></button></td>
                 </tr>
               )
       

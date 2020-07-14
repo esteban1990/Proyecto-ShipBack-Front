@@ -54,8 +54,7 @@ useEffect(() =>{
                         <td>{user.lastname}</td>
                         <td>{user.email}</td>
                         <td><button className="btn btn-danger" onClick={() => actions.deleteUser_Admin(user.id)}>Borrar</button></td>
-                        <td><button className="btn btn-primary" onClick={() => actions.editUser_Admin(i, props.history)}>Editar Usuario</button></td>
-                     
+                        <td><button className="btn btn-primary"> <Link to={"/update_user/" + user.id}>Editar Usuario</Link></button></td>   
       
                       </tr>
                     )

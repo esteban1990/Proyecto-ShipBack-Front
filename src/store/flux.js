@@ -20,14 +20,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       //todo lo que sea componente form se tiene que validar en el headers del fetch
       //variables para registrarse, declarandolas en el store
-      path: "http://localhost:3000",
-      name: "",
-      lastname: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      currentPassword: "",
-      idUsuario: null,
 
 
       //  allUsers: [{
@@ -104,21 +96,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           
         }
       ],
-
-      // create Employed
-
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-
-
-      //Settings
-      storeName: "",
-      contactName: "",
-      companyName: "",
-      emailContact: "",
-      address: "",
 
 
       // variables del pedido
@@ -249,6 +226,58 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
       },
 
+      createUser_Admin: (e, history) => {
+        e.preventDefault();
+        const store = getStore();
+        fetch(urlapi + "/newUser",{
+          method: "POST",
+          body: JSON.stringify({
+            email:store.email,
+            firstname:store.firstname,
+            lastname:store.lastname,
+            password:store.password
+          }),
+          headers:{
+            "Content-Type": "application/json"
+          }
+        })
+        .then(function(response){
+          if(response.ok)
+          return response.json();
+        })
+        .then(function(data){
+          console.log(data)
+          setStore({
+            firstname: "",
+            lastname: "",
+            email: "",
+            password: ""
+          })
+          getActions().listarUsuarios();
+          history.push("/admi_usuario")
+        })
+      },
+
+      listarUsuarios: () => {
+        const store = getStore();
+        fetch(urlapi + "/admi_usuario", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(function (response) {
+            if (response.ok)
+              return response.json()
+          })
+          .then(function (data) {
+            console.log(data);
+            setStore({
+              user_data: data
+            })
+          })
+      },
+  
 
 
 
@@ -277,11 +306,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(urlapi + "/update_user/" + id ,{
           method: "PUT",
           body: JSON.stringify({
-            email: store.email,
-            firstname: store.firstname,
-            lastname: store.lastname,
-            password: store.password,
-           // confirmPassword: store.confirmPassword
+            password: store.password
           }),
           headers: {
             "Content-Type": "application/json"
@@ -458,7 +483,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(data);
    
             getActions().listar_BillingDetails();
-            history.push("/billingDetails")
+            history.push("/billingdetails/detailCards")
           })
       },
 
@@ -494,7 +519,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             email: store.email,
             firstName:store.firstName,
             lastName:store.lastName,
-            password:store.password,
+            password:store.password
           }),
           headers: {
             "Content-Type": "application/json"
@@ -515,7 +540,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   
 
       allEmployeds: () => {
-        const store = getStore();
+        const store = getStore()
         fetch(urlapi + "/navbar/settings/detalle_UsuariosEmprendedor", {
           method: "GET",
           headers: {
@@ -779,28 +804,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             })
           })
       },
-
-
-
-      listarUsuarios: () => {
-        const store = getStore();
-        fetch(urlapi + "/admi_usuario", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-          .then(function (response) {
-            if (response.ok)
-              return response.json()
-          })
-          .then(function (data) {
-            console.log(data);
-            setStore({
-              user_data: data
-            })
-          })
-      },
+ 
 
       deleteEmployedUser: () => {
         const store = getStore();
