@@ -34,7 +34,7 @@ import Gmail_login from './B-Flow/Gmail/gmail.js';
 import Admi_Usuario from './B-Flow/Crud/admi_Usuario.js';
 import NewUser from './B-Flow/Crud/newUser.js';
 import Admin from './B-Flow/Crud/admin.js'; 
-import Update_User from './B-Flow/Crud/update_User';
+import Update_User from './B-Flow/Crud/update_User'; 
 
 
 
