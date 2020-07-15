@@ -31,11 +31,10 @@ import Return from './views_client_petition/Return.js';
 import Review from './views_client_petition/Review.js';
 import Sent from './views_client_petition/Sent.js';
 import Gmail_login from './B-Flow/Gmail/gmail.js';
-
-import Admi_Usuario from './B-Flow/Crud/admi_Usuario.js';
-import NewUser from './B-Flow/Crud/newUser.js';
-import Admin from './B-Flow/Crud/admin.js'; 
-import Update_User from './B-Flow/Crud/update_User';
+import Admi_Usuario from './B-Flow/CRUD/admi_Usuario.js';
+import NewUser from './B-Flow/CRUD/newUser.js';
+import Admin from './B-Flow/CRUD/admin.js'; 
+import Update_User from './B-Flow/CRUD/update_User';
 
 
 
@@ -62,9 +61,9 @@ class App extends Component {
             <Route exact path="/createorder" component={CreateOrder} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/navbar/settings/profileUser" component={ProfileUser}/>
-            <Route exact path="/navbar/settings/users" component={Users}/>
-            <Route exact path= "/navbar/settings/detalles_Emprendedor" component={Detalles_Emprendedor}/>
-            <Route exact path= "/navbar/settings/detalle_UsuariosEmprendedor" component={Detalle_UsuariosEmprendedor}/>
+            <Route exact path="/settings/users" component={Users}/>
+            <Route exact path= "/settings/entrepreneur_details" component={Detalles_Emprendedor}/>
+            <Route exact path= "/settings/users/all" component={Detalle_UsuariosEmprendedor}/>
             <Route exact path="/billingdetails" component={BillingDetails} />
             <Route exact path="/billingdetails/detailCards" component={DetailCards}/>
             <Route exact path="/navbar/billingdetails/invoices" component={Invoices}/>
