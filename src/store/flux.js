@@ -87,30 +87,16 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       ],
 
-      listAllEmployeds: [
+      listAllEmployees: [
         {
-          email:"",
-          password:"",
-          firstName:"",
-          lastName:""
-          
+          id: "",
+          employee_email:"",
+          employee_password:"",
+          employee_firstName:"",
+          employee_lastName:""
         }
       ],
 
-
-
-
-      // variables del pedido
-      pedidos: [],
-      numeroPedido: null,
-      idPedido: null,
-      descripcionPedido: {},
-
-      //variables del producto
-
-      idProducto: 0,
-      nombreProducto: "",
-      descripcionProducto: {}
 
     },
 
@@ -376,7 +362,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (data) {
             console.log(data);
             getActions().listarSenderDetails();
-            history.push("/navbar/settings/detalles_Emprendedor")
+            history.push("/settings/entrepreneur_details")
           })
 
       },
@@ -512,16 +498,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 
-      createEmployed : (e,history) => {
+      createEmployee : (e,history) => {
         e.preventDefault();
         const store = getStore();
-        fetch(urlapi + "/navbar/settings/users", {
+        fetch(urlapi + "/settings/users", {
           method: "POST",
           body: JSON.stringify({
-            email: store.email,
-            firstName:store.firstName,
-            lastName:store.lastName,
-            password:store.password
+            employee_email: store.employee_email,
+            employee_firstName:store.employee_firstName,
+            employee_lastName:store.employee_lastName,
+            employee_password:store.employee_password
           }),
           headers: {
             "Content-Type": "application/json"
@@ -533,17 +519,23 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
         .then(function(data){
           console.log(data);
-          getActions().allEmployeds();
-          history.push("/navbar/settings/detalle_UsuariosEmprendedor")
+          getActions().allEmployees();
+          history.push("/settings/users/all")
         })
       },
 
     
   
 
+<<<<<<< HEAD
       allEmployeds: () => {
         const store = getStore();
         fetch(urlapi + "/navbar/settings/detalle_UsuariosEmprendedor", {
+=======
+      allEmployees: () => {
+        const store = getStore()
+        fetch(urlapi + "/settings/users/all", {
+>>>>>>> fa12c1dce552eb699c357865c307c9b583b83741
           method: "GET",
           headers: {
             "Content-Type": "application/json"
@@ -556,7 +548,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (data) {
             console.log(data);
             setStore({
-              listAllEmployeds: data
+              listAllEmployees: data
             })
           })
 
@@ -806,9 +798,14 @@ const getState = ({ getStore, getActions, setStore }) => {
             })
           })
       },
+<<<<<<< HEAD
 
 
         
+=======
+ 
+
+>>>>>>> fa12c1dce552eb699c357865c307c9b583b83741
       deleteEmployedUser: () => {
         const store = getStore();
         fetch(urlapi + "/admi_Usuario", {
