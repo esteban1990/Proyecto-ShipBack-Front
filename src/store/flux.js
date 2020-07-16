@@ -527,15 +527,9 @@ const getState = ({ getStore, getActions, setStore }) => {
     
   
 
-<<<<<<< HEAD
-      allEmployeds: () => {
-        const store = getStore();
-        fetch(urlapi + "/navbar/settings/detalle_UsuariosEmprendedor", {
-=======
       allEmployees: () => {
         const store = getStore()
         fetch(urlapi + "/settings/users/all", {
->>>>>>> fa12c1dce552eb699c357865c307c9b583b83741
           method: "GET",
           headers: {
             "Content-Type": "application/json"
@@ -798,14 +792,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             })
           })
       },
-<<<<<<< HEAD
-
-
-        
-=======
  
 
->>>>>>> fa12c1dce552eb699c357865c307c9b583b83741
       deleteEmployedUser: () => {
         const store = getStore();
         fetch(urlapi + "/admi_Usuario", {
