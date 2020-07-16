@@ -2,54 +2,56 @@ import React from "react";
 import { Context } from "../../store/AppContext";
 import { useContext } from "react";
 import NavBar from '../NavBar/navBar.js';
+import { useLocation } from "react-router-dom";
 
 
 
 
 const Update_User = (props) => {
 
-const {store, actions} = useContext(Context)
+    const { store, actions } = useContext(Context)
+    let location = useLocation();
 
 
-return (
+    return (
 
 
-    <div class="pb-5">
-      <NavBar />
-      <div className="container pt-5 mb-5">
-            <div classname="row">
-                <div classname="col">
-                    <div className="card">
-                        <div classname="card-header">
-                            <div className="card-body">
-                                <form>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <label for="" class="form-label"><h5>Password</h5></label>
-                                      
-                                            <input type="text" class="form-control" value={store.password} name="password" onChange={actions.handleChange}></input>
+        <div class="pb-5">
+            <NavBar />
+            <div className="container pt-5 mb-5">
+                <div classname="row">
+                    <div classname="col">
+                        <div className="card">
+                            <div classname="card-header">
+                                <div className="card-body">
+                                    <form>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <label for="" class="form-label"><h5>Password</h5></label>
+
+                                                <input type="password" class="form-control" value={store.password} name="password" onChange={actions.handleChange}></input>
+                                            </div>
                                         </div>
-                                    </div>
-                                
-                                
-                                    <div className="row justify-content-center pt-4">
-                                        <div className="col-6">
-                                           <button type="button"
-                                                className="btn btn-primary" onClick={() => actions.editUser_Admin()}>Edit User Password</button>
-                                               
+
+
+                                        <div className="row justify-content-center pt-4">
+                                            <div className="col-6">
+                                                <button type="button"
+                                                    className="btn btn-primary" onClick={() => actions.editUser_Admin(location.pathname)}>Edit User Password</button>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
-
-  )
+    )
 }
 
 export default Update_User;

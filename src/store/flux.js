@@ -291,7 +291,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       editUser_Admin: (id) => {
         const store = getStore();
-        fetch(urlapi + "/update_user/" + id ,{
+        fetch(urlapi + id ,{
           method: "PUT",
           body: JSON.stringify({
             password: store.password

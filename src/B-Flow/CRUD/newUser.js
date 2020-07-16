@@ -37,7 +37,7 @@ const NewUser = (props) => {
                                         </div>
                                         <div className="col-6">
                                             <label for="" class="form-label">Password</label>
-                                            <input type="text" onChange={actions.handleChange} name="password" value={store.password} class="form-control"></input>
+                                            <input type="password" onChange={actions.handleChange} name="password" value={store.password} class="form-control"></input>
                                         </div>
                                     </div>
                                 
