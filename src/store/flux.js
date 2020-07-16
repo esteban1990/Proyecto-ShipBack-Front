@@ -98,18 +98,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       ],
 
 
-      // variables del pedido
-      pedidos: [],
-      numeroPedido: null,
-      idPedido: null,
-      descripcionPedido: {},
-
-      //variables del producto
-
-      idProducto: 0,
-      nombreProducto: "",
-      descripcionProducto: {}
-
     },
 
     actions: {

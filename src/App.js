@@ -31,10 +31,10 @@ import Return from './views_client_petition/Return.js';
 import Review from './views_client_petition/Review.js';
 import Sent from './views_client_petition/Sent.js';
 import Gmail_login from './B-Flow/Gmail/gmail.js';
-import Admi_Usuario from './B-Flow/CRUD/admi_Usuario.js';
-import NewUser from './B-Flow/CRUD/newUser.js';
-import Admin from './B-Flow/CRUD/admin.js'; 
-import Update_User from './B-Flow/CRUD/update_User';
+import Admi_Usuario from './B-Flow/Crud/admi_Usuario.js';
+import NewUser from './B-Flow/Crud/newUser.js';
+import Admin from './B-Flow/Crud/admin.js'; 
+import Update_User from './B-Flow/Crud/update_User';
 
 
 
@@ -54,7 +54,7 @@ class App extends Component {
             <Route exact path="/cambioDevolucion" component={CambioDevolucion} />
             <Route exact path= "/admi_usuario" component={Admi_Usuario}/>
             <Route exact path= "/newUser" component={NewUser}/>
-            <Route exact path= "/update_User/:id" component={Update_User}/>
+            <Route exact path= "/update_user/:id" component={Update_User}/>
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={LogIn} />
             <Route exact path="/orders" component={allOrders} />

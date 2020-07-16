@@ -2,7 +2,7 @@ import React from "react";
 import { Context } from "../../store/AppContext";
 import { useContext } from "react";
 import NavBar from '../NavBar/navBar.js';
-import { useParams } from "react-router";
+
 
 
 
@@ -10,7 +10,7 @@ const Update_User = (props) => {
 
 const {store, actions} = useContext(Context)
 
-let {id} = useParams
+
 return (
 
 
@@ -35,7 +35,7 @@ return (
                                     <div className="row justify-content-center pt-4">
                                         <div className="col-6">
                                            <button type="button"
-                                                className="btn btn-primary" onClick={() => actions.editUser_Admin(id)}>Edit User Password</button>
+                                                className="btn btn-primary" onClick={() => actions.editUser_Admin()}>Edit User Password</button>
                                                
                                         </div>
                                     </div>
